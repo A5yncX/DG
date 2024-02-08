@@ -1,0 +1,20 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return ["zh", "en"].map((lang) => { //yuyan
+    return { params: { lang } };
+  });
+}
+---
+
+<Layout title={t("site.title")} description={t("site.description")} lang={lang}>
+  <h1>{t("home.welcome")}</h1>
+
+</Layout>
+
