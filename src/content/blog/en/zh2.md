@@ -1,10 +1,8 @@
 ---
-title: '测试标题'
+title: 'demo2'
 description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: '2022/10/01'
-heroImage: '/blog-placeholder-1.jpg'
-author: 'Me'
-lang: 'zh'
+pubDate: '2022/10/10'
+lang: 'en'
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
