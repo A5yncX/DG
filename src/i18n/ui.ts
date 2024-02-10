@@ -11,7 +11,7 @@ export const ui = {
     //home
     "home.title": "AsyncX的博客",
     "home.description.l1": "你好, 我是AsyncX.",
-    "home.description.l2": "待编辑",
+    "home.description.l2": "欢迎来到我的博客.",
     "home.description.l3": "待编辑",
     "home.description.detail": "待编辑",
     "home.recent": "最近更新",
@@ -34,7 +34,7 @@ export const ui = {
     //home
     "home.title": "AsyncX's Blog",
     "home.description.l1": "Hello, I'm AsyncX.",
-    "home.description.l2": "TODO",
+    "home.description.l2": "Welcome to my Blog.",
     "home.description.l3": "TODO",
     "home.description.detail": "TODO",
 

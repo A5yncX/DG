@@ -9,7 +9,7 @@ export async function getData(lang) {
   const filteredPosts = postf
     .filter((post) => post.data.lang === lang)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 5);
+    .slice(0, 9);
   return filteredPosts;
 }
 
