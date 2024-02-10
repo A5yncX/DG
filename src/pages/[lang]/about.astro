@@ -15,11 +15,9 @@ export async function getStaticPaths() {
 <BlogPost
   title={t("about.title")}
   description={t("about.description")}
-  pubDate={new Date("August 08 2021")}
-  heroImage="/blog-placeholder-about.jpg"
+  pubDate={new Date("2024-2-10")}
   lang={lang}
 >
-  <p>
-    {t("about.text")}
-  </p>
+  <p>{t("about.description")}</p>
+  <p>{t("about.text")}</p>
 </BlogPost>

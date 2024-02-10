@@ -3,7 +3,9 @@ import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import LangLink from "./LangLink.astro";
 
+import {useTranslations} from "../i18n/utils";
 const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
@@ -20,9 +22,9 @@ const isArticlePage = pathname.startsWith(blogSlug);
   <nav>
     <h2><a href="/">{SITE_TITLE}</a></h2>
     <div class="internal-links">
-      <HeaderLink href={homeSlug}>Home</HeaderLink>
-      <HeaderLink href={blogSlug}>Blog</HeaderLink>
-      <HeaderLink href={aboutSlug}>About</HeaderLink>
+      <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
+      <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
+      <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
     </div>
     <!-- yuyan -->
     {/* 根据条件决定是否启用 */}
@@ -81,12 +83,14 @@ const isArticlePage = pathname.startsWith(blogSlug);
   nav a {
     padding: 1em 0.5em;
     color: var(--black);
-    border-bottom: 4px solid transparent;
+    /* border-bottom: 4px solid transparent; */
     text-decoration: none;
+    font-weight: bolder;
   }
   nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
+    /* text-decoration: bold; */
+    color: var(--hc);
+    font-weight: bolder;
   }
   .social-links,
   .social-links a {
