@@ -1,7 +1,8 @@
 ---
-title: '第二篇测试'
+title: '第二篇测试demo'
 description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
 pubDate: '2022/10/10'
+slug: '20221002'
 lang: 'zh'
 ---
 

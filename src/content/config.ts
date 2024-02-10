@@ -24,7 +24,8 @@ export async function getBlogPosts() {
 		const blog_slug = post.slug.split('/')[0];
 		return {
 			...post,
-			blog_slug
+			blog_slug,
+			title: post.data.title
 		}
 	})
 }

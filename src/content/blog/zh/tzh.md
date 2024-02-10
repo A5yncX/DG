@@ -2,6 +2,7 @@
 title: '第3篇测试'
 description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
 pubDate: '2022/10/20'
+slug: '20011003'
 lang: 'zh'
 ---
 

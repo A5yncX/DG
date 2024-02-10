@@ -18,6 +18,8 @@ export async function getStaticPaths() {
 }
 
 const page = Astro.props;
+
+//blog页面跳转链接修改
 ---
 
 <Layout title="Blog" description="Blog" lang={lang}>
@@ -81,12 +83,12 @@ const page = Astro.props;
         width: 100%;
         text-align: center;
       }
-      ul li:first-child {
+      /* ul li:first-child {
         margin-bottom: 0;
       }
       ul li:first-child .title {
         font-size: 1.563em;
-      }
+      } */
     }
   </style>
   <section>

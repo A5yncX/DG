@@ -19,6 +19,8 @@ const { lang, slug } = Astro.params;
 const page = Astro.props;
 const formattedDate = page.data?.date?.toLocaleString(lang);
 const { Content } = await page.render();
+
+//文章的url修改
 ---
 
 <BlogPost {...page.data} lang={lang}>
