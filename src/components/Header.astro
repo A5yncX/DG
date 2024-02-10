@@ -9,6 +9,7 @@ const t = useTranslations(lang);
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
+// const libSlug = `/${lang || ""}/about`;
 const aboutSlug = `/${lang || ""}/about`;
 
 const { pathname } = Astro.url;
@@ -24,6 +25,8 @@ const isArticlePage = pathname.startsWith(blogSlug);
     <div class="internal-links">
       <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
       <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
+      <!-- TODO i18n -->
+      <HeaderLink href="/docs/01-intro/design/">{t("header.library")}</HeaderLink>
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
     </div>
     <!-- yuyan -->

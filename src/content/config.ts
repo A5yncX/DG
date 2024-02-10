@@ -1,6 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 import { getCollection } from "astro:content";
 
+import { docsSchema } from '@astrojs/starlight/schema';
+
 const blog = defineCollection({
 	// Type-check frontmatter using a schema
 	schema: z.object({
@@ -15,7 +17,10 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+export const collections = {
+	blog,
+	docs: defineCollection({ schema: docsSchema() }),
+};
 
 export async function getBlogPosts() {
 	const posts = await getCollection('blog');
