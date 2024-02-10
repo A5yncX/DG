@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
+
+import LatestBlogPosts from "../../components/LatestBlogPosts.astro";
+
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
@@ -14,10 +17,29 @@ export async function getStaticPaths() {
 ---
 
 <Layout title={t("site.title")} description={t("site.description")} lang={lang} >
-  <h1>{t("home.title")}</h1>
-  <p>{t("home.description.l1")}</p>
-    {t("home.description.l2")}<br>
-    {t("home.description.l3")}<br>
-    {t("home.description.detail")}<br>
+  <h1 class="hometitle">{t("home.title")}</h1>
+  <div class="homep">
+    <p>{t("home.description.l1")}</p>
+    <p>{t("home.description.l2")}</p>
+    <p>{t("home.description.l3")}</p>
+    <p>{t("home.description.detail")}</p>
+  </div>
+  <div>
+    <br>
+    <h3>
+      {t("home.recent")}
+    </h3>
+    <LatestBlogPosts />
+  </div>
+
+  <style>
+  .hometitle {
+    text-align: center; /* 文字居中对齐 */
+  }
+  .homep {
+    text-align: center;
+
+  }
+  </style>
 </Layout>
 

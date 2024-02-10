@@ -14,6 +14,7 @@ export const ui = {
     "home.description.l2": "待编辑",
     "home.description.l3": "待编辑",
     "home.description.detail": "待编辑",
+    "home.recent": "最近更新",
     //about
     "about.title": "关于我",
     "about.description": "黄花黄, 白云白, 青山青, 少年年少.",
@@ -36,6 +37,8 @@ export const ui = {
     "home.description.l2": "TODO",
     "home.description.l3": "TODO",
     "home.description.detail": "TODO",
+
+    "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",
     "about.description": "🌌Per Aspera Ad Astra",

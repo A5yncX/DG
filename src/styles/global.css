@@ -15,7 +15,7 @@
 	--bgc: #282a35;
 	--hc: #90ccde;
 	--fontc: #ffffff;
-	--accent: #0ed2c5;
+	--accent: #ffb300;
 	--accent-dark: #0d9990;
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
@@ -124,9 +124,9 @@ img {
 	height: auto;
 	border-radius: 8px;
 }
-code {
+code  {
 	padding: 2px 5px;
-	background-color: var(--bgc-light);
+	background-color: #00000030!important;
 	border-radius: 2px;
 	margin-left: 3px;
 	margin-right: 3px;

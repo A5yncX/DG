@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 
 	const paths = pages.map((page) => {
 		return {
-			params: { lang: page?.data.lang || "zh", slug: page.blog_slug },
+			params: { lang: page?.data.lang || "zh", slug: page.title },
 			props: page,
 		};
 	});
