@@ -9,7 +9,7 @@ const posts = (await getBlogPosts())
   ?.filter((blog) => {
     return blog?.data?.lang === lang;
   })
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 export async function getStaticPaths() {
   return ["zh", "en"].map((lang) => { //yuyan
@@ -37,7 +37,6 @@ const page = Astro.props;
     }
     ul li {
       margin-top: 1rem;
-      width: calc(50% - 1rem);
     }
     ul li * {
       
