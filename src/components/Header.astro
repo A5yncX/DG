@@ -61,10 +61,13 @@ const isArticlePage = pathname.startsWith(blogSlug);
 	/* 这里可以放置针对移动设备的样式设置 */
 	header {
 		display: none;
+    z-index: 100;
 	  }
 	
   }
   header {
+    z-index: 100;
+    position: relative;
     margin: 0;
     padding: 0 1em;
     background: var(--bgc);
