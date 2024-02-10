@@ -26,7 +26,7 @@ const t = useTranslations(lang as UiType);
   <body>
     <Header title={t("site.title")} lang={lang} />
     <MobileHeader title={t("site.title")} lang={lang} />
-    <main>
+    <main transition:animate="slide">
 		<slot />
 	</main>
     <Footer />
