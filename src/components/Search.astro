@@ -1,7 +1,7 @@
 ---
 // Heavy inspiration taken from Astro Starlight -> https://github.com/withastro/starlight/blob/main/packages/starlight/components/Search.astro
 
-// import "@pagefind/default-ui/css/ui.css";
+import "../styles/search.css";
 ---
 
 <site-search id="search" class="searchbutton1">
@@ -130,59 +130,4 @@
 	customElements.define("site-search", SiteSearch);
 </script>
 
-<style>
 
-    .searchbutton {
-        /* 设置按钮的背景颜色、边框、圆角等 */
-    background-color: #00000000;
-    border-radius: 5px;
-    border: #00000000;
-    color: white; /* 设置文字颜色 */
-    padding: 10px 10px;
-    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
-    display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center;
-    }
-
-    .closebutton{
-    border: 2px solid #909090c2;
-    background-color: #00000000;
-    border-radius: 5px;
-    color: white; /* 设置文字颜色 */
-    padding: 10px 10px;
-    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
-    display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center;
-    }
-
-    .closebutton:hover {
-    background-color: #68686872; /* 设置悬停时的背景颜色 */
-    border-radius: 5px;
-    border: 2px solid #909090c2;
-    color: white; /* 设置文字颜色 */
-    padding: 10px 10px;
-    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
-    }
-/* 按钮的悬停状态样式 */
-    .searchbutton:hover {
-    background-color: #68686872; /* 设置悬停时的背景颜色 */
-    border-radius: 5px;
-    border: #00000000;
-    color: white; /* 设置文字颜色 */
-    padding: 10px 10px;
-    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
-    }
-
-    .dialogframe {
-    backdrop-filter: blur(10px); /* 使用模糊效果 */
-    background-color: rgba(63, 63, 63, 0.233); /* 添加半透明效果 */
-    color: var(--fontc);
-    border: #00000000;
-    border-radius: 15px;
-    max-height: 70%;
-    max-width: 70%;
-    }
-
-</style>
