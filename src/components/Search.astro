@@ -29,12 +29,12 @@ import "@pagefind/default-ui/css/ui.css";
 	</button>
 	<dialog
 		aria-label="search"
-		class="h-full max-h-full w-full max-w-full border border-zinc-400 bg-bgColor shadow backdrop:backdrop-blur sm:mx-auto sm:mb-auto sm:mt-16 sm:h-max sm:max-h-[calc(100%-8rem)] sm:min-h-[15rem] sm:w-5/6 sm:max-w-[48rem] sm:rounded-md"
+		class="dialogframe"
 	>
 		<div class="dialog-frame flex flex-col gap-4 p-6 pt-12 sm:pt-6">
 			<button
 				data-close-modal
-				class="ms-auto cursor-pointer rounded-md bg-zinc-200 p-2 font-semibold dark:bg-zinc-700"
+				class="closebutton"
 				>Close</button
 			>
 			{
@@ -145,11 +145,43 @@ import "@pagefind/default-ui/css/ui.css";
     align-items: center;
     }
 
+    .closebutton{
+    border: 2px solid #909090c2;
+    background-color: #00000000;
+    border-radius: 5px;
+    color: white; /* 设置文字颜色 */
+    padding: 10px 10px;
+    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;
+    }
 
+    .closebutton:hover {
+    background-color: #68686872; /* 设置悬停时的背景颜色 */
+    border-radius: 5px;
+    border: 2px solid #909090c2;
+    color: white; /* 设置文字颜色 */
+    padding: 10px 10px;
+    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
+    }
 /* 按钮的悬停状态样式 */
     .searchbutton:hover {
     background-color: #68686872; /* 设置悬停时的背景颜色 */
+    border-radius: 5px;
+    border: #00000000;
+    color: white; /* 设置文字颜色 */
+    padding: 10px 10px;
+    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
     }
 
-	
+    .dialogframe {
+    backdrop-filter: blur(10px); /* 使用模糊效果 */
+    background-color: rgba(63, 63, 63, 0.233); /* 添加半透明效果 */
+    color: var(--fontc);
+    border: #00000000;
+    border-radius: 15px;
+    max-height: 70%;
+    max-width: 70%;
+    }
 </style>
