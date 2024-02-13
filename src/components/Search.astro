@@ -62,7 +62,7 @@ import "@pagefind/default-ui/css/ui.css";
 			const openBtn = this.querySelector<HTMLButtonElement>("button[data-open-modal]")!;
 			const closeBtn = this.querySelector<HTMLButtonElement>("button[data-close-modal]")!;
 			const dialog = this.querySelector("dialog")!;
-			const dialogFrame = this.querySelector(".dialog-frame")!;
+			const dialogFrame = this.querySelector(".dialogframe")!;
 
 			const onWindowClick = (event: MouseEvent) => {
 				// check if it's a link
@@ -183,5 +183,17 @@ import "@pagefind/default-ui/css/ui.css";
     border-radius: 15px;
     max-height: 70%;
     max-width: 70%;
+    }
+
+    .search-cotainer {
+        color: var(--fontc);
+    }
+
+    .pagefind-ui__result-link {
+        color: var(--fontc);;
+    }
+
+    .pagefind-ui__result {
+        color: var(--fontc);
     }
 </style>
