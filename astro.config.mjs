@@ -11,6 +11,15 @@ export default defineConfig({
 	sitemap(), 
 	starlight({
 		title: 'AsyncX的图书馆',
-	  })
+		logo: {
+			src: './public/favicon.svg',
+			replacesTitle: false,
+		  },
+		customCss: [
+			// 你的自定义 CSS 文件的相对路径
+			'./src/styles/starlight.css',
+		],
+	  }
+	  )
 	]
 });

@@ -1,0 +1,189 @@
+---
+// Heavy inspiration taken from Astro Starlight -> https://github.com/withastro/starlight/blob/main/packages/starlight/components/Search.astro
+
+import "@pagefind/default-ui/css/ui.css";
+---
+
+<site-search id="search" class="searchbutton1">
+	<button
+		data-open-modal
+		disabled
+		class="searchbutton"
+	>
+		<svg
+			aria-label="search"
+			class="h-6 w-6"
+			xmlns="http://www.w3.org/2000/svg"
+			width="16"
+			height="16"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="1.5"
+		>
+			<path stroke="none" d="M0 0h24v24H0z"></path>
+			<path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6"></path>
+		</svg>
+	</button>
+	<dialog
+		aria-label="search"
+		class="h-full max-h-full w-full max-w-full border border-zinc-400 bg-bgColor shadow backdrop:backdrop-blur sm:mx-auto sm:mb-auto sm:mt-16 sm:h-max sm:max-h-[calc(100%-8rem)] sm:min-h-[15rem] sm:w-5/6 sm:max-w-[48rem] sm:rounded-md"
+	>
+		<div class="dialog-frame flex flex-col gap-4 p-6 pt-12 sm:pt-6">
+			<button
+				data-close-modal
+				class="ms-auto cursor-pointer rounded-md bg-zinc-200 p-2 font-semibold dark:bg-zinc-700"
+				>Close</button
+			>
+			{
+				import.meta.env.DEV ? (
+					<div class="mx-auto text-center">
+						<p>
+							Search is only available in production builds. <br />
+							Try building and previewing the site to test it out locally.
+						</p>
+					</div>
+				) : (
+					<div class="search-container">
+						<div id="cactus__search" />
+					</div>
+				)
+			}
+		</div>
+	</dialog>
+</site-search>
+
+<script>
+	class SiteSearch extends HTMLElement {
+		constructor() {
+			super();
+			const openBtn = this.querySelector<HTMLButtonElement>("button[data-open-modal]")!;
+			const closeBtn = this.querySelector<HTMLButtonElement>("button[data-close-modal]")!;
+			const dialog = this.querySelector("dialog")!;
+			const dialogFrame = this.querySelector(".dialog-frame")!;
+
+			const onWindowClick = (event: MouseEvent) => {
+				// check if it's a link
+				const isLink = "href" in (event.target || {});
+				// make sure the click is either a link or outside of the dialog
+				if (
+					isLink ||
+					(document.body.contains(event.target as Node) &&
+						!dialogFrame.contains(event.target as Node))
+				)
+					closeModal();
+			};
+
+			const openModal = (event?: MouseEvent) => {
+				dialog.showModal();
+				this.querySelector("input")?.focus();
+				event?.stopPropagation();
+				window.addEventListener("click", onWindowClick);
+			};
+
+			const closeModal = () => {
+				if (dialog.open) {
+					dialog.close();
+					window.removeEventListener("click", onWindowClick);
+				}
+			};
+
+			openBtn.addEventListener("click", openModal);
+			openBtn.disabled = false;
+			closeBtn.addEventListener("click", closeModal);
+
+			// Listen for `/` keyboard shortcut
+			window.addEventListener("keydown", (e) => {
+				if (e.key === "/" && !dialog.open) {
+					openModal();
+					e.preventDefault();
+				}
+			});
+
+			window.addEventListener("DOMContentLoaded", () => {
+				if (import.meta.env.DEV) return;
+				const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+				onIdle(async () => {
+					const { PagefindUI } = await import("@pagefind/default-ui");
+					new PagefindUI({
+						element: "#cactus__search",
+						baseUrl: import.meta.env.BASE_URL,
+						bundlePath: import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/",
+						showImages: false,
+						showSubResults: true,
+					});
+				});
+			});
+
+			// close modal and clear input on view-transtion
+			document.addEventListener("astro:after-swap", () => {
+				// clear the search field
+				(document.querySelector(".pagefind-ui__search-clear") as HTMLButtonElement)?.click();
+				// close the modal & remove event listener on body
+				closeModal();
+			});
+		}
+	}
+
+	customElements.define("site-search", SiteSearch);
+</script>
+
+<style>
+
+    .searchbutton {
+        /* 设置按钮的背景颜色、边框、圆角等 */
+    background-color: #00000000;
+    border-radius: 5px;
+    border: #00000000;
+    color: white; /* 设置文字颜色 */
+    padding: 10px 10px;
+    cursor: pointer; /* 设置鼠标悬停时的光标样式 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;
+    }
+
+
+/* 按钮的悬停状态样式 */
+    .searchbutton:hover {
+    background-color: #68686872; /* 设置悬停时的背景颜色 */
+    }
+
+	:root {
+
+	}
+
+	#cactus__search .pagefind-ui__search-clear {
+
+	}
+	#cactus__search .pagefind-ui__search-clear:focus {
+
+	}
+	#cactus__search .pagefind-ui__search-clear::before {
+
+	}
+
+	#cactus__search .pagefind-ui__result {
+
+	}
+
+	#cactus__search .pagefind-ui__result-link {
+
+	}
+
+	#cactus__search .pagefind-ui__result-link:hover {
+
+	}
+
+	#cactus__search mark {
+
+	}
+</style>
+
+<style>
+	#cactus__search {
+
+	}
+</style>
