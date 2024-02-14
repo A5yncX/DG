@@ -1,6 +1,4 @@
 ---
-// Heavy inspiration taken from Astro Starlight -> https://github.com/withastro/starlight/blob/main/packages/starlight/components/Search.astro
-
 import "../styles/search.css";
 ---
 
@@ -110,7 +108,7 @@ import "../styles/search.css";
 					new PagefindUI({
 						element: "#cactus__search",
 						baseUrl: import.meta.env.BASE_URL,
-						bundlePath: import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/",
+						// bundlePath: import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/",
 						showImages: false,
 						showSubResults: true,
 					});
