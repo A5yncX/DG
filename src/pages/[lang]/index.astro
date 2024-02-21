@@ -1,10 +1,11 @@
 ---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
 import Layout from "../../layouts/Layout.astro";
 
-import Pin from "../../co"
+import Social from "../../components/Social.astro";
+import Pin from "../../components/Pin.astro"
 import LatestBlogPosts from "../../components/LatestBlogPosts.astro";
-
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,20 +17,23 @@ export async function getStaticPaths() {
 }
 ---
 
-<Layout title={t("site.title")} description={t("site.description")} lang={lang} >
+<Layout lang={lang} title={t("site.title")} description={t("site.description")}>
   <h1 class="hometitle">{t("home.title")}</h1>
   <div class="homep">
     <p>{t("home.description.l1")}</p>
     <p>{t("home.description.l2")}</p>
     <!-- <p>{t("home.description.l3")}</p> -->
     <!-- <p>{t("home.description.detail")}</p> -->
+	<Social />
   </div>
   <div>
-    <br>
+    <h3>
+		{t("home.pin")}
+	</h3>
+	<Pin />
     <h3>
       {t("home.recent")}
     </h3>
-
     <LatestBlogPosts />
     <div class="starr">
       <div class="glowing">
