@@ -9,7 +9,7 @@ export default defineConfig({
 build: {
 		format: "file",
 	},
-  site: 'https://example.com',
+  site: 'https://blog.asyncx.top',
   integrations: [
 	pagefind(),
 	sitemap(), 
