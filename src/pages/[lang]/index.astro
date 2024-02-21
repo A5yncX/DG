@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
-
+import Pin from "../../components/Pin.astro"
 import LatestBlogPosts from "../../components/LatestBlogPosts.astro";
 
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
@@ -25,7 +25,10 @@ export async function getStaticPaths() {
     <!-- <p>{t("home.description.detail")}</p> -->
   </div>
   <div>
-    <br>
+    <h3>
+		{t("home.pin")}
+	</h3>
+	<Pin />
     <h3>
       {t("home.recent")}
     </h3>

@@ -15,7 +15,8 @@
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.0.5",
     "@astrojs/starlight": "^0.18.0",
-    "astro": "^4.3.5"
+    "astro": "^4.3.5",
+    "astro-pagefind": "^1.4.0"
   },
   "devDependencies": {
     "pagefind": "^1.0.4"
