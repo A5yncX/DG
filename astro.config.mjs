@@ -2,24 +2,16 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-import starlight from "@astrojs/starlight";
+import pagefind from "astro-pagefind";
 
 // https://astro.build/config
 export default defineConfig({
+build: {
+		format: "file",
+	},
   site: 'https://example.com',
   integrations: [
+	pagefind(),
 	sitemap(), 
-	starlight({
-		title: 'AsyncX的图书馆',
-		logo: {
-			src: './public/favicon.svg',
-			replacesTitle: false,
-		  },
-		customCss: [
-			// 你的自定义 CSS 文件的相对路径
-			'./src/styles/starlight.css',
-		],
-	  }
-	  )
 	]
 });

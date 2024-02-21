@@ -3,6 +3,8 @@ import { getBlogPosts } from "../../../content/config";
 import FormattedDate from "../../../components/FormattedDate.astro";
 import Layout from "../../../layouts/Layout.astro";
 
+import Search from "astro-pagefind/components/Search";
+
 const { lang } = Astro.params;
 
 const posts = (await getBlogPosts())
@@ -20,7 +22,10 @@ export async function getStaticPaths() {
 //blog页面跳转链接修改
 ---
 
-<Layout title="Blog" description="Blog" lang={lang}>
+<Layout title="Blog" description="Blog" lang={lang} data-pagefind-ignore>
+
+  <Search id="search" className="pagefind-ui" uiOptions={{ showImages: false }} />
+
   <style>
     main {
       width: 960px;
@@ -76,9 +81,9 @@ export async function getStaticPaths() {
         gap: 0.5em;
       }
       ul li {
-
+        display:inherit;
         width: 100%;
-        text-align: center;
+        /* text-align: center; */
       }
       /* ul li:first-child {
         margin-bottom: 0;

@@ -9,6 +9,7 @@ import {
 	type UiType,
 } from "../i18n/utils";
 import "../styles/global.css";
+import "../styles/search.css";
 
 interface Props {
 	title: string;
@@ -61,6 +62,7 @@ const alternateLinks = alternateLang.map((_lang: UiType) => {
 	type="font/woff"
 	crossorigin
 />
+
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

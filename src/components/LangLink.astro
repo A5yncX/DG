@@ -13,7 +13,7 @@ const isActive = language === lang;
 const href = getLocalizedPathname(pathname, language);
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
+<a href={href} target="_blank" class:list={[className, { active: isActive }]} {...props}>
   {language}
 </a>
 <style>

@@ -3,8 +3,6 @@ import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import LangLink from "./LangLink.astro";
 
-import Search from "./Search.astro";
-
 import {useTranslations} from "../i18n/utils";
 const { lang } = Astro.props;
 const t = useTranslations(lang);
@@ -28,15 +26,15 @@ const isArticlePage = pathname.startsWith(blogSlug);
       <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
       <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
       <!-- TODO i18n -->
-      <HeaderLink href="/docs/01-intro/design/">{t("header.library")}</HeaderLink>
+      <!-- <HeaderLink href="/docs/01-intro/design/">{t("header.library")}</HeaderLink> -->
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
     </div>
     <!-- yuyan -->
     {/* 根据条件决定是否启用 */}
     {isArticlePage ? (
       <div class="internal-links-button">
-        <a href="/zh/blog">zh</a>
-      <a href="/en/blog">en</a>
+        <a target="_blank" href="/zh/blog">zh</a>
+      <a target="_blank" href="/en/blog">en</a>
       </div>
     ) : (
       <div class="internal-links-button">
@@ -45,7 +43,7 @@ const isArticlePage = pathname.startsWith(blogSlug);
       </div>
     )}
     <div class="social-links">
-      <Search />
+      <!-- <Search /> -->
     </div>
   </nav>
 </header>
