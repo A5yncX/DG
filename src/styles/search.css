@@ -1,4 +1,6 @@
-
+.mark {
+  color: #000;
+}
 .pagefind-ui__result.svelte-j9e30.svelte-j9e30 {
   list-style-type: none;
   display: flex;
@@ -338,7 +340,9 @@ legend.svelte-1v2r7ls.svelte-1v2r7ls {
   -webkit-user-drag: element;
 }
 .pagefind-ui--reset mark {
-  all: revert;
+  background-color: #f4b63f;
+  color: #000;
+  /* all: revert; */
 }
 
 
