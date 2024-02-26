@@ -3,6 +3,8 @@ import { getBlogPosts } from "../../../content/config";
 import FormattedDate from "../../../components/FormattedDate.astro";
 import Layout from "../../../layouts/Layout.astro";
 
+import PageFindSearch from '../../../components/PageFind.astro';
+
 const { lang } = Astro.params;
 
 const posts = (await getBlogPosts())
@@ -88,6 +90,7 @@ export async function getStaticPaths() {
       } */
     }
   </style>
+      <PageFindSearch />
   <section>
     <ul>
       {

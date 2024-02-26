@@ -6,7 +6,6 @@ export const ui = {
     //header
     "header.home": "主页",
     "header.blog": "博客",
-    "header.library": "文档",
     "header.about": "关于",
     //home
     "home.title": "AsyncX的博客",
@@ -14,7 +13,7 @@ export const ui = {
     "home.description.l2": "欢迎来到我的博客.",
     "home.description.l3": "待编辑",
     "home.description.detail": "待编辑",
-    "home.pin": "TODO",
+    "home.pin": "置顶文章",
     "home.recent": "最近更新",
     //about
     "about.title": "关于我",
@@ -30,7 +29,6 @@ export const ui = {
     //header
     "header.home": "Home",
     "header.blog": "Blogs",
-    "header.library": "Doc",
     "header.about": "About",
     //home
     "home.title": "AsyncX's Blog",
@@ -38,7 +36,7 @@ export const ui = {
     "home.description.l2": "Welcome to my Blog.",
     "home.description.l3": "TODO",
     "home.description.detail": "TODO",
-    "home.pin": "TODO",
+    "home.pin": "Pinned",
     "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",
