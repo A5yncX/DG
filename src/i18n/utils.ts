@@ -5,6 +5,7 @@ export const LANGUAGES = { //yuyan
   en: "English",
 };
 
+
 export const DEFAULT_LANG = "zh"; //yuyan
 
 export type UiType = keyof typeof ui;

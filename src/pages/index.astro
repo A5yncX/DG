@@ -1,1 +1,16 @@
-<meta http-equiv="refresh" content="0;url=/zh/" />
+<body>
+    <script>
+      // 获取浏览器的语言设置
+      const userLang = navigator.language || navigator.userLanguage;
+      
+      // 将语言设置转换为小写
+      const lang = userLang.toLowerCase();
+      
+      // 根据浏览器语言进行重定向
+      if (lang.startsWith('zh')) {
+        window.location.href = '/zh';
+      } else {
+        window.location.href = '/en';
+      }
+    </script>
+  </body>
