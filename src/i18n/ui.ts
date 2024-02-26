@@ -14,6 +14,7 @@ export const ui = {
     "home.description.l2": "欢迎来到我的博客.",
     "home.description.l3": "待编辑",
     "home.description.detail": "待编辑",
+    "home.pin": "TODO",
     "home.recent": "最近更新",
     //about
     "about.title": "关于我",
@@ -37,6 +38,7 @@ export const ui = {
     "home.description.l2": "Welcome to my Blog.",
     "home.description.l3": "TODO",
     "home.description.detail": "TODO",
+    "home.pin": "TODO",
     "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",

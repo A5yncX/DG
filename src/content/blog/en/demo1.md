@@ -5,6 +5,7 @@ pubDate: '2022/10/01'
 heroImage: '/blog-placeholder-1.jpg'
 author: 'Me'
 lang: 'en'
+pin: true
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
