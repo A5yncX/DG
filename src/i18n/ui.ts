@@ -37,7 +37,6 @@ export const ui = {
     "home.description.l2": "Welcome to my Blog.",
     "home.description.l3": "TODO",
     "home.description.detail": "TODO",
-
     "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",
