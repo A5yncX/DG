@@ -10,6 +10,7 @@ const parser = new MarkdownIt();
     blog.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
     return rss({
       title: 'AsyncX’s Blog',
+      stylesheet: 'css/pretty-feed-v3.xsl',
       description: 'i18n/Content Aggregation/Programming/Philosophy/Hobbies',
       site: context.site,
       items: blog.map((post) => ({
@@ -17,6 +18,7 @@ const parser = new MarkdownIt();
         // 注意：这不会处理 MDX 文件中的组件或 JSX 表达式。
         content: sanitizeHtml(parser.render(post.body)),
         ...post.data,
-      })),
+      })
+      ),
     });
   }
