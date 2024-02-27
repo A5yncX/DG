@@ -36,69 +36,66 @@ const topPosts = await getTopPosts(lang);
   ))}
 
 <style>
-    main {
-      width: 960px;
-    }
-    ul {
-      /* display: flex; */
-      flex-wrap: wrap;
-      gap: 2rem;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-    ul li {
-      margin-top: 1rem;
-    }
-    ul li * {
-      
-      text-decoration: none;
-      transition: 0.2s ease;
-    }
-  
-    ul li img {
-      margin-bottom: 0.5rem;
-      border-radius: 12px;
-    }
-    ul li a {
-      display: flex;
-    }
-  
-    ul li h5{
-      text-align: center;
-    }
-    .title {
-      margin: 0;
-      line-height: 1;
-    }
-    .date {
-      flex-wrap: wrap;
-      padding-right: 2rem;
-      margin: 0;
-      color: rgb(var(--gray));
-    }
-  
-    /* 标题变色: */
-    ul li a:hover h5,
-    ul li a:hover .date {
-      color: rgb(var(--accent));
-    }
-    ul a:hover img {
-      box-shadow: var(--box-shadow);
-    }
-    @media (max-width: 700px) {
-    .date {
-        min-width: auto;
-    }
+  main {
+    width: 960px;
+  }
+  ul {
+    /* display: flex; */
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul li {
+    margin-top: 1rem;
+  }
+  ul li * {
+    
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+
+  ul li img {
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+  }
+  ul li a {
+    display: flex;
+  }
+
+  ul li h5{
+    text-align: center;
+  }
+  .title {
+    margin: 0;
+    line-height: 1;
+  }
+  .date {
+    min-width: 110px;
+    padding-right: 2rem;
+    margin: 0;
+    color: rgb(var(--gray));
+  }
+
+  /* 标题变色: */
+  ul li a:hover h5,
+  ul li a:hover .date {
+    color: rgb(var(--accent));
+  }
+  ul a:hover img {
+    box-shadow: var(--box-shadow);
+  }
+  @media (max-width: 720px) {
     ul {
       gap: 0.5em;
     }
-    ul li a{
-      /* display:inherit; */
+    ul li {
+      display:inherit;
       width: 100%;
       /* text-align: center; */
     }
 
   }
-  </style>
+</style>
 </ul>

@@ -43,7 +43,7 @@ export async function getStaticPaths() {
       text-decoration: none;
       transition: 0.2s ease;
     }
-
+  
     ul li img {
       margin-bottom: 0.5rem;
       border-radius: 12px;
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
     ul li a {
       display: flex;
     }
-
+  
     ul li h5{
       text-align: center;
     }
@@ -60,11 +60,12 @@ export async function getStaticPaths() {
       line-height: 1;
     }
     .date {
+      min-width: 110px;
       padding-right: 2rem;
       margin: 0;
       color: rgb(var(--gray));
     }
-
+  
     /* 标题变色: */
     ul li a:hover h5,
     ul li a:hover .date {
@@ -78,16 +79,11 @@ export async function getStaticPaths() {
         gap: 0.5em;
       }
       ul li {
-
+        display:inherit;
         width: 100%;
-        text-align: center;
+        /* text-align: center; */
       }
-      /* ul li:first-child {
-        margin-bottom: 0;
-      }
-      ul li:first-child .title {
-        font-size: 1.563em;
-      } */
+  
     }
   </style>
       <PageFindSearch />
