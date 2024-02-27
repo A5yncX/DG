@@ -26,7 +26,7 @@ export const ui = {
   en: {
     // meta
     "site.title": "AsyncX's Blog",
-    "site.description": "AsyncX Blog-i18n Multilingual/Content Aggregation/Programming/Philosophy/Hobbies",
+    "site.description": "i18n/Content Aggregation/Programming/Philosophy/Hobbies",
     //header
     "header.home": "Home",
     "header.blog": "Blogs",

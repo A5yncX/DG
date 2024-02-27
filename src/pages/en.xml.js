@@ -7,9 +7,10 @@ const parser = new MarkdownIt();
   // 获取中文博客内容集合
   export async function GET(context) {
     const blog = await getCollection('blog', ({ id }) => id.startsWith('en/'));
+    blog.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
     return rss({
-      title: 'Buzz’s Blog',
-      description: 'A humble Astronaut’s guide to the stars',
+      title: 'AsyncX’s Blog',
+      description: 'i18n/Content Aggregation/Programming/Philosophy/Hobbies',
       site: context.site,
       items: blog.map((post) => ({
         link: `/en/blog/${post.title}/`,
