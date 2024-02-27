@@ -9,7 +9,7 @@ const t = useTranslations(lang);
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
-// const libSlug = `/${lang || ""}/about`;
+const rssSlug = `/${lang || ""}.xml`;
 const aboutSlug = `/${lang || ""}/about`;
 
 const { pathname } = Astro.url;
@@ -26,6 +26,7 @@ const isArticlePage = pathname.startsWith(blogSlug);
       <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
       <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
+      <HeaderLink href={rssSlug}>{t("header.rss")}</HeaderLink>
     </div>
     <!-- yuyan -->
     {/* 根据条件决定是否启用 */}
