@@ -1,5 +1,7 @@
+![Alt](https://repobeats.axiom.co/api/embed/07612d1b9856dc65d1ca6d315b78da49db6caf90.svg "Repobeats analytics image")
+
 # Astro-blog-TRON
-> V0.9
+> V1.0
 完成度高之后打包发布
 # TODO
 - tags页面
