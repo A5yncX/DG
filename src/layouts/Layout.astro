@@ -7,7 +7,6 @@ import MobileHeader from "../components/MobileHeader.astro"; //移动端header
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { useTranslations, type UiType } from "../i18n/utils";
-import { ViewTransitions } from "astro:transitions";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -20,7 +19,6 @@ const t = useTranslations(lang as UiType);
 <!doctype html>
 <html lang={lang}>
   <head>
-    <ViewTransitions />
     <BaseHead lang={lang} title={title} description={description} />
     <!-- MathJax -->
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
