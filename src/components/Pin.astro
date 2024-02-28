@@ -1,6 +1,7 @@
 ---
 import { getBlogPosts } from "../content/config";
 import FormattedDate from "./FormattedDate.astro";
+import { useTranslations } from "../i18n/utils";
 
 const { lang } = Astro.params;
 
@@ -18,22 +19,28 @@ export async function getStaticPaths() {
 }
 
 const topPosts = await getTopPosts(lang);
-
+const t = useTranslations(lang);
 ---
 
-<ul>
-  {topPosts.map(post => (
-    <li>
+{topPosts.length > 0 && (
+  <ul>
+    <h3>
+      {t("home.pin")}
+    </h3>
+    {topPosts.map(post => (
+      <li>
         <p class="title">
-            <p class="date">
-              <FormattedDate date={post.data.pubDate} />
-            </p>
-                <a href={`/${post.data.lang}/blog/${post.title}`}>
+          <p class="date">
+            <FormattedDate date={post.data.pubDate} />
+          </p>
+          <a href={`/${post.data.lang}/blog/${post.title}`}>
             {post.data.title}
+          </a>
         </p>
-      </a>
-    </li>
-  ))}
+      </li>
+    ))}
+  </ul>
+)}
 
 <style>
   main {
@@ -98,4 +105,3 @@ const topPosts = await getTopPosts(lang);
 
   }
 </style>
-</ul>
