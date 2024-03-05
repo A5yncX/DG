@@ -5,6 +5,8 @@ pubDate: '2022/10/01'
 heroImage: '/blog-placeholder-1.jpg'
 author: 'Me'
 lang: 'en'
+tags:
+  - blog
 pin: true
 ---
 

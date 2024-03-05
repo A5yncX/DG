@@ -5,7 +5,7 @@ import Layout from "./Layout.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, lang } =
+const { title, description, pubDate, updatedDate, heroImage, lang, tags } =
   Astro.props;
 ---
 
@@ -30,6 +30,24 @@ const { title, description, pubDate, updatedDate, heroImage, lang } =
               </div>
             )
           }
+
+{
+	!!tags?.length && (
+		<div class="tags" style="font-family: var(--font-family-mono);">
+			{tags.map((tag, i) => (
+				<>
+					<span
+						data-pagefind-filter="tag"
+					>
+						{tag}
+					</span>
+					{i < tags.length - 1 && ", "}
+				</>
+			))}
+		</div>
+	)
+}
+
         </div>
         <hr />
       </div>

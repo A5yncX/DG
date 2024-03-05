@@ -3,18 +3,25 @@ import { getCollection } from "astro:content";
 
 // import { docsSchema } from '@astrojs/starlight/schema';
 
+function removeDupsAndLowerCase(array: string[]) {
+	if (!array.length) return array;
+	const lowercaseItems = array.map((str) => str.toLowerCase());
+	const distinctItems = new Set(lowercaseItems);
+	return Array.from(distinctItems);
+}
+
 const blog = defineCollection({
 	// Type-check frontmatter using a schema
 	schema: z.object({
 		pin: z.boolean().optional(), //置顶
 		title: z.string(),
 		description: z.string(),
-		// Transform string to Date object
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		lang: z.string().optional(),
-		author: z.string().optional(),		
+		author: z.string().optional(),
+		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
 	}),
 });
 
