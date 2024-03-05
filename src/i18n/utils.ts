@@ -1,12 +1,12 @@
 import { ui } from "./ui";
 
-export const LANGUAGES = { //yuyan
+export const LANGUAGES = { //lang
   zh: "Chinese",
   en: "English",
 };
 
 
-export const DEFAULT_LANG = "zh"; //yuyan
+export const DEFAULT_LANG = "zh"; //lang
 
 export type UiType = keyof typeof ui;
 

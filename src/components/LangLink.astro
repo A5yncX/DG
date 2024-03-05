@@ -7,7 +7,7 @@ type Props = HTMLAttributes<"a">;
 const { language, class: className, ...props } = Astro.props;
 const { pathname } = Astro.url;
 
-const lang = Astro.params?.lang || "zh"; //yuyan
+const lang = Astro.params?.lang || "zh"; //lang
 const isActive = language === lang;
 
 const href = getLocalizedPathname(pathname, language);
