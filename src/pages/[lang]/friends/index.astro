@@ -1,0 +1,86 @@
+---
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import BlogPost from "../../../layouts/BlogPost.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return ["zh", "en"].map((lang) => { //lang
+    return { params: { lang } };
+  });
+}
+
+// 友情链接数据
+const friendLinksZh = [
+  {
+    avatar: 'https://blog.asyncx.top/favicon.svg',
+    name: 'AsyncX',
+    link: 'https://blog.asyncx.top/',
+    description: '🌌 Per Aspera Ad Astra'
+  },
+  {
+    avatar: 'https://zhuzi.dev/favicon.ico',
+    name: '竹子',
+    link: 'https://zhuzi.dev/',
+    description: 'Blah Blah Booooom',
+  },
+  {
+    avatar: 'https://thirdshire.com/blackcat_avatar.jpg',
+    name: '第三夏尔',
+    link: 'https://thirdshire.com',
+    description: '认真生活，积极摸鱼',
+  },
+  {
+    avatar: 'https://tiffahahahu7.github.io/gigigatgat/img/logo.png',
+    name: '嘰嘰乞乞',
+    link: 'https://tiffahahahu7.github.io/gigigatgat/zh-tw/',
+    description: '但願我靈魂沒有生鏽',
+  },
+];
+
+const friendLinksEn = [
+  {
+    avatar: '/favicon.svg',
+    name: 'Friend Link 1',
+    link: 'https://www.friendlink1.com',
+    description: 'Description of Friend Link 1',
+  },
+  {
+    avatar: '/favicon.svg',
+    name: 'Friend Link 2',
+    link: 'https://www.friendlink2.com',
+    description: 'Description of Friend Link 2',
+  },
+  // 添加更多友情链接
+];
+
+// 根据语言选择友情链接数组
+const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
+---
+<BlogPost
+    title={t("friends.title")}
+    description="friend"
+    pubDate={new Date("2024-03-06")}
+    lang={lang}
+  >
+    <div className="friend-links">
+      <ul>
+        {selectedFriendLinks.map((link, index) => (
+          <li key={index} className="friend-link" style={{ display: 'flex', alignItems: 'center' }}>
+            <img src={link.avatar} alt={link.name} width="60" height="60"/>
+            <div className="info" style={{ paddingLeft: '10px' }}>
+              <p><a href={link.link}>{link.name}</a></p>
+              <p>{link.description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <style>
+        p {
+          color: var(--gray);
+          font-family: var(--font-family-mono);
+        }
+      </style>
+    </div>
+  </BlogPost>

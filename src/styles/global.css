@@ -18,7 +18,7 @@
 	--accent: #ffb300;
 	--accent-dark: #0d9990;
 	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
+	--gray: #8585a8;
 	--gray-light: 229, 233, 240;
 	--gray-dark: 34, 41, 57;
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
@@ -110,7 +110,7 @@ p {
 	line-height: 1.7;
 }
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 }
 textarea {
 	width: 100%;
@@ -124,7 +124,6 @@ table {
 }
 img {
 	max-width: 100%;
-	height: auto;
 	border-radius: 8px;
 }
 code  {

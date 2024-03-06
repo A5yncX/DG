@@ -20,8 +20,8 @@ export const ui = {
     "about.title": "关于我",
     "about.description": "黄花黄, 白云白, 青山青, 少年年少.",
     "about.text": "待编辑",
-
-
+    //friends
+    "friends.title": "友链",
   },
   en: {
     // meta
@@ -44,5 +44,7 @@ export const ui = {
     "about.title": "About Me",
     "about.description": "🌌Per Aspera Ad Astra",
     "about.text": "TODO",
+    //friends
+    "friends.title": "Links",
   },
 } as const;
