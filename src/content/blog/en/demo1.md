@@ -2,7 +2,7 @@
 title: 'Helloworld'
 description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
 pubDate: '2022/10/01'
-heroImage: '/blog-placeholder-1.jpg'
+heroImage: '/logo-bg.png'
 author: 'Me'
 lang: 'en'
 tags:
@@ -44,7 +44,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 #### Output
 
-![blog placeholder](/blog-placeholder-about.jpg)
+![blog placeholder](/logo-bg.png)
 
 ## Blockquotes
 
