@@ -7,11 +7,13 @@ const parser = new MarkdownIt();
   // 获取中文博客内容集合
   export async function GET(context) {
     const blog = await getCollection('blog', ({ id }) => id.startsWith('zh/'));
+
     blog.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
     return rss({
       title: 'AsyncX | 嘿!我是AX!',
-      stylesheet: 'css/pretty-feed-v3.xsl',
+      // stylesheet: 'css/pretty-feed-v3.xsl',
       description: 'AsyncX的博客-i18n多语言/内容聚合/编程/哲学/爱好',
+      image: 'favicon.ico',
       site: context.site,
       items: blog.map((post) => ({
         link: `/zh/blog/${post.title}/`,
@@ -19,5 +21,6 @@ const parser = new MarkdownIt();
         content: sanitizeHtml(parser.render(post.body)),
         ...post.data,
       })),
+      customData:`<language>zh-CN</language>`
     });
   }
