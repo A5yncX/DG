@@ -9,7 +9,7 @@ const parser = new MarkdownIt();
     const blog = await getCollection('blog', ({ id }) => id.startsWith('zh/'));
     blog.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
     return rss({
-      title: 'AsyncX的博客',
+      title: 'AsyncX | 嘿!我是AX!',
       stylesheet: 'css/pretty-feed-v3.xsl',
       description: 'AsyncX的博客-i18n多语言/内容聚合/编程/哲学/爱好',
       site: context.site,
