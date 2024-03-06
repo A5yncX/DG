@@ -16,9 +16,12 @@ const parser = new MarkdownIt();
       image: '/favicon.svg',
       site: context.site,
       items: blog.map((post) => ({
+        title: post.data.title,
         link: `/zh/blog/${post.title}/`,
         // 注意：这不会处理 MDX 文件中的组件或 JSX 表达式。
-        content: sanitizeHtml(parser.render(post.body)),
+        content: sanitizeHtml(parser.render(post.body), {
+          allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+        }),
         ...post.data,
       })),
       customData:`
