@@ -13,7 +13,7 @@ const parser = new MarkdownIt();
       title: 'AsyncX | 嘿!我是AX!',
       // stylesheet: 'css/pretty-feed-v3.xsl',
       description: 'AsyncX的博客-i18n多语言/内容聚合/编程/哲学/爱好',
-      image: 'favicon.ico',
+      image: '/favicon.svg',
       site: context.site,
       items: blog.map((post) => ({
         link: `/zh/blog/${post.title}/`,
@@ -21,6 +21,8 @@ const parser = new MarkdownIt();
         content: sanitizeHtml(parser.render(post.body)),
         ...post.data,
       })),
-      customData:`<language>zh-CN</language>`
+      customData:`
+      <language>zh-CN</language>
+      `
     });
   }
