@@ -1,3 +1,16 @@
+---
+const {
+	title,
+	description,
+	image = "/ogimage.png",
+} = Astro.props;
+---
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
 <body>
     <script>
       // 获取浏览器的语言设置
