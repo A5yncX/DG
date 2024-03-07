@@ -9,7 +9,6 @@ const t = useTranslations(lang);
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
-const rssSlug = `/${lang || ""}.xml`;
 const aboutSlug = `/${lang || ""}/about`;
 const friendSlug = `/${lang || ""}/friends`;
 
@@ -27,7 +26,6 @@ const isArticlePage = pathname.startsWith(blogSlug);
       <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
       <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
-      <HeaderLink href={rssSlug}>{t("header.rss")}</HeaderLink>
       <HeaderLink href={friendSlug}>{t("friends.title")}</HeaderLink>
     </div>
     <!-- yuyan -->
