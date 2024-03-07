@@ -13,7 +13,7 @@
     Consolas, 'Liberation Mono', 'Courier New', monospace;
 	--bgc-light: #333338;
 	--bgc: #282a35;
-	--hc: #90ccde;
+	--hc: #9bdbee;
 	--fontc: #ffffff;
 	--accent: #ffb300;
 	--accent-dark: #0d9990;
@@ -53,6 +53,10 @@ body {
 	overflow-wrap: break-word;
 	color: var(--fontc);
 	font-size: 16px;
+}
+::selection {
+    /* background-color: ;  */
+    color: var(--accent); /* 修改选中文字的前景（文字）颜色 */
 }
 main {
 	width: 720px;
@@ -180,3 +184,4 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+

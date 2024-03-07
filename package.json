@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro build && npm run postbuild && astro preview",
-    "start": "astro dev",
+    "start": "astro preferences disable devToolbar && astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
