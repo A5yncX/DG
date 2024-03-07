@@ -1,6 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
+import Social from "./Social.astro";
 import LangLink from "./LangLink.astro";
 
 import {useTranslations} from "../i18n/utils";
@@ -28,17 +28,33 @@ const isArticlePage = pathname.startsWith(blogSlug);
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
       <HeaderLink href={friendSlug}>{t("friends.title")}</HeaderLink>
     </div>
-    <!-- yuyan -->
+    <!-- //lang -->
     {/* 根据条件决定是否启用 */}
     {isArticlePage ? (
-      <div class="internal-links-button">
-        <a href="/zh/blog">zh</a>
-      <a href="/en/blog">en</a>
+      <div class="internal-links">
+      <div class="language-dropdown">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" id="Interface-Essential-Global-Public--Streamline-Pixel"><desc>Interface Essential Global Public Streamline Icon: https://streamlinehq.com</desc><title>interface-essential-global-public</title><g><path d="m17.137500000000003 5.715 0 2.2874999999999996 -1.1400000000000001 0 0 3.4275 1.1400000000000001 0 0 1.1400000000000001 1.1475 0 0 1.1475 -3.4275 0 0 1.1400000000000001 -1.1475 0 0 1.1400000000000001 3.4275 0 0 2.2874999999999996 -1.1400000000000001 0 0 2.2874999999999996 1.1400000000000001 0 0 1.1400000000000001 2.2874999999999996 0 0 -1.1400000000000001 1.1475 0 0 -1.1475 1.1400000000000001 0 0 -2.2800000000000002 1.1400000000000001 0 0 -2.2874999999999996 1.1475 0 0 -5.715 -1.1475 0 0 -2.2874999999999996 -1.1400000000000001 0 0 -2.2800000000000002 -1.1400000000000001 0 0 1.1400000000000001 -3.435 0z" fill="#ffffff" stroke-width="1"></path><path d="M19.424999999999997 3.4275h1.1475V4.574999999999999H19.424999999999997Z" fill="#ffffff" stroke-width="1"></path><path d="M17.137500000000003 2.2874999999999996h2.2874999999999996v1.1400000000000001h-2.2874999999999996Z" fill="#ffffff" stroke-width="1"></path><path d="M14.857499999999998 21.7125h2.2800000000000002v1.1475h-2.2800000000000002Z" fill="#ffffff" stroke-width="1"></path><path d="M14.857499999999998 1.1400000000000001h2.2800000000000002v1.1475h-2.2800000000000002Z" fill="#ffffff" stroke-width="1"></path><path d="m12.57 21.7125 -1.1400000000000001 0 0 -1.1400000000000001 -3.435 0 0 1.1400000000000001 -1.1400000000000001 0 0 1.1475 2.2874999999999996 0 0 1.1400000000000001 5.715 0 0 -1.1400000000000001 -2.2874999999999996 0 0 -1.1475z" fill="#ffffff" stroke-width="1"></path><path d="M9.1425 0h5.715v1.1400000000000001h-5.715Z" fill="#ffffff" stroke-width="1"></path><path d="m7.995 12.57 1.1475 0 0 1.1475 1.1400000000000001 0 0 -3.435 -2.2874999999999996 0 0 2.2874999999999996z" fill="#ffffff" stroke-width="1"></path><path d="M4.5675 20.572499999999998h2.2874999999999996v1.1400000000000001H4.5675Z" fill="#ffffff" stroke-width="1"></path><path d="M3.4275 19.424999999999997h1.1400000000000001v1.1475H3.4275Z" fill="#ffffff" stroke-width="1"></path><path d="m2.2874999999999996 17.145 0 2.2800000000000002 1.1400000000000001 0 0 -1.1400000000000001 1.1400000000000001 0 0 -1.1400000000000001 1.1475 0 0 -3.4275 -1.1475 0 0 -1.1475 -1.1400000000000001 0 0 -1.1400000000000001 -1.1400000000000001 0 0 -1.1475 1.1400000000000001 0 0 -1.1400000000000001 3.4275 0 0 -1.1400000000000001 1.1400000000000001 0 0 -1.1475 1.1475 0 0 1.1475 1.1400000000000001 0 0 -1.1475 1.1475 0 0 -2.2800000000000002 -1.1475 0 0 -1.1475 -2.2874999999999996 0 0 -1.1400000000000001 1.1475 0 0 -1.1475 -2.2874999999999996 0 0 1.1475 -2.2874999999999996 0 0 1.1400000000000001 -1.1400000000000001 0 0 1.1475 -1.1400000000000001 0 0 2.2800000000000002 -1.1475 0 0 2.2874999999999996 -1.1400000000000001 0 0 5.715 1.1400000000000001 0 0 2.2874999999999996 1.1475 0z" fill="#ffffff" stroke-width="1"></path></g></svg>
       </div>
-    ) : (
-      <div class="internal-links-button">
-        <LangLink language="zh" isActive={lang == "zh"} />
-        <LangLink language="en" isActive={lang == "en"} />
+        <div class="dropdown-content">
+          <a href="/zh/blog">🇨🇳 中文</a>
+          <a href="/en/blog">🇺🇸 English</a>
+        </div>
+      </div>
+      <Social />
+      </div>
+      ) : (
+      <div class="internal-links">
+      <div class="language-dropdown">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" id="Interface-Essential-Global-Public--Streamline-Pixel"><desc>Interface Essential Global Public Streamline Icon: https://streamlinehq.com</desc><title>interface-essential-global-public</title><g><path d="m17.137500000000003 5.715 0 2.2874999999999996 -1.1400000000000001 0 0 3.4275 1.1400000000000001 0 0 1.1400000000000001 1.1475 0 0 1.1475 -3.4275 0 0 1.1400000000000001 -1.1475 0 0 1.1400000000000001 3.4275 0 0 2.2874999999999996 -1.1400000000000001 0 0 2.2874999999999996 1.1400000000000001 0 0 1.1400000000000001 2.2874999999999996 0 0 -1.1400000000000001 1.1475 0 0 -1.1475 1.1400000000000001 0 0 -2.2800000000000002 1.1400000000000001 0 0 -2.2874999999999996 1.1475 0 0 -5.715 -1.1475 0 0 -2.2874999999999996 -1.1400000000000001 0 0 -2.2800000000000002 -1.1400000000000001 0 0 1.1400000000000001 -3.435 0z" fill="#ffffff" stroke-width="1"></path><path d="M19.424999999999997 3.4275h1.1475V4.574999999999999H19.424999999999997Z" fill="#ffffff" stroke-width="1"></path><path d="M17.137500000000003 2.2874999999999996h2.2874999999999996v1.1400000000000001h-2.2874999999999996Z" fill="#ffffff" stroke-width="1"></path><path d="M14.857499999999998 21.7125h2.2800000000000002v1.1475h-2.2800000000000002Z" fill="#ffffff" stroke-width="1"></path><path d="M14.857499999999998 1.1400000000000001h2.2800000000000002v1.1475h-2.2800000000000002Z" fill="#ffffff" stroke-width="1"></path><path d="m12.57 21.7125 -1.1400000000000001 0 0 -1.1400000000000001 -3.435 0 0 1.1400000000000001 -1.1400000000000001 0 0 1.1475 2.2874999999999996 0 0 1.1400000000000001 5.715 0 0 -1.1400000000000001 -2.2874999999999996 0 0 -1.1475z" fill="#ffffff" stroke-width="1"></path><path d="M9.1425 0h5.715v1.1400000000000001h-5.715Z" fill="#ffffff" stroke-width="1"></path><path d="m7.995 12.57 1.1475 0 0 1.1475 1.1400000000000001 0 0 -3.435 -2.2874999999999996 0 0 2.2874999999999996z" fill="#ffffff" stroke-width="1"></path><path d="M4.5675 20.572499999999998h2.2874999999999996v1.1400000000000001H4.5675Z" fill="#ffffff" stroke-width="1"></path><path d="M3.4275 19.424999999999997h1.1400000000000001v1.1475H3.4275Z" fill="#ffffff" stroke-width="1"></path><path d="m2.2874999999999996 17.145 0 2.2800000000000002 1.1400000000000001 0 0 -1.1400000000000001 1.1400000000000001 0 0 -1.1400000000000001 1.1475 0 0 -3.4275 -1.1475 0 0 -1.1475 -1.1400000000000001 0 0 -1.1400000000000001 -1.1400000000000001 0 0 -1.1475 1.1400000000000001 0 0 -1.1400000000000001 3.4275 0 0 -1.1400000000000001 1.1400000000000001 0 0 -1.1475 1.1475 0 0 1.1475 1.1400000000000001 0 0 -1.1475 1.1475 0 0 -2.2800000000000002 -1.1475 0 0 -1.1475 -2.2874999999999996 0 0 -1.1400000000000001 1.1475 0 0 -1.1475 -2.2874999999999996 0 0 1.1475 -2.2874999999999996 0 0 1.1400000000000001 -1.1400000000000001 0 0 1.1475 -1.1400000000000001 0 0 2.2800000000000002 -1.1475 0 0 2.2874999999999996 -1.1400000000000001 0 0 5.715 1.1400000000000001 0 0 2.2874999999999996 1.1475 0z" fill="#ffffff" stroke-width="1"></path></g></svg>
+      </div>
+      <div class="dropdown-content">
+          <LangLink language="zh" isActive={lang == "zh"}>🇨🇳 中文</LangLink>
+          <LangLink language="en" isActive={lang == "en"}>🇺🇸 English</LangLink>
+        </div>
+      </div>
+      <Social />
       </div>
     )}
   </nav>
@@ -97,4 +113,31 @@ const isArticlePage = pathname.startsWith(blogSlug);
     }
   }
 
+</style>
+
+<style>
+  .language-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown-content {
+    font-size: 0.8rem;
+    border-radius: 5px;
+    display: none;
+    position: absolute;
+    min-width: 90px;
+    z-index: 1;
+    top: 100%;
+  }
+  .dropdown-content a {
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+  }
+  .dropdown-content a:hover {
+    background-color: #8c88887f;
+  }
+  .language-dropdown:hover .dropdown-content {
+    display: block;
+  }
 </style>

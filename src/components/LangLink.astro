@@ -14,7 +14,8 @@ const href = getLocalizedPathname(pathname, language);
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>
-  {language}
+  <!-- {language} -->
+  <slot />
 </a>
 <style>
   a {
