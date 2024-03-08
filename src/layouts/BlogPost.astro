@@ -5,7 +5,7 @@ import Layout from "./Layout.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, lang, tags } =
+const { title, description, pubDate, updatedDate, heroImage, lang, tags, giscus } =
   Astro.props;
 ---
 
@@ -53,20 +53,24 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags } =
       </div>
       <slot />
     </div>
-    <script src="https://giscus.app/client.js"
-        data-repo="A5yncX/DG"
-        data-repo-id="R_kgDOLPfagg"
-        data-category="General"
-        data-category-id="DIC_kwDOLPfags4CdlA4"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="dark_tritanopia"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-</script>
+    {giscus !== false && (
+      <div class="tags" style="font-family: var(--font-family-mono);">
+        <script src="https://giscus.app/client.js"
+          data-repo="A5yncX/DG"
+          data-repo-id="R_kgDOLPfagg"
+          data-category="General"
+          data-category-id="DIC_kwDOLPfags4CdlA4"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="dark_tritanopia"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async
+        ></script>
+      </div>
+    )}
   </article>
 </Layout>

@@ -55,6 +55,7 @@ const t = useTranslations(lang);
     padding: 0;
   }
   ul li {
+    display: flex;
     margin-top: 1rem;
   }
   ul li * {
@@ -69,6 +70,7 @@ const t = useTranslations(lang);
   }
   ul li a {
     display: flex;
+    font-family: var(--font-family-pix);
   }
 
   ul li h5{
@@ -79,16 +81,17 @@ const t = useTranslations(lang);
     line-height: 1;
   }
   .date {
+    font-family: var(--font-family-pix);
     min-width: 110px;
     padding-right: 2rem;
     margin: 0;
-    color: rgb(var(--gray));
+    color: var(--gray);
   }
 
   /* 标题变色: */
   ul li a:hover h5,
   ul li a:hover .date {
-    color: rgb(var(--accent));
+    color: var(--accent);
   }
   ul a:hover img {
     box-shadow: var(--box-shadow);

@@ -16,7 +16,25 @@ export async function getStaticPaths() {
   description={t("about.description")}
   pubDate={new Date("2024-2-10")}
   lang={lang}
+  giscus={false}
 >
-  <p>{t("about.description")}</p>
-  <p>{t("about.text")}</p>
+<pre><code>INTJ/P
+  I code something for this f**king world.
+  {t("about.text")}
+  |=====|100% - {t("about.description")}
+  ---------------
+  |=====|500% - 🍟
+  |=====|300% - 🍣
+  |=====|200% - 🥩
+  |=====|100% - 🍚
+  |-----|000% - 🥬
+  ---------------
+  </code></pre>
+  <style>
+    pre {
+    padding: 1.5em;
+    border-radius: 8px;
+    background-color: #00000045;
+    }
+  </style>
 </BlogPost>
