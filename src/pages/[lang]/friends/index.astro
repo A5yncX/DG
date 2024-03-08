@@ -68,28 +68,69 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
       <ul>
         {selectedFriendLinks.map((link, index) => (
           <li key={index} className="friend-link" style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={link.avatar} alt={link.name} width="60" height="60"/>
+            <a href={link.link}>
+              <img src={link.avatar} alt={link.name} width="60" height="60"/>
+            </a>
             <div class="info" style={{ paddingLeft: '10px' }}>
-              <p><a href={link.link}>{link.name}</a></p>
-              <p>{link.description}</p>
+              <p>
+                <a href={link.link}>
+                {link.name}
+                <p>{link.description}</p>
+                </a>
+              </p>
             </div>
           </li>
         ))}
       </ul>
+
+      <pre><code>
+{t("friends.welcome")}
+------------------------------
+Icon: 'https://blog.asyncx.top/favicon.svg',
+Name: 'AsyncX',
+Link: 'https://blog.asyncx.top/',
+Description: '🌌 Per Aspera Ad Astra'
+------------------------------
+</code></pre>
       <style>
+        pre {
+          overflow-x: auto;
+        }
+        @media (min-width: 800px) {
+        ul {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          background: 0 0;
+          gap: 8px;
+        }
         p {
           color: var(--gray);
           font-family: var(--font-family-mono);
         }
-        .friend-links {
-          transition: 0.2s ease;
-        }
-        .friend-links:hover {
-          background-color: #00000030;
+        ul li {
+          transition: 0.3s ease;
+          padding: 0.3rem 1rem;
           border-radius: 10px;
-          transition: 0.2s ease;
         }
-        
+        ul li:hover {
+          transition: 0.3s ease;
+          background-color: #00000030;
+        }
+
+      }
+      </style>
+
+      <style>
+        @media (max-width: 800px) {
+          ul {
+          display: flex;
+          background: 0 0;
+          gap: 8px;
+          flex-wrap: wrap;
+          flex-direction: column;
+          align-content: center;
+        }
+        }
       </style>
     </div>
   </BlogPost>

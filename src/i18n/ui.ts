@@ -22,6 +22,7 @@ export const ui = {
     "about.maomao": "毛毛的一品铲屎官",
     //friends
     "friends.title": "友链",
+    "friends.welcome": "欢迎在本页下的评论留言交换友链, 以下是本站信息:",
   },
   en: {
     // meta
@@ -46,5 +47,6 @@ export const ui = {
     "about.maomao": "At least there are still cutie cats in the world hah.",
     //friends
     "friends.title": "Links",
+    "friends.welcome": "Welcome to comment and exchange friendship links on this page.",
   },
 } as const;
