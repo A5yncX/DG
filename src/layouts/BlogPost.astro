@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
-
+import Hr from"../components/Hr.astro"
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage, lang, tags, giscus } =
@@ -49,11 +49,12 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, giscus 
 }
 
         </div>
-        <hr />
+        <Hr />
       </div>
       <slot />
     </div>
     {giscus !== false && (
+      <Hr />
       <div class="tags" style="font-family: var(--font-family-mono);">
         <script src="https://giscus.app/client.js"
           data-repo="A5yncX/DG"
