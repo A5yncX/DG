@@ -64,12 +64,12 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
     pubDate={new Date("2024-03-06")}
     lang={lang}
   >
-    <div className="friend-links">
+    <div class="friend-links">
       <ul>
         {selectedFriendLinks.map((link, index) => (
           <li key={index} className="friend-link" style={{ display: 'flex', alignItems: 'center' }}>
             <img src={link.avatar} alt={link.name} width="60" height="60"/>
-            <div className="info" style={{ paddingLeft: '10px' }}>
+            <div class="info" style={{ paddingLeft: '10px' }}>
               <p><a href={link.link}>{link.name}</a></p>
               <p>{link.description}</p>
             </div>
@@ -81,6 +81,15 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
           color: var(--gray);
           font-family: var(--font-family-mono);
         }
+        .friend-links {
+          transition: 0.2s ease;
+        }
+        .friend-links:hover {
+          background-color: #00000030;
+          border-radius: 10px;
+          transition: 0.2s ease;
+        }
+        
       </style>
     </div>
   </BlogPost>
