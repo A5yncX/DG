@@ -14,12 +14,6 @@ export async function getStaticPaths() {
 // 友情链接数据
 const friendLinksZh = [
   {
-    avatar: '/favicon.svg',
-    name: 'AsyncX',
-    link: 'https://blog.asyncx.top/',
-    description: '🌌 Per Aspera Ad Astra'
-  },
-  {
     avatar: 'https://zhuzi.dev/favicon.ico',
     name: '竹子',
     link: 'https://zhuzi.dev/',
@@ -36,6 +30,12 @@ const friendLinksZh = [
     name: '嘰嘰乞乞',
     link: 'https://tiffahahahu7.github.io/gigigatgat/zh-tw/',
     description: '但願我靈魂沒有生鏽',
+  },
+  {
+    avatar: 'https://blog.douchi.space/dino.gif',
+    name: '椒盐豆豉',
+    link: 'https://blog.douchi.space/',
+    description: '喜欢就买 不行就分 多喝热水 重启电脑'
   },
 ];
 
@@ -65,58 +65,69 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
     lang={lang}
   >
     <div class="friend-links">
-      <ul>
+      <article>
         {selectedFriendLinks.map((link, index) => (
-          <li key={index} className="friend-link" style={{ display: 'flex', alignItems: 'center' }}>
-            <a href={link.link}>
-              <img src={link.avatar} alt={link.name} width="60" height="60"/>
-            </a>
-            <div class="info" style={{ paddingLeft: '10px' }}>
-              <p>
-                <a href={link.link}>
+            <a href={link.link} target="_blank">
+              <div class="friend-img">
+                <img src={link.avatar} alt={link.name} width="60" height="60" loading="lazy"/>
+              </div>
+              <div class="info" style={{ paddingLeft: '10px' }}>
                 {link.name}
-                <p>{link.description}</p>
-                </a>
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
+                <div class="desc">
+                {link.description}
+                </div>
+              </div>
 
+            </a>
+        ))}
+      </article>
       <pre><code>
 {t("friends.welcome")}
 ------------------------------
-Icon: 'https://blog.asyncx.top/favicon.svg',
-Name: 'AsyncX',
-Link: 'https://blog.asyncx.top/',
-Description: '🌌 Per Aspera Ad Astra'
+Icon: https://blog.asyncx.top/favicon.svg
+Name: AsyncX
+Link: https://blog.asyncx.top/
+Description: 🌌 Per Aspera Ad Astra
 ------------------------------
 </code></pre>
       <style>
-        pre {
-          overflow-x: auto;
+
+
+        .desc {
+          font-size: 0.7rem;
+          color: var(--gray);
         }
-        @media (min-width: 800px) {
-        ul {
+        article {
           display: grid;
           grid-template-columns: 1fr 1fr;
           background: 0 0;
-          gap: 8px;
+          gap: 10px;
         }
+        pre {
+          overflow-x: auto;
+        }
+
+        @media (min-width: 800px) {
         p {
           color: var(--gray);
           font-family: var(--font-family-mono);
         }
-        ul li {
+        * {
+          box-sizing: border-box;
+        }
+        a {
+          text-decoration: none;
+          display: flex;
+          align-items: center;
           transition: 0.3s ease;
           padding: 0.3rem 1rem;
           border-radius: 10px;
+          color: var(--fontc);
         }
-        ul li:hover {
+        a:hover {
           transition: 0.3s ease;
           background-color: #00000030;
         }
-
       }
       </style>
 
