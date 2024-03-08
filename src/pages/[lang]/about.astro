@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BlogPost from "../../layouts/BlogPost.astro";
-
+import Social from "../../components/Social.astro"
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -13,15 +13,20 @@ export async function getStaticPaths() {
 ---
 <BlogPost
   title={t("about.title")}
-  description={t("about.description")}
+  description={t("about.engel")}
   pubDate={new Date("2024-2-10")}
   lang={lang}
   giscus={false}
 >
+<div class="pix"><img src="https://img.asyncx.top/images/202403081701467.webp" class="maomao"></div>
+<div class="title">
+  <div>AsyncX</div>
+</div>
+
 <pre><code>INTJ/P
   I code something for this f**king world.
-  {t("about.text")}
-  |=====|100% - {t("about.description")}
+  {t("about.maomao")}
+  |=====|100% - {t("about.engel")}
   ---------------
   |=====|500% - 🍟
   |=====|300% - 🍣
@@ -30,11 +35,23 @@ export async function getStaticPaths() {
   |-----|000% - 🥬
   ---------------
   </code></pre>
+<Social />
   <style>
+    .title {
+      text-align: center;
+    }
+    .pix {
+      text-align: center;
+    }
+    .maomao {
+      max-height: 10vh;
+      border-radius: 100px;
+    }
     pre {
     padding: 1.5em;
     border-radius: 8px;
     background-color: #00000045;
+    overflow-x: auto;
     }
   </style>
 </BlogPost>

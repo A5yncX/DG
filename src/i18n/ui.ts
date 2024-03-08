@@ -18,8 +18,8 @@ export const ui = {
     "home.recent": "最近更新",
     //about
     "about.title": "关于我",
-    "about.description": "恩格尔系数",
-    "about.text": "毛毛的一品铲屎官",
+    "about.engel": "恩格尔系数",
+    "about.maomao": "毛毛的一品铲屎官",
     //friends
     "friends.title": "友链",
   },
@@ -42,8 +42,8 @@ export const ui = {
     "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",
-    "about.description": "Engel coefficient",
-    "about.text": "At least there are still cutie cats in the world hah.",
+    "about.engel": "Engel coefficient",
+    "about.maomao": "At least there are still cutie cats in the world hah.",
     //friends
     "friends.title": "Links",
   },
