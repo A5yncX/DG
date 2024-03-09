@@ -44,7 +44,7 @@ export const ui = {
     "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",
-    "about.name": "TODO",
+    "about.name": "\"Async - Ryuichi Sakamoto / Axion - Sakuzyo, my name is created from the two songs that my favourite.\"",
     "about.engel": "Engel coefficient",
     "about.maomao": "At least there are still cutie cats in the world hah.",
     //friends
