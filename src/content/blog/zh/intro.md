@@ -8,6 +8,8 @@ tags:
   - blog
   - Astro
 ---
+> 2024.03.09
+> 添加博客评论功能, 灵感来源于[竹子](https://zhuzi.dev/). 修改/about, 添加google map作为足迹历史.
 > 2024.03.08
 > 更新字体/about/::selection元素/header和footer图标
 > 2024.03.06
