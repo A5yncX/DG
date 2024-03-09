@@ -1,0 +1,30 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const blog = await getCollection('blog', ({ id }) => id.startsWith(`${lang}/`));
+const tags = [...new Set([].concat.apply([], blog.map(post => post.data.tags)))]
+
+const { comments } =
+  Astro.props;
+
+export async function getStaticPaths() {
+  return ["zh", "en"].map((lang) => { //lang
+    return { params: { lang } };
+  });
+}
+---
+
+<Layout
+  comments={false}
+>
+  <ul class="tag-list">
+    {tags.map((tag) => (
+      <li><a class="tag" href={`/${lang}/tags/${tag}`} transition:animate="slide">{tag}</a></li>
+    ))}
+  </ul>
+</Layout>

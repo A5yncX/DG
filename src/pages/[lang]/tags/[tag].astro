@@ -1,0 +1,110 @@
+---
+import { getBlogPosts } from "../../../../content/config";
+import FormattedDate from "../../../../components/FormattedDate.astro";
+import { getCollection } from 'astro:content'
+import Layout from "../../../../layouts/Layout.astro";
+import { getLangFromUrl, useTranslations } from "../../../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+
+export async function getStaticPaths() {
+  // 获取 URL 中的 tag 参数
+
+
+  const pages = await getCollection('blog', ({ id }) => id.startsWith(`${lang}/`));
+
+  const paths = pages.map((page) => {
+    // 对于每一篇文章，我们将创建一个路径对象。
+    // 这个对象包含两个属性：params 和 props。
+    const tag = Astro.params.tag;
+    const lang = Astro.params.lang;
+    return {
+      // params 属性用于指定 URL 路径中的动态部分。
+      // 在这里，我们使用可选链式操作 (?.) 来检查 page.data.lang 是否存在，
+      // 如果存在就使用它，否则使用默认值 "zh" 作为语言代码。
+
+      params: {
+        lang,
+        tag,
+      },
+
+    };
+  });
+
+  return paths;
+}
+
+// 获取 URL 中的 lang 参数
+
+
+const page = Astro.props;
+const formattedDate = page.data?.date?.toLocaleString(lang);
+const { Content } = await page.render();
+---
+<Layout
+  comments={false}
+>
+test
+
+<style>
+    main {
+        width: 960px;
+    }
+    ul {
+        /* display: flex; */
+        flex-wrap: wrap;
+        gap: 2rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    ul li {
+        display: flex;
+        margin-top: 1rem;
+    }
+    ul li * {
+
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+    ul li a {
+        display: flex;
+        font-family: var(--font-family-pix);
+    }
+
+    ul li h5{
+        text-align: center;
+    }
+    .title {
+        margin: 0;
+        line-height: 1;
+    }
+    .date {
+        font-family: var(--font-family-pix);
+        min-width: 110px;
+        padding-right: 2rem;
+        margin: 0;
+        color: var(--gray);
+    }
+
+    /* 标题变色: */
+    ul li a:hover h5,
+    ul li a:hover .date {
+        color: var(--accent);
+    }
+    ul a:hover img {
+        box-shadow: var(--box-shadow);
+    }
+    @media (max-width: 720px) {
+        ul {
+            gap: 0.5em;
+        }
+        ul li {
+            display:inherit;
+            width: 100%;
+            /* text-align: center; */
+        }
+
+    }
+</style>
+</Layout>
