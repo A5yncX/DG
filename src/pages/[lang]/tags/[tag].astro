@@ -1,16 +1,27 @@
 ---
-import { getBlogPosts } from "../../../content/config";
-import FormattedDate from "../../../components/FormattedDate.astro";
-import { getCollection } from 'astro:content'
+import { getCollection } from 'astro:content';
 import Layout from "../../../layouts/Layout.astro";
-import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
-const lang = getLangFromUrl(Astro.url);
-const tag = Astro.params.tag;
+import { getLangFromUrl } from "../../../i18n/utils";
+
 
 export async function getStaticPaths() {
-  return ["zh", "en"].map((lang) => { //lang
-    return { params: { lang, tag } };
-  });
+    const lang = Astro.params;
+    const blog = await getCollection('blog', ({ id }) => id.startsWith(`${lang}/`));
+    const tags = [...new Set([].concat.apply([], blog.map(post => post.data.tags)))]
+    const getPaths = () => {
+    return tags.map((tag) => {
+      return {
+        params: {
+          tag,
+          lang,
+        },
+      };
+    });
+  };
+
+  const paths = await getPaths();
+
+  return paths;
 }
 
 
