@@ -8,23 +8,15 @@ export async function getStaticPaths() {
     const lang = Astro.params;
     const blog = await getCollection('blog', ({ id }) => id.startsWith(`${lang}/`));
     const tags = [...new Set([].concat.apply([], blog.map(post => post.data.tags)))]
-    const getPaths = () => {
-    return tags.map((tag) => {
-      return {
-        params: {
-          tag,
-          lang,
-        },
-      };
+    const paths = tags.map((tag) => {
+        ["zh", "en"].map((lang) => {
+        return {
+            params: { tag, lang },
+        }
+        })
     });
+    return paths;
   };
-
-  const paths = await getPaths();
-
-  return paths;
-}
-
-
 ---
 <Layout
   comments={false}
