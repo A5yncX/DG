@@ -5,8 +5,8 @@ import Layout from "./Layout.astro";
 import Hr from"../components/Hr.astro"
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, lang, tags, giscus } =
-  Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, lang, tags, comments } =
+  Astro.props;  
 ---
 
 <Layout
@@ -53,9 +53,26 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, giscus 
       </div>
       <slot />
     </div>
-    {giscus !== false && (
-      <Hr />
-      <div class="tags" style="font-family: var(--font-family-mono);">
+    {comments !== false && (
+      <div class="post-comments">
+    <div class="tabs">
+      <input type="radio" class="hidden-radio" name="comment-provider" id="by-twikoo" autocomplete="off">
+      <label class="tab" for="by-twikoo">Twikoo</label>
+      <input type="radio" class="hidden-radio" name="comment-provider" id="by-giscus" autocomplete="off">
+      <label class="tab" for="by-giscus">Giscus</label>
+    </div>
+    <div class="post-comments-content twikoo" id="comment" hidden>
+      <div id="twikoo-comments"></div>
+      <script src="//cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js"></script>
+      <script>
+        twikoo.init({
+          envId: 'https://asyncxtwikoo.netlify.app/', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+          el: '#twikoo-comments', // 容器元素
+        })
+      </script>
+    </div>
+    <div class="post-comments-content giscus" hidden>
+      <div id="giscus">
         <script src="https://giscus.app/client.js"
           data-repo="A5yncX/DG"
           data-repo-id="R_kgDOLPfagg"
@@ -72,6 +89,27 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, giscus 
           async
         ></script>
       </div>
-    )}
+    </div>
+  </div>
+  <script>
+    const group = document.querySelectorAll('input[name="comment-provider"]');
+    const contents = document.querySelectorAll('.post-comments-content');
+    const handleChange = () => {
+      let commentProvider = document.querySelector('input[name="comment-provider"]:checked+.tab');
+      if (commentProvider) {
+        commentProvider = commentProvider.textContent.toLowerCase();
+        contents.forEach(content => {
+          if (content.classList.contains(commentProvider)) {
+            content.style.display = 'block';
+          } else {
+            content.style.display = 'none';
+          }
+        })
+      }
+    }
+    group.forEach(radio => radio.addEventListener('input', handleChange))
+  </script>
+    <Hr />
+      )}
   </article>
 </Layout>

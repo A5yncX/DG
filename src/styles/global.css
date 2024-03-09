@@ -230,3 +230,45 @@ hr {
 	white-space: nowrap;
 }
 
+.post-comments {
+	display: flex;
+	align-items: center;
+  	flex: auto;
+  	flex-direction: column;
+  	gap: 0.5rem;
+  	margin: 1rem 1rem;
+  }
+  .tabs {
+	max-width: 300px;
+	display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
+  border-radius: 1rem;
+  padding: 0.25rem;
+  background-color: #00000030;
+  color: #a6adba;
+  }
+  .hidden-radio {
+	position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+  }
+  .post-comments .hidden-radio:checked+.tab {
+  border-radius: 0.5rem;
+  background-color: var(--hc);
+  color: #000;
+  }
+  .post-comments .tab {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  font-size: .875rem;
+  cursor: pointer;
+  line-height: 2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex: 1;
+  transition: all .2s cubic-bezier(.4,0,.2,1);
+  }
