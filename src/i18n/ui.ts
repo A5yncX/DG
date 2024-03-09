@@ -18,6 +18,7 @@ export const ui = {
     "home.recent": "最近更新",
     //about
     "about.title": "关于我",
+    "about.name": "\"Async - 坂本龙一 / Axion - Sakuzyo, 名字由我喜欢的两首歌组成.\"",
     "about.engel": "恩格尔系数",
     "about.maomao": "毛毛的一品铲屎官",
     //friends
@@ -43,6 +44,7 @@ export const ui = {
     "home.recent": "Recent Posts",
     //about
     "about.title": "About Me",
+    "about.name": "TODO",
     "about.engel": "Engel coefficient",
     "about.maomao": "At least there are still cutie cats in the world hah.",
     //friends

@@ -1,0 +1,18 @@
+<div class="footprints" hidden>
+    <iframe
+      src="https://www.google.com/maps/d/embed?mid=1vIFkob0HRMIU1xDRcMPaHE4wqlw4cls&ehbc=2E312F&noprof=1"
+      width="100%"
+      height="480"
+    ></iframe>
+    <script>
+        const footprints = document.querySelector('.footprints');
+        footprints.querySelector('iframe').onload = function() {
+          footprints.removeAttribute('hidden');
+        };
+    </script>
+    <style>
+        iframe {
+            border-radius: 10px;
+        }
+    </style>
+  </div>

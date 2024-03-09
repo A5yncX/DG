@@ -2,6 +2,7 @@
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BlogPost from "../../layouts/BlogPost.astro";
 import Social from "../../components/Social.astro"
+import Foot from "../../components/Footprints.astro"
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -18,11 +19,13 @@ export async function getStaticPaths() {
   lang={lang}
   giscus={false}
 >
-<div class="pix"><img src="https://img.asyncx.top/images/202403081701467.webp" class="maomao"></div>
-<div class="title">
-  <div>AsyncX</div>
+<div class="introduction">
+  <div class="pix"><img src="https://img.asyncx.top/images/202403081701467.webp" class="maomao"></div>
+  <div class="title">
+    <div>{t("about.name")}</div>
+  </div>
 </div>
-
+<Social />
 <pre><code>INTJ/P
   I code something for this f**king world.
   {t("about.maomao")}
@@ -35,17 +38,19 @@ export async function getStaticPaths() {
   |-----|000% - 🥬
   ---------------
   </code></pre>
-<Social />
+<Foot/>
   <style>
-    .title {
-      text-align: center;
+    .introduction {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .pix {
-      text-align: center;
+    .title {
+      padding-left: 1.5rem;
     }
     .maomao {
-      max-height: 10vh;
-      border-radius: 100px;
+      max-height: 8vh;
+      border-radius: 10px;
     }
     pre {
     padding: 1.5em;
