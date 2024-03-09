@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from "./FormattedDate.astro";
+import { getBlogPosts } from "../content/config";
+
+const { tag } = Astro.params;
+export async function getData(tag) {
+  const postf = await getBlogPosts();
+  const filteredPosts = postf
+    .filter((post) => post.data.tags.includes(tag))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  return filteredPosts;
+}
+const postf = await getData(tag);
+---
+
+<ul data-pagefind-ignore="all">
+    {postf.map((post) => (
+      <li>
+        <p class="date">
+          <FormattedDate date={post.data.pubDate} />
+        </p>
+        <a href={`/${post.data.lang}/blog/${post.title}`}>
+          <p class="title">{post.data.title}</p>
+        </a>
+      </li>
+    ))}
+</ul>

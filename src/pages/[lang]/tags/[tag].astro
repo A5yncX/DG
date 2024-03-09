@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from "../../../layouts/Layout.astro";
+import Tagpage from "../../../components/Tagpage.astro";
 import { getLangFromUrl } from "../../../i18n/utils";
-
 
 export async function getStaticPaths() {
     const languages = ["zh", "en"]; // 支持的语言列表
@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 <Layout
   comments={false}
 >
-test
+<Tagpage />
 
 <style>
     main {
