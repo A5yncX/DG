@@ -1,16 +1,17 @@
 ---
 import FormattedDate from "./FormattedDate.astro";
 import { getBlogPosts } from "../content/config";
-
+import { getLangFromUrl } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
 const { tag } = Astro.params;
-export async function getData(tag) {
+export async function getData(tag,lang) {
   const postf = await getBlogPosts();
   const filteredPosts = postf
-    .filter((post) => post.data.tags.includes(tag))
+    .filter((post) => post.data.tags.includes(tag) && post.data.lang === lang)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   return filteredPosts;
 }
-const postf = await getData(tag);
+const postf = await getData(tag,lang);
 ---
 
 <ul data-pagefind-ignore="all">

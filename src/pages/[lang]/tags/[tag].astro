@@ -2,7 +2,10 @@
 import { getCollection } from 'astro:content';
 import Layout from "../../../layouts/Layout.astro";
 import Tagpage from "../../../components/Tagpage.astro";
-import { getLangFromUrl } from "../../../i18n/utils";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 export async function getStaticPaths() {
     const languages = ["zh", "en"]; // 支持的语言列表
@@ -28,8 +31,9 @@ export async function getStaticPaths() {
 ---
 <Layout
   comments={false}
+  lang={lang}
 >
-<a href="./"><div class="back">返回标签页<<<<</div></a>
+<a href="./"><div class="back">{t("tags.back")}.</div></a>
 <Tagpage />
 
 <style>
