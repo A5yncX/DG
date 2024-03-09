@@ -29,9 +29,21 @@ export async function getStaticPaths() {
 <Layout
   comments={false}
 >
+<a href="./"><div class="back">返回标签页<<<<</div></a>
 <Tagpage />
 
 <style>
+    a {
+        display: flex;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+    .back {
+        padding: 1rem 0;
+        /* background-color: #00000030; */
+        border-radius: 10px;
+    }
     main {
         width: 960px;
     }
@@ -55,7 +67,6 @@ export async function getStaticPaths() {
 
     ul li a {
         display: flex;
-        font-family: var(--font-family-pix);
     }
 
     ul li h5{
@@ -66,7 +77,6 @@ export async function getStaticPaths() {
         line-height: 1;
     }
     .date {
-        font-family: var(--font-family-pix);
         min-width: 110px;
         padding-right: 2rem;
         margin: 0;

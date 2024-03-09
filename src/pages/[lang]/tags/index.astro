@@ -21,10 +21,27 @@ export async function getStaticPaths() {
 
 <Layout
   comments={false}
+  lang={lang}
 >
   <ul class="tag-list">
     {tags.map((tag) => (
-      <li><a class="tag" href={`/${lang}/tags/${tag}`} transition:animate="slide">{tag}</a></li>
+      <li><a class="tag" href={`/${lang}/tags/${tag}`} transition:animate="slide">#{tag}</a></li>
     ))}
   </ul>
+<style>
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
+  ul {
+    height: 50vh;
+  }
+  li {
+    padding: 0.5rem;
+    list-style-type: none;
+  }
+
+  
+</style>
 </Layout>

@@ -6,6 +6,7 @@ export const ui = {
     //header
     "header.home": "主页",
     "header.blog": "博客",
+    "header.tags": "标签",
     "header.about": "关于",
     "header.rss": "RSS",
     //home
@@ -32,6 +33,7 @@ export const ui = {
     //header
     "header.home": "Home",
     "header.blog": "Blogs",
+    "header.tags": "Tags",
     "header.about": "About",
     "header.rss": "RSS",
     //home
