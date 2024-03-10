@@ -9,6 +9,7 @@ const t = useTranslations(lang);
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
+const tagSlug = `/${lang || ""}/tags`;
 const aboutSlug = `/${lang || ""}/about`;
 const friendSlug = `/${lang || ""}/friends`;
 
@@ -30,6 +31,7 @@ const isArticlePage = pathname.startsWith(blogSlug);
           <div class="internal-links">
           <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
           <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
+          <HeaderLink href={tagSlug}>{t("header.tags")}</HeaderLink>
           <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
           <HeaderLink href={friendSlug}>{t("friends.title")}</HeaderLink>
           </div>
@@ -48,6 +50,7 @@ const isArticlePage = pathname.startsWith(blogSlug);
         <div class="internal-links">
           <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
           <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
+          <HeaderLink href={tagSlug}>{t("header.tags")}</HeaderLink>
           <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
           <HeaderLink href={friendSlug}>{t("friends.title")}</HeaderLink>
         </div>

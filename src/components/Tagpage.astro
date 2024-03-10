@@ -1,44 +1,31 @@
 ---
-import { getBlogPosts } from "../content/config";
 import FormattedDate from "./FormattedDate.astro";
-import { useTranslations } from "../i18n/utils";
-
-const { lang } = Astro.params;
-
-export async function getTopPosts(lang) {
-  const posts = await getBlogPosts();
-  const topPosts = posts.filter(post => {
-    // 过滤置顶文章（如果存在pin属性且为true）
-    return post.data.pin && post.data.lang === lang;
-  });
-  return topPosts;
+import { getBlogPosts } from "../content/config";
+import { getLangFromUrl } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const { tag } = Astro.params;
+export async function getData(tag,lang) {
+  const postf = await getBlogPosts();
+  const filteredPosts = postf
+    .filter((post) => post.data.tags.includes(tag) && post.data.lang === lang)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  return filteredPosts;
 }
-
-
-const topPosts = await getTopPosts(lang);
-const t = useTranslations(lang);
+const postf = await getData(tag,lang);
 ---
 
-{topPosts.length > 0 && (
-  <ul>
-    <h3>
-      {t("home.pin")}
-    </h3>
-    {topPosts.map(post => (
+<ul data-pagefind-ignore="all">
+    {postf.map((post) => (
       <li>
-        <p class="title">
-          <p class="date">
-            <FormattedDate date={post.data.pubDate} />
-          </p>
-          <a href={`/${post.data.lang}/blog/${post.title}`}>
-            {post.data.title}
-          </a>
+        <p class="date">
+          <FormattedDate date={post.data.pubDate} />
         </p>
+        <a href={`/${post.data.lang}/blog/${post.title}`}>
+          <p class="title">{post.data.title}</p>
+        </a>
       </li>
     ))}
-  </ul>
-)}
-
+</ul>
 <style>
   main {
     width: 960px;
@@ -50,6 +37,7 @@ const t = useTranslations(lang);
     list-style-type: none;
     margin: 0;
     padding: 0;
+    min-height: 50vh;
   }
   ul li {
     display: flex;
@@ -61,10 +49,6 @@ const t = useTranslations(lang);
     transition: 0.2s ease;
   }
 
-  ul li img {
-    margin-bottom: 0.5rem;
-    border-radius: 12px;
-  }
   ul li a {
     display: flex;
     font-family: var(--font-family-pix);
