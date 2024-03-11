@@ -6,7 +6,7 @@ heroImage: '/ogimage.png'
 author: 'Me'
 lang: 'en'
 tags:
-  - blog
+  - test
 pin: true
 ---
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.

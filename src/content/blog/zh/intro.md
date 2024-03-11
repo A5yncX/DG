@@ -28,7 +28,6 @@ tags:
 - 文章置顶
 - index页面输出最新文章
 - [废除]starlight文档页
-- blog汇总页
 
 # 调节点
 - i18n
