@@ -29,7 +29,7 @@ export async function getStaticPaths() {
   comments={false}
   lang={lang}
 >
-<a href="./"><div class="back">{t("tags.back")}.</div></a>
+<a href=`/${lang}/tags`><div class="back">{t("tags.back")}.</div></a>
 <Tagpage />
 
 <style>
