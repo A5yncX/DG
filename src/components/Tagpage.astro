@@ -13,7 +13,7 @@ export async function getData(tag,lang) {
 }
 const postf = await getData(tag,lang);
 ---
-
+<div class="tagtitle">#{tag}</div>
 <ul data-pagefind-ignore="all">
     {postf.map((post) => (
       <li>
@@ -29,6 +29,11 @@ const postf = await getData(tag,lang);
 <style>
   main {
     width: 960px;
+  }
+  .tagtitle {
+    font-size: 2rem;
+    text-align: center;
+    font-family: var(--font-family-pix);
   }
   ul {
     /* display: flex; */

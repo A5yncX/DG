@@ -1,0 +1,55 @@
+<div class="post-comments">
+    <div class="tabs">
+      <input type="radio" class="hidden-radio" name="comment-provider" id="by-twikoo" autocomplete="off">
+      <label class="tab" for="by-twikoo">Twikoo</label>
+      <input type="radio" class="hidden-radio" name="comment-provider" id="by-giscus" autocomplete="off">
+      <label class="tab" for="by-giscus">Giscus</label>
+    </div>
+    <div class="post-comments-content twikoo" id="comment" hidden>
+      <div id="twikoo-comments"></div>
+      <script src="//cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js" is:inline></script>
+      <script>
+        twikoo.init({
+          envId: 'https://twikoo.asyncx.top/',
+          el: '#twikoo-comments',
+        })
+      </script>
+    </div>
+    <div class="post-comments-content giscus" hidden>
+      <div id="giscus">
+        <script src="https://giscus.app/client.js"
+          data-repo="A5yncX/DG"
+          data-repo-id="R_kgDOLPfagg"
+          data-category="General"
+          data-category-id="DIC_kwDOLPfags4CdlA4"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="dark_tritanopia"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async
+        ></script>
+      </div>
+    </div>
+  </div>
+  <script>
+    const group = document.querySelectorAll('input[name="comment-provider"]');
+    const contents = document.querySelectorAll('.post-comments-content');
+    const handleChange = () => {
+      let commentProvider = document.querySelector('input[name="comment-provider"]:checked+.tab');
+      if (commentProvider) {
+        commentProvider = commentProvider.textContent.toLowerCase();
+        contents.forEach(content => {
+          if (content.classList.contains(commentProvider)) {
+            content.style.display = 'block';
+          } else {
+            content.style.display = 'none';
+          }
+        })
+      }
+    }
+    group.forEach(radio => radio.addEventListener('input', handleChange))
+  </script>
