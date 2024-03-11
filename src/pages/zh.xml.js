@@ -12,12 +12,10 @@ const parser = new MarkdownIt();
     return rss({
       title: 'AsyncX | 嘿!我是AX!',
       description: 'AsyncX的博客-i18n多语言/内容聚合/编程/哲学/爱好',
-      // image: '/favicon.svg',
       site: context.site,
       items: blog.map((post) => ({
         title: post.data.title,
         link: `/zh/blog/${post.data.title}`,
-        // 注意：这不会处理 MDX 文件中的组件或 JSX 表达式。
         content: sanitizeHtml(parser.render(post.body), {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
         }),

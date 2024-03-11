@@ -10,22 +10,18 @@ const t = useTranslations(lang);
 export async function getStaticPaths() {
     const languages = ["zh", "en"]; // 支持的语言列表
     const paths = [];
-
     for (const lang of languages) {
         const blog = await getCollection('blog', ({ id }) => id.startsWith(`${lang}/`));
         const tags = [...new Set([].concat.apply([], blog.map(post => post.data.tags)))];
-        
         // 为每个标签生成路径对象
         const langPaths = tags.map((tag) => {
             return {
                 params: { tag, lang }, // 使用当前语言变量
             };
         });
-
         // 将当前语言的路径合并到总路径数组中
         paths.push(...langPaths);
     }
-
     return paths;
 }
 ---

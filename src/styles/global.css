@@ -173,11 +173,9 @@ img {
 	border-radius: 8px;
   }
 code  {
-	padding: 2px 5px;
 	font-size: 0.8rem;
 	background-color: #00000030;
 	border-radius: 2px;
-	margin-left: 3px;
 	margin-right: 3px;
 	font-family: var(--font-family-mono);
 	color: var(--accent);
