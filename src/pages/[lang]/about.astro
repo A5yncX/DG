@@ -3,6 +3,7 @@ import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BlogPost from "../../layouts/BlogPost.astro";
 import Social from "../../components/Social.astro"
 import Foot from "../../components/Footprints.astro"
+import Music from "../../components/Music.astro"
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -24,22 +25,28 @@ export async function getStaticPaths() {
   <div class="title">
     <div>{t("about.name")}</div>
   </div>
+  <Music />
 </div>
 <Social />
-<pre><code>INTJ/P
-  I code something for this f**king world.
-  {t("about.maomao")}
-  |=====|100% - {t("about.engel")}
-  ---------------
-  |=====|500% - 🍟
-  |=====|300% - 🍣
-  |=====|200% - 🥩
-  |=====|100% - 🍚
-  |-----|000% - 🥬
-  ---------------
+<pre><code>
+INTJ/P
+I code something for this f**king world.
+{t("about.maomao")}
+|=====|100% - {t("about.engel")}
+---------------
+|=====|500% - 🍟
+|=====|300% - 🍣
+|=====|200% - 🥩
+|=====|100% - 🍚
+|-----|000% - 🥬
+---------------
   </code></pre>
 <Foot/>
   <style>
+    .music {
+      text-align: center;
+      margin-top: 1rem;
+    }
     .introduction {
       display: flex;
       align-items: center;
@@ -47,6 +54,7 @@ export async function getStaticPaths() {
     }
     .title {
       padding-left: 1.5rem;
+      width: 33vh;
     }
     .maomao {
       max-height: 8vh;

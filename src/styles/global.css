@@ -270,3 +270,6 @@ hr {
   flex: 1;
   transition: all .2s cubic-bezier(.4,0,.2,1);
   }
+hr {
+	border-color: var(--gray);
+}
