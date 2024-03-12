@@ -60,14 +60,31 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: var(--bgc);
-	background-size: 100% 600px;
+	background-color: var(--bgc);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: var(--fontc);
 	font-size: 15px;
 	letter-spacing: 0.7px;
+	position: relative;
 }
+body::before {
+    content: "";
+    /* 设置绝对定位，覆盖整个页面 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	background-size: 100%;
+	background-image: url('bg.webp');
+    /* 添加模糊效果 */
+    filter: blur(5px);
+    /* 将遮罩层放置在背景图片前面 */
+    z-index: -1;
+	min-height: 100vh;
+}
+
 ::selection {
     /* background-color: ;  */
     color: var(--accent-dark); /* 修改选中文字的前景（文字）颜色 */
@@ -77,6 +94,7 @@ main {
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 0em 1em;
+	padding-top: 10vh;
 }
 h1,
 h2,
@@ -204,9 +222,6 @@ hr {
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
-	}
-	main {
-		padding: 1em;
 	}
 }
 
