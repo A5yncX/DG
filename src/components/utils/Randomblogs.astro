@@ -8,12 +8,12 @@ const { lang } = Astro.params;
 export async function getRandom(lang) {
     // 洗牌算法
     function getRandomPosts(posts, count) {
-    const shuffled = posts.sort(() => 0.5 - Math.random()); // 洗牌算法
-    return shuffled.slice(0, count); // 选择指定数量的文章
+    const shuffled = posts.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
     }
   const posts = await getBlogPosts();
   const filteredPosts = posts.filter((post) => post.data.lang === lang);
-  const randomPosts = getRandomPosts(filteredPosts, 2); // 获取随机的2篇文章
+  const randomPosts = getRandomPosts(filteredPosts, 2); // 随机2篇
   return randomPosts;
 }
 
@@ -39,5 +39,8 @@ const t = useTranslations(lang);
         background-color: #00000030;
         padding: 1rem;
         border-radius: 10px;
+    }
+    .random a:hover {
+        text-decoration: none;
     }
 </style>

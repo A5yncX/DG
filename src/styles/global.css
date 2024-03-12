@@ -70,7 +70,6 @@ body {
 }
 body::before {
     content: "";
-    /* 设置绝对定位，覆盖整个页面 */
     position: absolute;
     top: 0;
     left: 0;
@@ -104,7 +103,7 @@ h5,
 h6 {
 	font-family: var(--font-family-pix);
 	margin: 1rem 0 0.5rem 0;
-	color: var(--hc);
+	color: var(--fontc);
 	line-height: 1.2;
 }
 h1 {
