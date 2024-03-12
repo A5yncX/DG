@@ -94,7 +94,7 @@ main {
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 0em 1em;
-	padding-top: 10vh;
+	/* padding-top: 10vh; */
 }
 h1,
 h2,
