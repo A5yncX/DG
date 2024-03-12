@@ -76,7 +76,7 @@ body::before {
     right: 0;
     bottom: 0;
 	background-size: 100%;
-	background-image: url('bg.webp');
+	/* background-image: url('bg.webp'); */
     /* 添加模糊效果 */
     filter: blur(5px);
     /* 将遮罩层放置在背景图片前面 */
