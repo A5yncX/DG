@@ -14,6 +14,8 @@ tags:
 > 2024.03.08-更新字体/about/::selection元素/header和footer图标
 > 
 > 2024.03.06-更新tags搜索和显示功能. 更新友链页面.
+
+<iframe src="https://m.cmx.im/@asyncx/112081563725229605/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://m.cmx.im/embed.js" async="async"></script>
 # 前言
 本主题配色灵感来源于`TRON: Legacy`. 唯一一个让我无脑热爱的电影.
 
@@ -39,8 +41,6 @@ tags:
 ![一路摸索下来的思维导图](https://img.asyncx.top/images/202402281206521.png)
 
 其中`astro-pagefind`和`ViewTransition`这两个bug让我头疼了很长时间. `astro-pagefind`在build页面时候似乎会传递错误的参数, 会让`getstatic()`读取到`astro-pagefind`的信息. 时间问题没有仔细看`astro-pagefind`的代码, 有空我会提一个pr. 
-
-<iframe src="https://m.cmx.im/@asyncx/112081563725229605/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://m.cmx.im/embed.js" async="async"></script>
 
 关于`ViewTransition`, V2er的评价是仿原生, 兼容性问题很大. 我在转为使用`pagefind`后由于需要对/zh和/en双语索引, 发现如果不刷新全部页面就无法加载`pagefind.js`. 我在看了几篇文章[^1][^2]后, 发现他们的blog都没有开启ViewTransiton, 于是解决了问题.
 
