@@ -1,0 +1,43 @@
+---
+import { getBlogPosts } from "../../content/config";
+import { useTranslations } from "../../i18n/utils";
+import Hr from "../../components/Hr.astro"
+
+const { lang } = Astro.params;
+
+export async function getRandom(lang) {
+    // 洗牌算法
+    function getRandomPosts(posts, count) {
+    const shuffled = posts.sort(() => 0.5 - Math.random()); // 洗牌算法
+    return shuffled.slice(0, count); // 选择指定数量的文章
+    }
+  const posts = await getBlogPosts();
+  const filteredPosts = posts.filter((post) => post.data.lang === lang);
+  const randomPosts = getRandomPosts(filteredPosts, 2); // 获取随机的2篇文章
+  return randomPosts;
+}
+
+
+
+const randompost = await getRandom(lang);
+const t = useTranslations(lang);
+---
+<div class="random">
+    🫵🏻 {t("random.title")}
+{randompost.map((post) => (
+    <ul>
+        <li>
+            <a href={`/${post.data.lang}/blog/${post.title}`}>
+                <p class="title">{post.data.title}</p>
+        </a>    
+        </li>
+    </ul>
+  ))}
+</div>
+<style>
+    .random {
+        background-color: #00000030;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+</style>

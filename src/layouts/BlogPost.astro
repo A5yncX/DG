@@ -4,9 +4,12 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
 import Hr from"../components/Hr.astro"
 import Comments from"../components/Comments.astro"
+
+import Random from "../components/utils/Randomblogs.astro"
+
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, lang, tags, comments } =
+const { title, description, pubDate, updatedDate, heroImage, lang, tags, comments, random } =
   Astro.props;  
 ---
 
@@ -58,6 +61,11 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
       </div>
       <slot />
     </div>
+    {random !== false && (
+      <div class="random-container">
+        <Random />
+      </div>
+    )}
     {comments !== false && (
       <Comments />
     )}
