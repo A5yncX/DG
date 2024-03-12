@@ -1,0 +1,68 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+import type { MarkdownHeading } from 'astro';
+type Props = {
+  headings: MarkdownHeading[];
+};
+type HeadingWithSubheadings = MarkdownHeading & {
+  subheadings: MarkdownHeading[];
+};
+const { headings } = Astro.props;
+const grouppedHeadings = headings.reduce((array, heading) => {
+  if (heading.depth === 2) {
+    array.push({ ...heading, subheadings: [] });
+  } else if (heading.depth === 3) {
+    array.at(-1)?.subheadings.push(heading);
+  }
+  return array;
+}, [] as HeadingWithSubheadings[]);
+---
+
+<nav id="table-of-contents" aria-label="Table Of Contents">
+    <details>
+      <summary>{t("toc.title")}</summary>
+      <ul>
+        {   
+          grouppedHeadings.map((h) => (
+            <li>
+              <a href={`#${h.slug}`}># {h.text}</a>
+              {h.subheadings.length > 0 && (
+                <ul>
+                  {h.subheadings.map((sub) => (
+                    <li>
+                      <a href={`#${sub.slug}`}>- {sub.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+  </nav>
+  
+  
+
+
+<style>
+    details{
+        color: var(--gray);
+        background-color: #00000030;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    ul li{
+        list-style-type: none;
+    }
+    ul li a{
+        color: var(--gray);
+    }
+    ul li a:hover{
+        color: var(--accent);
+        text-decoration: none;
+    }
+</style>

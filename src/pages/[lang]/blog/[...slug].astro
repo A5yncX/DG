@@ -1,6 +1,7 @@
 ---
 import { getBlogPosts } from "../../../content/config";
 import BlogPost from "../../../layouts/BlogPost.astro";
+import TableOfContents from '../../../components/utils/TableOfContents.astro';
 
 export async function getStaticPaths() {
 	const pages = await getBlogPosts();
@@ -18,11 +19,11 @@ export async function getStaticPaths() {
 const { lang, slug } = Astro.params;
 const page = Astro.props;
 const formattedDate = page.data?.date?.toLocaleString(lang);
-const { Content } = await page.render();
+const { Content, headings } = await page.render();
 
-//文章的url修改
 ---
 
 <BlogPost {...page.data} lang={lang}>
+	<TableOfContents headings={headings} />
 	<Content />
 </BlogPost>

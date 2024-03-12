@@ -2,6 +2,7 @@ export const ui = {
   zh: {
     //utils
     "random.title": "随便看看",
+    "toc.title": "目录",
     // meta
     "site.title": "AsyncX的博客",
     "site.description": "AsyncX的博客-i18n多语言/内容聚合/编程/哲学/爱好",
@@ -33,6 +34,7 @@ export const ui = {
   en: {
     //utils
     "random.title": "Random Blogs",
+    "toc.title": "Table of content",
     // meta
     "site.title": "AsyncX's Blog",
     "site.description": "i18n/Content Aggregation/Programming/Philosophy/Hobbies",
