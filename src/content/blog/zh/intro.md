@@ -15,7 +15,6 @@ tags:
 > 
 > 2024.03.06-更新tags搜索和显示功能. 更新友链页面.
 
-<iframe src="https://m.cmx.im/@asyncx/112081563725229605/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://m.cmx.im/embed.js" async="async"></script>
 # 前言
 本主题配色灵感来源于`TRON: Legacy`. 唯一一个让我无脑热爱的电影.
 
