@@ -6,14 +6,16 @@
 
  :root {
 	--font-family-base: 
+	'noto-serif',
+	'futura',
 	ui-monospace,
-	'open-sans',
 	'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif,
     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   	--font-family-mono: 
-	'noto-sans-mono',
+	'futura',
+	'noto-serif',
 	ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
     Consolas, 'Liberation Mono', 'Courier New', monospace;
 	--font-family-pix:  'zpix', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
@@ -42,15 +44,15 @@
 }
 
 @font-face {
-	font-family: 'noto-sans-mono';
-	src: url('/fonts/noto-sans-mono.woff2') format('woff');
+	font-family: 'futura';
+	src: url('/fonts/futura.woff2') format('woff');
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
-	font-family: 'open-sans';
-	src: url('/fonts/open-sans.woff2') format('woff');
+	font-family: 'noto-serif';
+	src: url('/fonts/noto-serif.woff2') format('woff');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -190,7 +192,6 @@ img {
 	border-radius: 8px;
   }
 code  {
-	font-size: 0.8rem;
 	background-color: #00000030;
 	border-radius: 2px;
 	margin-right: 3px;
@@ -204,11 +205,12 @@ pre {
 }
 pre > code {
 	font-family: var(--font-family-mono);
-	font-size: 0.9rem;
+	/* font-size: 0.9rem; */
 	background-color: #00000000;
 	color: var(--fontc);
 }
 blockquote {
+	font-family: var(--font-family-mono);
 	border-left: 5px solid var(--accent);
 	padding:0.5rem 1rem;
 	margin: 1rem 0 0 0;
