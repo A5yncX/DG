@@ -209,15 +209,19 @@ pre > code {
 	color: var(--fontc);
 }
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0px;
-	font-size: 1.1em;
+	border-left: 5px solid var(--accent);
+	padding:0.5rem 1rem;
+	margin: 1rem 0 0 0;
+	font-size: 1rem;
+	background-color: #00000030;
+	border-radius: 5px;
 }
 hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+
+
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
