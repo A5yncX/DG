@@ -28,67 +28,58 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
       </div>
       <div class="date" style="text-align: center;">
         <FormattedDate date={pubDate} />
-        {
-          updatedDate && (
-            <div class="last-updated-on">
-              Last updated on <FormattedDate date={updatedDate} />
-            </div>
-          )
-        }
-      </div>
+        {updatedDate && (
+          <div class="last-updated-on">
+            Last updated on <FormattedDate date={updatedDate} />
+          </div>
+        )}
 
-{
-	!!tags?.length && (
-		<div class="tags" style="font-family: var(--font-family-mono);">
-			{tags.map((tag, i) => (
-        <>
-				<a href={`/${lang}/tags/${tag}`} class="taglink">
-					<span data-pagefind-filter="tag">
-						# {tag}
-					</span>
-				</a>
-        {i < tags.length - 1 && ", "}
-        </>
-			))}
-		</div>
-    <style>
-      .date {
-        font-family: var(--font-family-mono);
-        color: var(--gray);
-      }
-      .tags{
-        text-align: center;
-      }
-      .tags a{
-        all: initial;
-        color: var(--hc);
-        font-family: var(--font-family-mono);
-        transition: .2s ease-in-out;
-      }
-      .tags a:hover {
-        all: initial;
-        color: var(--accent);
-        text-decoration: none;
-        font-family: var(--font-family-mono);
-        transition: .2s ease-in-out;
-      }
-      
-      </style>
-	)
-}
-        </div>
-        <Hr />
+        {!!tags?.length && (
+          <div class="tags" style="font-family: var(--font-family-mono);">
+            {tags.map((tag, i) => (
+              <>
+                <a href={`/${lang}/tags/${tag}`} class="taglink">
+                  <span data-pagefind-filter="tag">
+                    # {tag}
+                  </span>
+                </a>
+                {i < tags.length - 1 && ", "}
+              </>
+            ))}
+          </div>
+        )}
+
+        <style>
+          .date {
+            font-family: var(--font-family-mono);
+            color: var(--gray);
+          }
+          .tags {
+            text-align: center;
+          }
+          .tags a {
+            all: initial;
+            color: var(--hc);
+            font-family: var(--font-family-mono);
+            transition: 0.2s ease-in-out;
+          }
+          .tags a:hover {
+            all: initial;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: var(--font-family-mono);
+            transition: 0.2s ease-in-out;
+          }
+        </style>
       </div>
-      <slot />
-    </div>
+      <Hr />
+    <slot />
+  </div>
     {random !== false && (
       <div class="random-container">
         <Random />
       </div>
     )}
-    {comments !== false && (
-      <Comments />
-    )}
+    {comments !== false && <Comments />}
   </article>
-
 </Layout>

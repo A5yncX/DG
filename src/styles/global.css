@@ -152,7 +152,7 @@ p {
 	
 }
 
-.prose * a {
+.prose a {
 	border-bottom: solid 1px var(--accent);
 	color: var(--hc);
 	text-decoration: none;
@@ -163,11 +163,12 @@ p {
 	background-repeat: no-repeat;
 	font-family: var(--font-family-base);
 }
-.prose * a:hover {
+.prose a:hover {
 	transition: 0.3s ease;
 	border-bottom: #00000000;
     color: var(--bgc);
-    background-size: 100% 100%
+    background-size: 100% 100%;
+	text-decoration: none;
 }
 
 .prose {
