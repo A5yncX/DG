@@ -21,7 +21,7 @@ const grouppedHeadings = headings.reduce((array, heading) => {
 }, [] as HeadingWithSubheadings[]);
 ---
 
-<nav id="table-of-contents" aria-label="Table Of Contents">
+<nav id="table-of-contents" aria-label="Table Of Contents" class="toc">
     <details>
       <summary>{t("toc.title")}</summary>
       <ul>
@@ -59,11 +59,16 @@ const grouppedHeadings = headings.reduce((array, heading) => {
         list-style-type: none;
     }
     ul li a{
-        color: var(--gray);
+      all: initial;
+      color: var(--gray);
+      font-family: var(--font-family-base);
     }
     ul li a:hover{
-        color: var(--accent);
-        text-decoration: none;
+      all: initial;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--font-family-base);
+      transition: .1s ease-in-out;
     }
     ul ul {
         padding-left: 1rem;
