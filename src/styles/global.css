@@ -7,19 +7,18 @@
  :root {
 	--font-family-base: 
 	'noto-serif',
-	'futura',
+	'FutureMono',
 	ui-monospace,
 	'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif,
     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   	--font-family-mono: 
-	'futura',
-	'noto-serif',
+	'FutureMono',
 	ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
-    Consolas, 'Liberation Mono', 'Courier New', monospace;
-	--font-family-pix:  'zpix', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
-    Consolas, 'Liberation Mono', 'Courier New', monospace;
+    Consolas, 'Liberation Mono', 'Courier New','noto-serif', monospace;
+	/* --font-family-mono:  'zpix', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace; */
 	--bgc-light: #333338;
 	--bgc: #282a35;
 	--hc: #9bdbee;
@@ -44,8 +43,8 @@
 }
 
 @font-face {
-	font-family: 'futura';
-	src: url('/fonts/futura.woff2') format('woff');
+	font-family: 'FutureMono';
+	src: url('/fonts/FutureMono.woff2') format('woff');
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
@@ -103,7 +102,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: var(--font-family-pix);
+	font-family: var(--font-family-base);
 	margin: 1rem 0 0.5rem 0;
 	color: var(--fontc);
 	line-height: 1.2;
@@ -139,7 +138,7 @@ a {
 	color: var(--hc);
 	text-decoration: none;
 	transition: 0.2s ease;
-	font-family: var(--font-family-base)
+	font-family: var(--font-family-mono)
 }
 a:hover {
 	transition: 0.2s ease;
@@ -201,11 +200,11 @@ code  {
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
-	background-color: #0000004a!important;
+	background-color: #00000030!important;
 }
 pre > code {
 	font-family: var(--font-family-mono);
-	/* font-size: 0.9rem; */
+	font-size: 0.9rem;
 	background-color: #00000000;
 	color: var(--fontc);
 }

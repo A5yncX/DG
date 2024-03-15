@@ -20,9 +20,9 @@ const t = useTranslations(lang);
 
 {topPosts.length > 0 && (
   <ul>
-    <h3>
+    <div>
       {t("home.pin")}
-    </h3>
+    </div>
     {topPosts.map(post => (
       <li>
         <p class="title">
@@ -56,15 +56,15 @@ const t = useTranslations(lang);
   }
   ul li a {
     display: flex;
-    font-family: var(--font-family-pix);
+    font-family: var(--font-family-mono);
   }
   .title {
     margin: 0;
     line-height: 1;
   }
   .date {
-    font-family: var(--font-family-pix);
-    min-width: 110px;
+    font-family: var(--font-family-mono);
+    
     padding-right: 2rem;
     margin: 0;
     color: var(--gray);

@@ -24,7 +24,6 @@ export async function getStaticPaths() {
 			<p>{t("home.description.l1")}
 			{t("home.description.l2")}</p>
 		</div>
-
 	  </nav>
 	<div>
 	  <Pin />
@@ -59,7 +58,7 @@ export async function getStaticPaths() {
 	<style>
 	.hometitle {
 		font-size: 5rem;
-		font-family: var(--font-family-pix);
+		font-family: var(--font-family-mono);
 		background-image: radial-gradient(circle, var(--hc) 20%, var(--gray) 80%);
         background-clip: border-box;
         background-size: 1000% auto;
@@ -74,7 +73,7 @@ export async function getStaticPaths() {
                 }
             }
 	.homep {
-		font-family: var(--font-family-pix);
+		font-family: var(--font-family-mono);
 		text-align: right;
 		margin:3rem 0 3rem 0;
 	}
