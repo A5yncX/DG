@@ -9,7 +9,7 @@ export async function getData(lang) {
   const filteredPosts = postf
     .filter((post) => post.data.lang === lang)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 6);
+    .slice(0, 3);
   return filteredPosts;
 }
 
@@ -50,15 +50,15 @@ const postf = await getData(lang);
   }
   ul li a {
     display: flex;
-    font-family: var(--font-family-pix);
+    font-family: var(--font-family-mono);
   }
   .title {
     margin: 0;
     line-height: 1;
   }
   .date {
-    font-family: var(--font-family-pix);
-    min-width: 110px;
+    font-family: var(--font-family-mono);
+    
     padding-right: 2rem;
     margin: 0;
     color: var(--gray);
