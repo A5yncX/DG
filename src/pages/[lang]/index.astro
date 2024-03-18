@@ -31,8 +31,8 @@ const rssSlug = `/${lang || ""}.xml`;
     <BaseHead lang={lang} title={t("site.title")} description={t("site.description")}/>
 </head>
 <body>
-<div class="parent">
-    <div class="box" id="div1">
+<div class="parent" data-animate-enter>
+    <div class="box" id="div1" data-animate-enter>
         <nav class="homep">
             <div class="maintitle">
                 <p><span class="hometitle">{t("home.title")}</span><a href={rssSlug} class="icon-link">
@@ -59,7 +59,7 @@ const rssSlug = `/${lang || ""}.xml`;
         <div>{t("home.recent")}</div>
         <LatestBlogPosts />
     </div>
-    <div class="box" id="div6">
+    <div class="box" id="div6"> 
         <p>How many more times will you remember a certain afternoon of your childhood?</p>
         <p>{t("home.bbly")}『Fullmoon』</p>
     </div>
@@ -86,6 +86,37 @@ const rssSlug = `/${lang || ""}.xml`;
         height: 100vh; /* 设置 body 的高度为视口高度 */
         margin: 0; /* 去除 body 默认的边距 */
     }
+    @keyframes enter {
+    0% {
+        opacity: 0;
+        /* transform: translateY(-30px) */
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+@keyframes blurOut {
+        from {
+            filter: blur(20px);
+        }
+
+        to {
+            filter: blur(0px);
+        }
+    }
+    [data-animate-enter] {
+    --stagger: 0;
+    --delay: 1000ms;
+    --start: 700ms
+}
+    @media (prefers-reduced-motion:no-preference) {
+        [data-animate-enter] {
+            animation: enter 1s both, blurOut 1s both;
+            animation-delay: calc(var(--stagger) * var(--delay) + var(--start))
+        }
+    }
     @media (min-width: 800px) {
         .parent .box {
             border: 1px solid #ffffff38;
@@ -93,7 +124,10 @@ const rssSlug = `/${lang || ""}.xml`;
             overflow: auto;
             transition: .2s ease-in-out;
             background-color: #00000030;
+            animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
         }
+
+
         .parent .box:hover {
             border: 1px solid var(--accent);
             background-color: #00000030;
@@ -106,14 +140,14 @@ const rssSlug = `/${lang || ""}.xml`;
             grid-template-rows: repeat(4, 1fr);
             grid-column-gap: 20px;
             grid-row-gap: 20px;
-
             max-width: 950px;
             max-height: 650px;
             padding: 2rem;
             position: relative;
         }
 
-        #div1 { grid-area: 1 / 1 / 3 / 4; }
+        #div1 { grid-area: 1 / 1 / 3 / 4;
+        }
         #div1 img {
             width: 10rem;
             margin: 1rem 1rem;
