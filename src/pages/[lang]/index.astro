@@ -14,10 +14,7 @@ export async function getStaticPaths() {
 }
 
 const today = new Date();
-const hours = today.getHours();
-const minutes = today.getMinutes();
-const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;// 如果分钟数小于 10，则在前面添加 0 以保持两位数格式
-const currentTime = hours + ':' + formattedMinutes;
+
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
@@ -46,7 +43,30 @@ const rssSlug = `/${lang || ""}.xml`;
         </nav>
     </div>
     <div class="box" id="div2">
-        {currentTime}
+        <script>
+            // 获取当前时间
+            function getCurrentTime() {
+                const currentDate = new Date();
+            
+                // 获取小时、分钟和秒数
+                const hours = currentDate.getHours().toString().padStart(2, '0');
+                const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+                const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+            
+                // 将时间格式化为字符串
+                const currentTimeString = hours + ':' + minutes + ':' + seconds;
+            
+                // 将时间输出到 div2 中
+                const div2 = document.getElementById('div2');
+                div2.textContent = currentTimeString;
+            }
+            
+            // 每秒更新一次时间
+            setInterval(getCurrentTime, 1000);
+            
+            // 页面加载时立即获取一次时间
+            getCurrentTime();
+            </script>
     </div>
     <a  href={blogSlug} class="box" id="div4" style="text-decoration:none">
         <span class="text">BLOG</span>
@@ -165,7 +185,7 @@ const rssSlug = `/${lang || ""}.xml`;
         #div2 {
             grid-area: 1 / 4 / 2 / 5;
             font-family: var(--font-family-mono);
-            font-size: 4rem;
+            font-size: 2rem;
             max-height: 90%;
             display: flex;
             justify-content: center;
