@@ -292,3 +292,24 @@ hr {
 hr {
 	border-color: var(--gray);
 }
+/* 滚动条整体样式 */
+::-webkit-scrollbar {
+	width: 7px; /* 滚动条宽度 */
+  }
+  
+  /* 滚动条轨道样式 */
+  ::-webkit-scrollbar-track {
+	background: var(--bgc); /* 轨道背景色 */
+  }
+  
+  /* 滚动条滑块样式 */
+  ::-webkit-scrollbar-thumb {
+	background: var(--hc); /* 滑块颜色 */
+	border-radius: 1px; /* 滑块边角 */
+  }
+  
+  /* 滚动条鼠标悬停样式 */
+  ::-webkit-scrollbar-thumb:hover {
+	background: var(--accent); /* 鼠标悬停时的滑块颜色 */
+  }
+  

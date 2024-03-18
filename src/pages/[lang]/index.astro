@@ -49,10 +49,10 @@ const rssSlug = `/${lang || ""}.xml`;
         {currentTime}
     </div>
     <a  href={blogSlug} class="box" id="div4" style="text-decoration:none">
-        BLOG
+        <span class="text">BLOG</span>
     </a>
     <a href={tagSlug} class="box" id="div4c">
-        TAGS
+        <span class="text">TAGS</span>
     </a>
     <div class="box" id="div5">
         <Pin />
@@ -91,13 +91,14 @@ const rssSlug = `/${lang || ""}.xml`;
             border: 1px solid #ffffff38;
             border-radius: 10px;
             overflow: auto;
-            transition: 1s ease-in-out;
+            transition: .2s ease-in-out;
             background-color: #00000030;
         }
         .parent .box:hover {
             border: 1px solid var(--accent);
             background-color: #00000030;
             transition: .2s ease-in-out;
+            box-shadow: 0px 0px 200px 1px rgba(249, 207, 68, 0.3);
         }
         .parent {
             display: grid;
@@ -150,65 +151,71 @@ const rssSlug = `/${lang || ""}.xml`;
         }
         #div4 {
             grid-area: 3 / 1 / 4 / 2;
-            padding: 1rem;
-            display: flex;
             align-items: center;
+            background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+            border: 0;
+            border-radius: 10px;
+            display: flex;
             justify-content: center;
-            font-size: 3rem;
-            line-height: 0;
-            position: relative; /* 确保伪元素定位相对于这个元素 */
-            overflow: hidden;
-            z-index: 0;
-        }
-        #div4::before {
-        content: '';
-        position: absolute;
-        top: -100%;
-        left: -100%;
-        width: 300%;
-        height: 300%;
-        background: radial-gradient(62.61% 62.61% at 95.23% 6.02%, #160E71 0%, rgba(19, 13, 92, 0.26) 54.71%, rgba(90, 35, 248, 0) 100%), linear-gradient(72.48deg, #EF516D 2.61%, rgba(106, 103, 227, 0) 56.18%), radial-gradient(45.23% 45.23% at 35.11% -11.02%, #7936AE 0%, rgba(121, 54, 174, 0) 100%), radial-gradient(94.51% 124.88% at 94.32% 94.43%, rgba(65, 244, 255, 0.78) 0%, rgba(131, 218, 255, 0.6552) 32.29%, rgba(99, 175, 240, 0.3978) 64.06%, rgba(43, 90, 211, 0) 100%), linear-gradient(313.04deg, #341D65 0.93%, #604AEA 125.68%);
-        background-blend-mode: normal,normal,normal,normal,normal,normal; 
-        filter: blur(100%); /* 模糊效果 */
-        animation: rotateBackground 8s linear infinite; /* 添加动画 */
-        transform-origin: center center;
-        z-index: -1;
-    }
+            line-height: 1em;
+            max-width: 100%;
+            min-width: 140px;
+            padding: 3px;
+            text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all .3s;
 
-    @keyframes rotateBackground {
-        0% {
-            transform: rotate(0deg);
         }
-        100% {
-            transform: rotate(360deg);
+        #div4 span,#div4c span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #20222a;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            transition: 300ms;
+            font-size: 2rem;
+            color: var(--hc);
+}
+
+        #div4:hover span,#div4c:hover span {
+            background: none;
         }
-    }
+
+        #div4:active,#div4c:active {
+            transform: scale(0.9);
+        }
+        #div4:active,#div4:hover,#div4c:hover,#div4c:active {
+            outline: 0;
+            box-shadow: 0px 0px 200px 1px rgba(68, 180, 249, 0.547);
+        }
+
         #div4c {
             grid-area: 4 / 1 / 4 / 2;
-            padding: 1rem;
-            display: flex;
             align-items: center;
+            background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+            border: 0;
+            border-radius: 10px;
+            display: flex;
             justify-content: center;
-            font-size: 3rem;
-            line-height: 0;
-            position: relative; /* 确保伪元素定位相对于这个元素 */
-            overflow: hidden;
-            z-index: 0;
+            line-height: 1em;
+            max-width: 100%;
+            min-width: 140px;
+            padding: 3px;
             text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all .3s;
         }
-        #div4c::before {
-        content: '';
-        position: absolute;
-        top: -100%;
-        left: -100%;
-        width: 300%;
-        height: 300%;
-        background: radial-gradient(63.62% 69.52% at 100% 0%, rgba(247, 214, 98, 0.8) 0%, rgba(247, 214, 98, 0.168) 52.08%, rgba(247, 214, 98, 0) 100%), linear-gradient(208.42deg, #F0422A 7.46%, rgba(240, 88, 42, 0.18) 42.58%, rgba(240, 101, 42, 0) 64.13%), radial-gradient(114.51% 122.83% at 0% -15.36%, #E74F6A 0%, rgba(231, 79, 106, 0.22) 66.72%, rgba(231, 79, 106, 0) 100%), linear-gradient(333.95deg, rgba(83, 208, 236, 0.85) -7.76%, rgba(83, 208, 236, 0.204) 19.67%, rgba(138, 137, 190, 0) 35.42%), radial-gradient(109.15% 148.57% at 4.46% 98.44%, #1B3180 0%, rgba(27, 49, 128, 0) 100%), linear-gradient(141.57deg, #4EADEB 19.08%, rgba(78, 173, 235, 0) 98.72%);         background-blend-mode: normal,normal,normal,normal,normal,normal; 
-        filter: blur(100%); /* 模糊效果 */
-        animation: rotateBackground 8s linear infinite; /* 添加动画 */
-        transform-origin: center center;
-        z-index: -1;
-    }
+
 
         #div5 {
             grid-area: 3 / 2 / 5 / 4;
@@ -251,18 +258,11 @@ const rssSlug = `/${lang || ""}.xml`;
             font-size: 3rem;
             font-weight: bold;
             font-family: 'Future-mono';
-            background: linear-gradient(197.37deg, #7450DB -0.38%, rgba(138, 234, 240, 0) 101.89%), linear-gradient(115.93deg, #3E88F6 4.86%, rgba(62, 180, 246, 0.33) 38.05%, rgba(62, 235, 246, 0) 74.14%), radial-gradient(56.47% 76.87% at 6.92% 7.55%, rgba(62, 136, 246, 0.7) 0%, rgba(62, 158, 246, 0.182) 52.16%, rgba(62, 246, 246, 0) 100%), linear-gradient(306.53deg, #2EE4E3 19.83%, rgba(46, 228, 227, 0) 97.33%);
+            background: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
             background-clip: border-box;
-            background-size: 1000% auto;
+            background-size: 100% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textclip 3s linear infinite;
-            display: inline-block;
-        }
-        @keyframes textclip {
-            to {
-                background-position: 200% center;
-            }
         }
         .homep {
             font-family: var(--font-family-mono);
