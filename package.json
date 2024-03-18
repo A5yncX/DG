@@ -14,7 +14,6 @@
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.0.5",
-    "@pagefind/darwin-arm64": "^1.0.4",
     "astro": "^4.3.5",
     "markdown-it": "^14.0.0",
     "sanitize-html": "^2.12.1",
