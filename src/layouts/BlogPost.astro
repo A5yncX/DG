@@ -27,28 +27,20 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
         <h1 style="text-align: center;">{title}</h1>
       </div>
       <div class="date" style="text-align: center;">
-        <FormattedDate date={pubDate} />
-        {updatedDate && (
-          <div class="last-updated-on">
-            Last updated on <FormattedDate date={updatedDate} />
-          </div>
-        )}
-
         {!!tags?.length && (
           <div class="tags" style="font-family: var(--font-family-mono);">
             {tags.map((tag, i) => (
               <>
                 <a href={`/${lang}/tags/${tag}`} class="taglink">
                   <span data-pagefind-filter="tag">
-                    # {tag}
-                  </span>
+                    #{tag}</span>
                 </a>
-                {i < tags.length - 1 && ", "}
+                {i < tags.length - 1 && ""}
               </>
             ))}
           </div>
         )}
-
+        <FormattedDate date={pubDate} />
         <style>
           .date {
             font-family: var(--font-family-mono);
@@ -59,15 +51,19 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
           }
           .tags a {
             all: initial;
-            color: var(--hc);
+            color: #000;
             font-family: var(--font-family-mono);
+            font-size: 0.8rem;
             transition: 0.2s ease-in-out;
+            background-color: var(--hc);
+            padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+            border-radius: 10px;
+            margin-left: 0.3rem;
           }
           .tags a:hover {
-            all: initial;
-            color: var(--accent);
+            /* all: initial; */
+            background-color: var(--accent);
             text-decoration: none;
-            font-family: var(--font-family-mono);
             transition: 0.2s ease-in-out;
           }
         </style>
@@ -82,4 +78,40 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
     )}
     {comments !== false && <Comments />}
   </article>
+  <script>
+    let copyButtonLabel = "Copy";
+    let codeBlocks = Array.from(document.querySelectorAll("pre"));
+    for (let codeBlock of codeBlocks) {
+      let wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+      let copyButton = document.createElement("button");
+      copyButton.className = "copy-code";
+      copyButton.innerHTML = copyButtonLabel;
+      copyButton.style.opacity = "0"; 
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+      codeBlock.parentNode.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+      codeBlock.addEventListener("mouseenter", () => {
+        copyButton.style.transition = "opacity 0.5s";
+        copyButton.style.opacity = "1";
+      });
+      codeBlock.addEventListener("mouseleave", () => {
+        copyButton.style.transition = "opacity 0.5s";
+        copyButton.style.opacity = "0";
+      });
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+    async function copyCode(block, button) {
+      let code = block.querySelector("code");
+      let text = code.innerText;
+      await navigator.clipboard.writeText(text);
+      button.innerText = "Copied";
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+</script>
 </Layout>

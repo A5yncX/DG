@@ -54,6 +54,14 @@ const grouppedHeadings = headings.reduce((array, heading) => {
         background-color: #00000030;
         padding: 1rem;
         border-radius: 10px;
+        transition: .5s all;
+        border: #00000030 solid 1px;
+    }
+    details:hover {
+      border: var(--hc) solid 1px;
+      box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303);
+      transition: .5s all;
+      
     }
     ul li{
         list-style-type: none;
