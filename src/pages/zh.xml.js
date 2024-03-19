@@ -15,7 +15,7 @@ const parser = new MarkdownIt();
       site: context.site,
       items: blog.map((post) => ({
         title: post.data.title,
-        link: `/zh/blog/${post.data.title}`,
+        link: `/zh/blog/${post.fileName}`,
         content: sanitizeHtml(parser.render(post.body), {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
         }),

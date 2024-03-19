@@ -97,7 +97,7 @@ export async function getStaticPaths() {
             <p class="date">
                 <FormattedDate date={post.data.pubDate} />
             </p>
-            <a href={`/${lang}/blog/${post.title}`}>
+            <a href={`/${lang}/blog/${post.fileName}`}>
               <p class="title">{post.data.title}</p>
             </a>
           </li>

@@ -20,7 +20,7 @@ const postf = await getData(tag,lang);
         <p class="date">
           <FormattedDate date={post.data.pubDate} />
         </p>
-        <a href={`/${post.data.lang}/blog/${post.title}`}>
+        <a href={`/${post.data.lang}/blog/${post.fileName}`}>
           <p class="title">{post.data.title}</p>
         </a>
       </li>

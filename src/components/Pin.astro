@@ -29,7 +29,7 @@ const t = useTranslations(lang);
           <p class="date">
             <FormattedDate date={post.data.pubDate} />
           </p>
-          <a href={`/${post.data.lang}/blog/${post.title}`}>
+          <a href={`/${post.data.lang}/blog/${post.fileName}`}>
             {post.data.title}
           </a>
         </p>
