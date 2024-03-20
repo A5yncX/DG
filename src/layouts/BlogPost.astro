@@ -31,10 +31,7 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
           <div class="tags" style="font-family: var(--font-family-mono);">
             {tags.map((tag, i) => (
               <>
-                <a href={`/${lang}/tags/${tag}`} class="taglink">
-                  <span data-pagefind-filter="tag">
-                    #{tag}</span>
-                </a>
+                <a href={`/${lang}/tags/${tag}`} class="taglink" data-pagefind-filter="tag">#{tag}</a>
                 {i < tags.length - 1 && ""}
               </>
             ))}
@@ -58,10 +55,8 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
             background-color: var(--hc);
             padding: 0.1rem 0.3rem 0.1rem 0.3rem;
             border-radius: 10px;
-            margin-left: 0.3rem;
           }
           .tags a:hover {
-            /* all: initial; */
             background-color: var(--accent);
             text-decoration: none;
             transition: 0.2s ease-in-out;
