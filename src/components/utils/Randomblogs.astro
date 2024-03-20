@@ -12,7 +12,7 @@ export async function getRandom(lang) {
     }
   const posts = await getBlogPosts();
   const filteredPosts = posts.filter((post) => post.data.lang === lang);
-  const randomPosts = getRandomPosts(filteredPosts, 2); // 随机2篇
+  const randomPosts = getRandomPosts(filteredPosts, 3); // 随机2篇
   return randomPosts;
 }
 
@@ -36,7 +36,6 @@ const t = useTranslations(lang);
 <style>
     .random {
         background-color: #00000030;
-        margin-top: 1rem;
         padding: 1rem;
         border-radius: 10px;
         transition: .5s all;
@@ -51,7 +50,15 @@ const t = useTranslations(lang);
         text-decoration: none;
         color: var(--accent);
     }
+    ul {
+        margin-top: 0.3rem;
+        margin-bottom: 0.3rem
+    }
     ul li {
         list-style-type: none;
+    }
+    ul li p{
+        margin-bottom: 0.1rem;
+        margin-top: 0.5rem;
     }
 </style>
