@@ -13,8 +13,7 @@ const parser = new MarkdownIt();
       description: 'i18n/Content Aggregation/Programming/Philosophy/Hobbies',
       site: context.site,
       items: blog.map((post) => ({
-        link: `/en/blog/${post.fileName}/`,
-        // 注意：这不会处理 MDX 文件中的组件或 JSX 表达式。
+        link: `/en/blog/${post.slug.split('/').pop()}`, // 修改链接部分以获取 "zh/XX" 中的 "XX"
         content: sanitizeHtml(parser.render(post.body), {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
         }),
