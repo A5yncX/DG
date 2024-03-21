@@ -1,5 +1,6 @@
 ---
-import HeaderLink from "../../components/HeaderLink.astro";
+import Starfield from "../../components/utils/BG/Starfield.astro";
+import Dotted from "../../components/utils/BG/Dotted.astro";
 import Social from "../../components/Social.astro";
 import Pin from "../../components/Pin.astro"
 import LatestBlogPosts from "../../components/LatestBlogPosts.astro";
@@ -28,6 +29,8 @@ const rssSlug = `/${lang || ""}.xml`;
     <BaseHead lang={lang} title={t("site.title")} description={t("site.description")}/>
 </head>
 <body>
+    <!-- <Starfield /> -->
+    <Dotted />
 <div class="parent" data-animate-enter>
     <div class="box" id="div1" data-animate-enter>
         <nav class="homep">
@@ -150,7 +153,7 @@ const rssSlug = `/${lang || ""}.xml`;
 
         .parent .box:hover {
             border: 1px solid var(--accent);
-            background-color: #00000030;
+            background-color: #20222ad1;
             transition: .2s ease-in-out;
             box-shadow: 0px 0px 200px 1px rgba(249, 207, 68, 0.3);
         }
