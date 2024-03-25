@@ -27,7 +27,7 @@
 	--accent-dark: #ff7700;
 	--black: 15, 18, 25;
 	--gray: #8585a8;
-	--gray-light: 229, 233, 240;
+	--gray-light: #9898c0;
 	--gray-dark: 34, 41, 57;
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
@@ -69,6 +69,9 @@ body {
 	letter-spacing: 0.7px;
 	position: relative;
 }
+* {
+    /* cursor: none !important; */
+  }
 body::before {
     content: "";
     position: absolute;

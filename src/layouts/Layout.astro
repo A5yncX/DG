@@ -1,4 +1,5 @@
 ---
+import Mouse from "../components/utils/BG/Mouse.astro";
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import MobileHeader from "../components/MobileHeader.astro"; //移动端header
@@ -20,6 +21,7 @@ const t = useTranslations(lang as UiType);
     <script id="MathJax-script" async src="https://img.asyncx.top/hexo/js/mathjax.js"></script>
   </head>
   <body>
+    <!-- <Mouse /> -->
     <Header title={t("site.title")} lang={lang} />
     <MobileHeader title={t("site.title")} lang={lang} />
     <main transition:animate="fade">

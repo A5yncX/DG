@@ -1,6 +1,6 @@
 ---
-import Starfield from "../../components/utils/BG/Starfield.astro";
-import Dotted from "../../components/utils/BG/Dotted.astro";
+import Mouse from "../../components/utils/BG/Mouse.astro";
+import Glowing from "../../components/utils/BG/Glowing.astro";
 import Social from "../../components/Social.astro";
 import Pin from "../../components/Pin.astro"
 import LatestBlogPosts from "../../components/LatestBlogPosts.astro";
@@ -29,8 +29,9 @@ const rssSlug = `/${lang || ""}.xml`;
     <BaseHead lang={lang} title={t("site.title")} description={t("site.description")}/>
 </head>
 <body>
+    <!-- <Mouse /> -->
     <!-- <Starfield /> -->
-    <Dotted />
+    <Glowing />
 <div class="parent" data-animate-enter>
     <div class="box" id="div1" data-animate-enter>
         <nav class="homep">
