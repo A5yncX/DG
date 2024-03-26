@@ -129,7 +129,12 @@ Description: 🌌 Per Aspera Ad Astra
           overflow-x: auto;
         }
 
-        @media (min-width: 800px) {
+        @media (max-width: 600px) {
+        article {
+          display: flex;
+          flex-direction: column;
+          
+        }
         p {
           color: var(--gray);
           font-family: var(--font-family-mono);
