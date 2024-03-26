@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from "../../../layouts/Layout.astro";
 import Tagpage from "../../../components/Tagpage.astro";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
-
+import { ViewTransitions } from 'astro:transitions';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 >
 <a href=`/${lang}/tags`><div class="back">{t("tags.back")}.</div></a>
 <Tagpage />
-
+<ViewTransitions />
 <style>
     a {
         display: flex;

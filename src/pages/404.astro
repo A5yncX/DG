@@ -1,0 +1,32 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import BlogPost from "../layouts/BlogPost.astro";
+import Social from "../components/Social.astro"
+import Foot from "../components/Footprints.astro"
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return ["zh", "en"].map((lang) => { //lang
+    return { params: { lang } };
+  });
+}
+---
+<BlogPost
+  title="404"
+  description="404"
+  pubDate={new Date("1111-11-11")}
+  lang={lang}
+  random={false}
+>
+<div class="introduction">
+  
+  </div>
+</div>
+<Social />
+  <style>
+    .date {
+        display: none;
+    }
+  </style>
+</BlogPost>

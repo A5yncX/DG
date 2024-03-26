@@ -2,6 +2,7 @@
 import { getBlogPosts } from "../../../content/config";
 import BlogPost from "../../../layouts/BlogPost.astro";
 import TableOfContents from '../../../components/utils/TableOfContents.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 export async function getStaticPaths() {
 	const pages = await getBlogPosts();
@@ -18,12 +19,12 @@ export async function getStaticPaths() {
 
 const { lang, slug } = Astro.params;
 const page = Astro.props;
-const formattedDate = page.data?.date?.toLocaleString(lang);
 const { Content, headings } = await page.render();
 
 ---
 
 <BlogPost {...page.data} lang={lang}>
+	<ViewTransitions />
 	<TableOfContents headings={headings} />
 	<Content />
 </BlogPost>

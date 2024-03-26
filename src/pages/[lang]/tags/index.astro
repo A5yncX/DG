@@ -2,7 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import { getCollection } from 'astro:content';
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
-
+import { ViewTransitions } from 'astro:transitions';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -29,9 +29,10 @@ export async function getStaticPaths() {
   comments={false}
   lang={lang}
 >
+<ViewTransitions />
   <ul class="tag-list">
     {sortedTags.map((tag) => (
-      <li><a class="tag" href={`/${lang}/tags/${tag}`} transition:animate="slide">#{tag} <span class="tag-count">{tagsMap[tag]}</span></a></li>
+      <li><a class="tag" href={`/${lang}/tags/${tag}`}>#{tag} <span class="tag-count">{tagsMap[tag]}</span></a></li>
     ))}
   </ul>
 </Layout>
