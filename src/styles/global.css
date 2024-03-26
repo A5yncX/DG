@@ -340,3 +340,11 @@ hr {
     cursor: pointer;
     outline: none;
   }
+  figure {
+	text-align: center;
+  }
+  figcaption {
+	text-align: center;
+	color: var(--gray);
+	font-size: 0.8rem;
+  }
