@@ -24,9 +24,9 @@ const isArticlePage = pathname.startsWith(blogSlug);
 
 <header>
   <nav>
-    <div class="header-home"><a href="/">AsyncX</a></div>
+    <div class="header-home"><a href={homeSlug}>AsyncX</a></div>
     <div class="internal-links">
-      <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink>
+      <!-- <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink> -->
       <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
       <HeaderLink href={tagSlug}>{t("header.tags")}</HeaderLink>
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
