@@ -14,6 +14,7 @@
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.0.5",
+    "@expressive-code/plugin-collapsible-sections": "^0.33.5",
     "@microflash/remark-callout-directives": "^4.1.0",
     "@microflash/remark-figure-caption": "^2.0.2",
     "astro": "^4.3.5",
