@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { ViewTransitions } from 'astro:transitions';
 import BlogPost from "../../layouts/BlogPost.astro";
 import Social from "../../components/Social.astro"
 import Foot from "../../components/Footprints.astro"
@@ -13,6 +14,7 @@ export async function getStaticPaths() {
   });
 }
 ---
+<ViewTransitions />
 <BlogPost
   title={t("about.title")}
   description={t("about.engel")}

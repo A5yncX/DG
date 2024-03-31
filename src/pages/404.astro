@@ -1,5 +1,9 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Header from "../components/Header.astro";
+import BaseHead from "../components/BaseHead.astro";
+import MobileHeader from "../components/MobileHeader.astro"; //移动端header
+import Footer from "../components/Footer.astro";
 import BlogPost from "../layouts/BlogPost.astro";
 import Social from "../components/Social.astro"
 import Foot from "../components/Footprints.astro"
@@ -12,21 +16,23 @@ export async function getStaticPaths() {
   });
 }
 ---
-<BlogPost
-  title="404"
-  description="404"
-  pubDate={new Date("1111-11-11")}
-  lang={lang}
-  random={false}
->
-<div class="introduction">
-  
-  </div>
-</div>
-<Social />
-  <style>
-    .date {
-        display: none;
-    }
-  </style>
-</BlogPost>
+<html lang={lang}>
+  <head>
+    <BaseHead lang={lang} title='404' description='404' />
+  </head>
+  <body>
+    <Header title={t("site.title")} lang={lang} />
+    <MobileHeader title={t("site.title")} lang={lang} />
+    <div title="404" class="error">404
+      <div><Social /></div>
+    </div>
+  </body>
+</html>
+<style>
+  .error {
+    font-size: 15rem;
+    font-family: var(--font-family-mono);
+    text-align: center;
+    margin: 20vh;
+  }
+</style>

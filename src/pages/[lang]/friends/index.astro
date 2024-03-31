@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import BlogPost from "../../../layouts/BlogPost.astro";
-
+import { ViewTransitions } from 'astro:transitions';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -17,6 +17,7 @@ import {friendLinksZh, friendLinksEn} from '../../../friendlinks/friends.mjs';
 // 根据语言选择友情链接数组
 const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;   
 ---
+<ViewTransitions />
 <BlogPost
     title={t("friends.title")}
     description="friend"
