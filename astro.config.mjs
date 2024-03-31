@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import remarkFigureCaption from '@microflash/remark-figure-caption';
 import remarkDirective from 'remark-directive';
-import remarkCalloutDirectives from "./src/components/mdrenders/remark-callout-directives-customized.js"
+import remarkCalloutDirectives from "./src/components/mdrenders/remark-callout-directives-customized.mjs"
 import { remarkReadingTime } from './src/components/mdrenders/remark-reading-time.mjs';
 import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
 import sitemap from '@astrojs/sitemap';
