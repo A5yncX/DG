@@ -28,7 +28,7 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
     <div class="friend-links">
       <article>
         {selectedFriendLinks.map((link, index) => (
-            <a href={link.link} target="_blank">
+            <a href={link.link} target="_blank" data-umami-event="Button-toFriend">
               <div class="friend-img">
                 <img src={link.avatar} alt={link.name} width="60" height="60" loading="lazy"/>
               </div>
