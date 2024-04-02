@@ -36,6 +36,12 @@ const friendLinksZh = [
     link: 'https://blog.sehnsucht.top/',
     description: 'Keep Simple',
   },
+  {
+    avatar: 'https://b.kill9pid.top/favicon.png',
+    name: 'Cornradio',
+    link: 'https://b.kill9pid.top/',
+    description: 'The more you know, the more you realize you don\'t know.',
+  },
 ];
 
 const friendLinksEn = [
