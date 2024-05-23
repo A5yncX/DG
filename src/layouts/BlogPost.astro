@@ -9,7 +9,7 @@ import Random from "../components/utils/Randomblogs.astro"
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, lang, tags, comments, random } =
+const { title, description, pubDate, updatedDate, heroImage, lang, tags, categories, comments, random } =
   Astro.props;  
 ---
 
@@ -23,6 +23,16 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
 >
   <article data-pagefind-body>
     <div class="prose">
+      {!!categories?.length && (
+        <div class="categories" style="font-family: var(--font-family-mono);">
+          {categories.map((category, i) => (
+            <>
+              <a href={`/${lang}/categories/${category}`} class="taglink" data-pagefind-filter="category">#{category}</a>
+              {i < categories.length - 1 && ""}
+            </>
+          ))}
+        </div>
+      )}
       <div class="title">
         <h1 style="text-align: center;">{title}</h1>
       </div>
@@ -31,13 +41,14 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
           <div class="tags" style="font-family: var(--font-family-mono);">
             {tags.map((tag, i) => (
               <>
-                <a href={`/${lang}/tags/${tag}`} class="taglink" data-pagefind-filter="tag">#{tag}</a>
-                {i < tags.length - 1 && ""}
+                <a href={`/${lang}/tags/${tag}`} class="taglink" data-pagefind-filter="tag">{tag}</a>
+                {i < tags.length - 1 && "|"}
               </>
             ))}
+            <FormattedDate date={pubDate} />
           </div>
+          
         )}
-        <FormattedDate date={pubDate} />
         <style>
           .date {
             font-family: var(--font-family-mono);
@@ -46,18 +57,34 @@ const { title, description, pubDate, updatedDate, heroImage, lang, tags, comment
           .tags {
             text-align: center;
           }
-          .tags a {
+          .categories {
+            text-align: center;
+          }
+          .categories a {
             all: initial;
             color: #000;
             font-family: var(--font-family-mono);
-            font-size: 0.8rem;
+            font-size: 1rem;
             transition: 0.2s ease-in-out;
             background-color: var(--hc);
             padding: 0.1rem 0.3rem 0.1rem 0.3rem;
             border-radius: 10px;
           }
-          .tags a:hover {
+          .categories a:hover {
             background-color: var(--accent);
+            text-decoration: none;
+            transition: 0.2s ease-in-out;
+          }
+          .tags a{
+            all: initial;
+            color: var(--fontc);
+            font-family: var(--font-family-mono);
+            font-size: 0.8rem;
+            transition: 0.2s ease-in-out;
+            text-decoration: none;
+          }
+          .tags a:hover {
+            color: var(--hc);
             text-decoration: none;
             transition: 0.2s ease-in-out;
           }

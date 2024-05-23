@@ -106,12 +106,12 @@ h4,
 h5,
 h6 {
 	font-family: var(--font-family-base);
-	margin: 1rem 0 0.5rem 0;
+	margin: 1rem 0 1rem 0;
 	color: var(--fontc);
 	line-height: 1.2;
 }
 h1 {
-	font-size: 2em;
+	font-size: 3em;
 }
 h2 {
 	font-size: 1.8em;
