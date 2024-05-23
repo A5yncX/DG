@@ -16,7 +16,7 @@ export async function GET(context) {
             title: post.data.title,
             link: `/zh/blog/${post.slug.split('/').pop()}`, // 修改链接部分以获取 "zh/XX" 中的 "XX"
             content: sanitizeHtml(parser.render(post.body), {
-                allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+                allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']) //渲染组件
             }),
             ...post.data,
         })),
