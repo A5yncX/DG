@@ -9,6 +9,7 @@ export const ui = {
     //header
     "header.home": "主页",
     "header.blog": "博客",
+    "header.cate": "分类",
     "header.tags": "标签",
     "header.about": "关于",
     "header.rss": "RSS",
@@ -30,6 +31,8 @@ export const ui = {
     "friends.welcome": "欢迎在本页下的评论留言交换友链, 以下是本站信息:",
     //tags
     "tags.back": "返回标签页",
+    //categories
+    "categories.back": "返回类别页",
   },
   en: {
     //utils
@@ -41,6 +44,7 @@ export const ui = {
     //header
     "header.home": "Home",
     "header.blog": "Blogs",
+    "header.cate": "Categories",
     "header.tags": "Tags",
     "header.about": "About",
     "header.rss": "RSS",
@@ -62,5 +66,7 @@ export const ui = {
     "friends.welcome": "Welcome to comment and exchange friendship links on this page.",
     //tags
     "tags.back": "Back to Tags",
+    //categories
+    "categories.back": "Back to Categories",
   },
 } as const;

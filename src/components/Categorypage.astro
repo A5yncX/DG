@@ -1,0 +1,96 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+import { getBlogPosts } from "../content/config";
+import { getLangFromUrl } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const { category } = Astro.params;
+export async function getData(category,lang) {
+  const postf = await getBlogPosts();
+  const filteredPosts = postf
+    .filter((post) => post.data.categories.includes(category) && post.data.lang === lang)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  return filteredPosts;
+}
+const postf = await getData(category,lang);
+---
+<div class="categorytitle">#{category}</div>
+<ul data-pagefind-ignore="all">
+    {postf.map((post) => (
+      <li>
+        <p class="date">
+          <FormattedDate date={post.data.pubDate} />
+        </p>
+        <a href={`/${post.data.lang}/blog/${post.fileName}`}>
+          <p class="title">{post.data.title}</p>
+        </a>
+      </li>
+    ))}
+</ul>
+<style>
+  main {
+    width: 960px;
+  }
+  .categorytitle {
+    font-size: 2rem;
+    text-align: center;
+    font-family: var(--font-family-mono);
+  }
+  ul {
+    /* display: flex; */
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style-category: none;
+    margin: 0;
+    padding: 0;
+    min-height: 50vh;
+  }
+  ul li {
+    display: flex;
+    margin-top: 1rem;
+  }
+  ul li * {
+    
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+
+  ul li a {
+    display: flex;
+    font-family: var(--font-family-mono);
+  }
+
+  ul li h5{
+    text-align: center;
+  }
+  .title {
+    margin: 0;
+    line-height: 1;
+  }
+  .date {
+    font-family: var(--font-family-mono);
+    
+    padding-right: 2rem;
+    margin: 0;
+    color: var(--gray);
+  }
+
+  /* 标题变色: */
+  ul li a:hover h5,
+  ul li a:hover .date {
+    color: var(--accent);
+  }
+  ul a:hover img {
+    box-shadow: var(--box-shadow);
+  }
+  @media (max-width: 720px) {
+    ul {
+      gap: 0.5em;
+    }
+    ul li {
+      display:inherit;
+      width: 100%;
+      /* text-align: center; */
+    }
+
+  }
+</style>

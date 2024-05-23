@@ -10,6 +10,7 @@ const t = useTranslations(lang);
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
 const tagSlug = `/${lang || ""}/tags`;
+const cateSlug = `/${lang || ""}/categories`;
 const aboutSlug = `/${lang || ""}/about`;
 const friendSlug = `/${lang || ""}/friends`;
 const rssSlug = `/${lang || ""}.xml`;
@@ -18,7 +19,7 @@ const rssSlug = `/${lang || ""}.xml`;
 const { pathname } = Astro.url;
 
 // 添加一个变量以确定是否为文章页面
-const isArticlePage = pathname.startsWith(blogSlug) || pathname.startsWith(tagSlug);
+const isArticlePage = pathname.startsWith(blogSlug) || pathname.startsWith(tagSlug) || pathname.startsWith(cateSlug);
 ---
 
 <header>
@@ -27,6 +28,7 @@ const isArticlePage = pathname.startsWith(blogSlug) || pathname.startsWith(tagSl
     <div class="internal-links">
       <!-- <HeaderLink href={homeSlug}>{t("header.home")}</HeaderLink> -->
       <HeaderLink href={blogSlug}>{t("header.blog")}</HeaderLink>
+      <HeaderLink href={cateSlug}>{t("header.cate")}</HeaderLink>
       <HeaderLink href={tagSlug}>{t("header.tags")}</HeaderLink>
       <HeaderLink href={aboutSlug}>{t("header.about")}</HeaderLink>
       <HeaderLink href={friendSlug}>{t("friends.title")}</HeaderLink>

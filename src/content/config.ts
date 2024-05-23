@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 
 // import { docsSchema } from '@astrojs/starlight/schema';
 
-function removeDupsAndLowerCase(array: string[]) {
+function removeDuplicates(array: string[]) {
 	if (!array.length) return array;
 	const lowercaseItems = array.map((str) => str.toLowerCase());
 	const distinctItems = new Set(lowercaseItems);
@@ -21,7 +21,8 @@ const blog = defineCollection({
 		heroImage: z.string().optional(),
 		lang: z.string().optional(),
 		author: z.string().optional(),
-		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+		tags: z.array(z.string()).default([]).transform(removeDuplicates),
+		categories: z.array(z.string()).default([]).transform(removeDuplicates),
 	}),
 });
 
