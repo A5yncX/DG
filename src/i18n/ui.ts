@@ -29,6 +29,7 @@ export const ui = {
     //friends
     "friends.title": "友链",
     "friends.welcome": "欢迎在本页下的评论留言交换友链, 以下是本站信息:",
+    "friends.invalid": "失效友链(生效请mail我加回)",
     //tags
     "tags.back": "返回标签页",
     //categories
@@ -64,6 +65,7 @@ export const ui = {
     //friends
     "friends.title": "Links",
     "friends.welcome": "Welcome to comment and exchange friendship links on this page.",
+    "friends.invalid": "Invalid link",
     //tags
     "tags.back": "Back to Tags",
     //categories

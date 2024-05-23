@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 <ViewTransitions />
   <ul class="category-list">
     {sortedcategories.map((category) => (
-      <li><a class="category" href={`/${lang}/categories/${category}`}>#{category} <span class="category-count">{categoriesMap[category]}</span></a></li>
+      <li><a class="category" href={`/${lang}/categories/${category}`}>{category} <span class="category-count">{categoriesMap[category]}</span></a></li>
     ))}
   </ul>
 </Layout>

@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 }
 
 
-import {friendLinksZh, friendLinksEn} from '../../../friendlinks/friends.mjs';
+import {friendLinksZh, friendLinksEn, friendLinksInvalid} from '../../../friendlinks/friends.mjs';
 
 // 根据语言选择友情链接数组
 const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;   
@@ -40,6 +40,16 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
             </a>
         ))}
       </article>
+      <details>
+        <summary>{t("friends.invalid")}</summary>
+        {friendLinksInvalid.map((link, index) => (
+          <a href={link.link} target="_blank" data-umami-event="Button-toFriend">
+            <div class="invalid">
+              {link.name}
+            </div>
+          </a>
+      ))}
+      </details>
       <pre><code>
 {t("friends.welcome")}
 ------------------------------
@@ -50,6 +60,13 @@ Description: 🌌 Per Aspera Ad Astra
 ------------------------------
 </code></pre>
       <style>
+        details {
+          margin: 1rem 1rem 1rem 1rem;
+        }
+        .invalid {
+          all: unset;
+          color: var(-hc);
+        }
         .friend-img img {
           height: 60px;
           max-width: 60px;
