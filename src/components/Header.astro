@@ -18,8 +18,7 @@ const rssSlug = `/${lang || ""}.xml`;
 const { pathname } = Astro.url;
 
 // 添加一个变量以确定是否为文章页面
-const isArticlePage = pathname.startsWith(blogSlug);
-
+const isArticlePage = pathname.startsWith(blogSlug) || pathname.startsWith(tagSlug);
 ---
 
 <header>
