@@ -42,7 +42,12 @@ const friendLinksZh = [
     link: 'https://b.kill9pid.top/',
     description: 'The more you know, the more you realize you don\'t know.',
   },
-
+  {
+    avatar: 'https://www.sleepymoon.cyou/img/avatar_hu3b11b01dd20dc32b874c0515d3da99f1_625290_300x0_resize_q75_h2_box_2.webp',
+    name: '眠于水月间',
+    link: 'https://www.sleepymoon.cyou/',
+    description: '月光冷寂，恍若一场死眠',
+  },
 ];
 
 const friendLinksEn = [
@@ -61,11 +66,5 @@ const friendLinksEn = [
 ];
 
 const friendLinksInvalid = [
-  {
-    avatar: 'https://www.sleepymoon.cyou/img/avatar_hu3b11b01dd20dc32b874c0515d3da99f1_625290_300x0_resize_q75_h2_box_2.webp',
-    name: '眠于水月间',
-    link: 'https://www.sleepymoon.cyou/',
-    description: '月光冷寂，恍若一场死眠',
-  },
 ];
 export { friendLinksZh, friendLinksEn, friendLinksInvalid};
