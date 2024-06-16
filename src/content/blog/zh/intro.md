@@ -49,7 +49,7 @@ tags:
 本主题配色灵感来源于`TRON: Legacy`. 唯一一个让我无脑热爱的电影.
 :::
 
-![一路摸索下来的思维导图](https://img.asyncx.top/images/202402281206521.png)
+![一路摸索下来的思维导图](https://r2.asyncx.top/images/202402281206521.png)
 
 其中`astro-pagefind`和`ViewTransition`这两个bug让我头疼了很长时间. `astro-pagefind`在build页面时候似乎会传递错误的参数, 会让`getstatic()`读取到`astro-pagefind`的信息. 时间问题没有仔细看`astro-pagefind`的代码, 有空我会提一个pr. 
 
