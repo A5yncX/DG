@@ -48,6 +48,12 @@ const friendLinksZh = [
     link: 'https://www.sleepymoon.cyou/',
     description: '月光冷寂，恍若一场死眠',
   },
+  {
+    avatar: 'http://pensieve.wangxindi.org/img/avatar.png',
+    name: '邓布利多的冥想盆',
+    link: 'https://pensieve.wangxindi.org',
+    description: 'a place to empty and refill my mind',
+  },
 ];
 
 const friendLinksEn = [
