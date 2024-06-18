@@ -54,6 +54,12 @@ const friendLinksZh = [
     link: 'https://pensieve.wangxindi.org',
     description: 'a place to empty and refill my mind',
   },
+  {
+    avatar: 'https://blog.sanxiaoxing.cn/favicon.svg',
+    name: 'SanXiaoXing',
+    link: 'https://blog.sanxiaoxing.cn/',
+    description: '开心每一天',
+  },
 ];
 
 const friendLinksEn = [
