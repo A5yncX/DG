@@ -60,6 +60,12 @@ const friendLinksZh = [
     link: 'https://blog.sanxiaoxing.cn/',
     description: '开心每一天',
   },
+  {
+    avatar: 'https://blog.izfsk.top/favicon.ico',
+    name: '白漠流霜',
+    link: 'https://blog.izfsk.top/',
+    description: '半瓶水晃荡晃荡~',
+  },
 ];
 
 const friendLinksEn = [
