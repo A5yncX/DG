@@ -66,6 +66,12 @@ const friendLinksZh = [
     link: 'https://blog.izfsk.top/',
     description: '半瓶水晃荡晃荡~',
   },
+  {
+    avatar: 'https://s2.loli.net/2024/02/01/gaE47y5fKM6kosV.png',
+    name: 'Wcowin\'s Web',
+    link: 'https://wcowin.work/',
+    description: '循此苦旅，以达星辰',
+  },
 ];
 
 const friendLinksEn = [
