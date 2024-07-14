@@ -37,9 +37,9 @@ const friendLinksZh = [
     description: 'Keep Simple',
   },
   {
-    avatar: 'https://b.kill9pid.top/favicon.png',
+    avatar: 'https://b.cornradio.org/favicon.png',
     name: 'Cornradio',
-    link: 'https://b.kill9pid.top/',
+    link: 'https://b.cornradio.org/',
     description: 'The more you know, the more you realize you don\'t know.',
   },
   {
