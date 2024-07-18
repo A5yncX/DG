@@ -26,9 +26,9 @@ const selectedFriendLinks = lang === 'zh' ? friendLinksZh : friendLinksEn;
     <div class="friend-links">
       <article>
         {selectedFriendLinks.map((link, index) => (
-            <a href={link.link} target="_blank" data-umami-event="Button-toFriend">
+            <a href={link.link} target="_blank" data-umami-event="Button-toFriend" class="friend">
               <div class="friend-img">
-                <img src={link.avatar} alt={link.name} width="60" height="60" onerror="this.src='/favicon.svg';"  loading="lazy"/>
+                <img src={link.avatar} alt={link.name} width="60" height="60" onerror="this.src='/404.svg';"  loading="lazy"/>
               </div>
               <div class="info" style={{ paddingLeft: '10px' }}>
                 {link.name}
@@ -73,7 +73,8 @@ Description: 🌌 Per Aspera Ad Astra
         }
         .friend-links article a{
           all: unset;
-          text-decoration: none;
+          border: 1px solid #00000030;
+          background-color: #00000030;
           text-decoration: none;
           display: flex;
           align-items: center;
@@ -86,7 +87,9 @@ Description: 🌌 Per Aspera Ad Astra
           color: var(--accent);
           text-decoration: none;
           transition: 0.3s ease;
-          background-color: #00000030;
+          border: 1px solid var(--hc);
+          box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303);
+          /* background-color: #00000030;  */
         }
         .desc {
           font-size: 0.7rem;
@@ -95,7 +98,7 @@ Description: 🌌 Per Aspera Ad Astra
         article {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          background: 0 0;
+          /* background: 0 0; */
           gap: 10px;
         }
         pre {
