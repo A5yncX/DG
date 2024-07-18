@@ -12,9 +12,9 @@
 <script>
   import invariant from "tiny-invariant";
 
-  const COUNT = 1800; //星星数量
-  const SPEED = 0.07;
-  const MIN_COLOR_CYCLE_DURATION = 1000; // 最短颜色循环周期，毫秒
+  const COUNT = 5000; //星星数量
+  const SPEED = 0.05;
+  const MIN_COLOR_CYCLE_DURATION = 500; // 最短颜色循环周期，毫秒
   const MAX_COLOR_CYCLE_DURATION = 9000; // 最长颜色循环周期，毫秒
 
   class Star {
@@ -26,7 +26,7 @@
     color: string;
     colorCycleDuration: number;
 
-    constructor(x = 0, y = 0, z = 0, color = 'rgba(169, 217, 236)', colorCycleDuration = 5000) {
+    constructor(x = 0, y = 0, z = 0, color = 'rgba(169, 217, 236)', colorCycleDuration = 1000) {
       this.x = x;
       this.y = y;
       this.z = z;
