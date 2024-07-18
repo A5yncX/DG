@@ -1,5 +1,6 @@
 ---
-import Mouse from "../../components/utils/BG/Mouse.astro";
+import Sf from "../../components/utils/BG/Starfield.astro";
+import Dot from "../../components/utils/BG/Dotted.astro";
 import Glowing from "../../components/utils/BG/Glowing.astro";
 import Social from "../../components/Social.astro";
 import Pin from "../../components/Pin.astro"
@@ -13,9 +14,16 @@ export async function getStaticPaths() {
         return { params: { lang } };
     });
 }
-
 const today = new Date();
+// 随机选择组件
+const components = [Sf, Dot, Glowing];
+const randomIndex = Math.floor(Math.random() * components.length);
+const SelectedComponent = components[randomIndex];
 
+// //根据月份激活组件-----
+// const currentMonth = today.getMonth() + 1; // JavaScript中的月份是从0开始的，所以需要+1
+// const isMonth = currentMonth === 7; //X月激活组件
+// //------------------
 
 const homeSlug = `/${lang || ""}`;
 const blogSlug = `/${lang || ""}/blog`;
@@ -29,9 +37,11 @@ const rssSlug = `/${lang || ""}.xml`;
     <BaseHead lang={lang} title={t("site.title")} description={t("site.description")}/>
 </head>
 <body>
+    <SelectedComponent />
     <!-- <Mouse /> -->
-    <!-- <Starfield /> -->
-    <Glowing />
+    <!-- {isMonth ? <Glowing /> : <Dot />} -->
+    <!-- <Sf /> -->
+    <!-- <Glowing /> -->
 <div class="parent" data-animate-enter>
     <div class="box" id="div1" data-animate-enter>
         <nav class="homep">
