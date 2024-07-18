@@ -6,14 +6,16 @@
     position: absolute;
   }
   .inset-0 {
-    inset: 5px
-}
+    inset: 5px;
+  }
 </style>
 <script>
   import invariant from "tiny-invariant";
 
-  const COUNT = 800;
-  const SPEED = 0.1;
+  const COUNT = 1800; //星星数量
+  const SPEED = 0.07;
+  const MIN_COLOR_CYCLE_DURATION = 1000; // 最短颜色循环周期，毫秒
+  const MAX_COLOR_CYCLE_DURATION = 9000; // 最长颜色循环周期，毫秒
 
   class Star {
     x: number;
@@ -21,13 +23,17 @@
     z: number;
     xPrev: number;
     yPrev: number;
+    color: string;
+    colorCycleDuration: number;
 
-    constructor(x = 0, y = 0, z = 0) {
+    constructor(x = 0, y = 0, z = 0, color = 'rgba(169, 217, 236)', colorCycleDuration = 5000) {
       this.x = x;
       this.y = y;
       this.z = z;
       this.xPrev = x;
       this.yPrev = y;
+      this.color = color;
+      this.colorCycleDuration = colorCycleDuration;
     }
 
     update(width: number, height: number, speed: number) {
@@ -50,8 +56,25 @@
       }
     }
 
+    updateColor(currentTime: number) {
+      const halfCycle = this.colorCycleDuration / 2;
+      const cycleTime = currentTime % this.colorCycleDuration;
+      if (cycleTime < halfCycle) {
+        const ratio = cycleTime / halfCycle;
+        this.color = `rgba(${Math.floor(169 * (1 - ratio) + 40 * ratio)}, 
+                            ${Math.floor(217 * (1 - ratio) + 42 * ratio)}, 
+                            ${Math.floor(236 * (1 - ratio) + 52 * ratio)}, 1)`;
+      } else {
+        const ratio = (cycleTime - halfCycle) / halfCycle;
+        this.color = `rgba(${Math.floor(40 * (1 - ratio) + 169 * ratio)}, 
+                            ${Math.floor(42 * (1 - ratio) + 217 * ratio)}, 
+                            ${Math.floor(52 * (1 - ratio) + 236 * ratio)}, 1)`;
+      }
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
       ctx.lineWidth = this.z;
+      ctx.strokeStyle = this.color;
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.xPrev, this.yPrev);
@@ -59,7 +82,10 @@
     }
   }
 
-  const stars = Array.from({ length: COUNT }, () => new Star(0, 0, 0));
+  const stars = Array.from({ length: COUNT }, () => 
+    new Star(0, 0, 0, 'rgba(169, 217, 236)', Math.random() * (MAX_COLOR_CYCLE_DURATION - MIN_COLOR_CYCLE_DURATION) + MIN_COLOR_CYCLE_DURATION)
+  );
+
   let rafId = 0;
 
   const canvas = document.querySelector(
@@ -93,28 +119,29 @@
 
     ctx.translate(width / 2, height / 2);
     ctx.fillStyle = "rgba(40, 42, 52, 0.1)";
-    ctx.strokeStyle = "rgba(169, 217, 236)";
     rafId = requestAnimationFrame(frame);
   }
 
   function frame() {
-  invariant(ctx, "canvas context should not be null");
-  const { clientWidth: width, clientHeight: height } = container;
+    invariant(ctx, "canvas context should not be null");
+    const { clientWidth: width, clientHeight: height } = container;
+    const currentTime = performance.now();
 
-  // 清空画布
-  ctx.clearRect(-width / 2, -height / 2, width, height);
+    // 清空画布
+    ctx.clearRect(-width / 2, -height / 2, width, height);
 
-  // 绘制背景
-  ctx.fillStyle = "rgba(40, 42, 52, 0.3)";
-  ctx.fillRect(-width / 2, -height / 2, width, height);
+    // 绘制背景
+    ctx.fillStyle = "rgba(40, 42, 52, 0.3)";
+    ctx.fillRect(-width / 2, -height / 2, width, height);
 
-  // 绘制星星轨迹
-  for (const star of stars) {
-    star.update(width, height, SPEED);
-    star.draw(ctx);
+    // 绘制星星轨迹
+    for (const star of stars) {
+      star.update(width, height, SPEED);
+      star.updateColor(currentTime);
+      star.draw(ctx);
+    }
+
+    // 请求下一帧动画
+    rafId = requestAnimationFrame(frame);
   }
-
-  // 请求下一帧动画
-  rafId = requestAnimationFrame(frame);
-}
 </script>
