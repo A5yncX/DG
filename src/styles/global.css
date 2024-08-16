@@ -359,3 +359,11 @@ hr {
 	color: var(--gray);
 	font-size: 0.8rem;
   }
+
+  .tk-content img {
+    display: inline;
+    vertical-align: bottom !important;
+	margin: 0 !important;
+	max-height: 2rem !important;
+	max-width: 2rem !important;
+}
