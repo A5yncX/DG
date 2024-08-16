@@ -367,3 +367,8 @@ hr {
 	max-height: 2rem !important;
 	max-width: 2rem !important;
 }
+
+.OwO .OwO-body {
+	background-color: var(--bgc)!important;
+	color: var(--hc)!important;
+}
