@@ -48,8 +48,8 @@ const rssSlug = `/${lang || ""}.xml`;
                 <p><span class="hometitle">{t("home.title")}</span><a href={rssSlug} class="icon-link" data-umami-event="Button-rss">
                     <svg t="1709804049548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8431" width="15" height="15"><path d="M42.666667 853.333333a128 128 0 1 1 256 0 128 128 0 0 1-256 0z m938.666666 128h-178.773333c0-418.986667-340.906667-759.893333-759.893333-759.893333V42.666667c517.546667 0 938.666667 421.12 938.666666 938.666666z m-298.666666 0h-182.826667c0-252.074667-205.098667-457.130667-457.173333-457.130666V341.333333c352.896 0 640 287.104 640 640z" fill="#EE802F" p-id="8432"></path></svg>
                   </a></p>
-                <p>
-                    {t("home.description.l1")}
+                <p class="typedp">
+                    <!-- {t("home.description.l1")} -->
                     <span id="typed-text" class="typed"></span>
                     <!-- {t("home.description.l2")} -->
                 </p>
@@ -143,8 +143,34 @@ const rssSlug = `/${lang || ""}.xml`;
       setTimeout(type, delayBetweenTexts);
     });
   </script>
+  <script>
+    const customCursor = document.querySelector('.custom-cursor');
+
+    document.addEventListener('mousemove', (e) => {
+      customCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+      customCursor.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      customCursor.style.opacity = '1';
+    });
+  </script>
 </html>
 <style>
+    .typedp {
+        max-height: 17.5px;
+    }
+    .typed {
+      display: inline-block;
+      margin-left: 1rem;
+      border-right: 10px solid rgb(255, 255, 255); /* 光标 */
+    }
+    .social {
+        padding-left: 1rem;
+    }
     :root{
         background-color: var(--bgc);
     }
@@ -222,6 +248,7 @@ const rssSlug = `/${lang || ""}.xml`;
             margin: 1rem 1rem;
         }
         .maintitle {
+            margin-left: 1rem;
             padding: 0;
             nav {
                 display: flex;
@@ -400,6 +427,13 @@ const rssSlug = `/${lang || ""}.xml`;
             grid-area: 1 / 1 / 2 / 3;
             font-size: 1rem;
             img {display: none}
+        }
+        .hometitle {
+            font-family: var(--font-family-mono);
+            font-size: 2rem;
+        }
+        .typedp {
+            display: none;
         }
         #div2 {display: none}
         #div3 {
