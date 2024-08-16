@@ -17,8 +17,12 @@
 	'FutureMono',
 	ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
     Consolas, 'Liberation Mono', 'Courier New','noto-serif', monospace;
-	/* --font-family-mono:  'zpix', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
-    Consolas, 'Liberation Mono', 'Courier New', monospace; */
+	--font-family-title: 
+	'FutureMono',
+	ui-sans-serif,
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 	--bgc-light: #333338;
 	--bgc: #282a35;
 	--hc: #9bdbee;
@@ -105,13 +109,13 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: var(--font-family-base);
+	font-family: var(--font-family-title);
 	margin: 1rem 0 1rem 0;
 	color: var(--fontc);
 	line-height: 1.2;
 }
 h1 {
-	font-size: 3em;
+	font-size: 2em;
 }
 h2 {
 	font-size: 1.8em;
@@ -191,7 +195,7 @@ img {
 	border-radius: 10px;
   }
 code  {
-	background-color: #00000030;
+	/* background-color: #00000030; */
 	margin-right: 3px;
 	font-family: var(--font-family-mono);
 	color: var(--accent);

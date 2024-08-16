@@ -39,7 +39,7 @@ const rssSlug = `/${lang || ""}.xml`;
 <body>
     <!-- <SelectedComponent /> -->
     <!-- {isMonth ? <Glowing /> : <Dot />} -->
-    <Sf />
+    <!-- <Sf /> -->
     <!-- <Glowing /> -->
 <div class="parent" data-animate-enter>
     <div class="box" id="div1" data-animate-enter>
@@ -48,8 +48,11 @@ const rssSlug = `/${lang || ""}.xml`;
                 <p><span class="hometitle">{t("home.title")}</span><a href={rssSlug} class="icon-link" data-umami-event="Button-rss">
                     <svg t="1709804049548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8431" width="15" height="15"><path d="M42.666667 853.333333a128 128 0 1 1 256 0 128 128 0 0 1-256 0z m938.666666 128h-178.773333c0-418.986667-340.906667-759.893333-759.893333-759.893333V42.666667c517.546667 0 938.666667 421.12 938.666666 938.666666z m-298.666666 0h-182.826667c0-252.074667-205.098667-457.130667-457.173333-457.130666V341.333333c352.896 0 640 287.104 640 640z" fill="#EE802F" p-id="8432"></path></svg>
                   </a></p>
-                <p>{t("home.description.l1")}
-                    {t("home.description.l2")}</p>
+                <p>
+                    {t("home.description.l1")}
+                    <span id="typed-text" class="typed"></span>
+                    <!-- {t("home.description.l2")} -->
+                </p>
                 <Social />
             </div>
             <img src="/favicon.svg" alt="Logo">
@@ -103,7 +106,43 @@ const rssSlug = `/${lang || ""}.xml`;
     </div>
 </div>
 </body>
+<script>
+    const texts = ["你好, 我是AsyncX.", "Hello, I'm AsyncX.", "Bonjour, je suis AsyncX."];
+    const typingSpeed = 100; // Speed of typing in ms per character
+    const erasingSpeed = 50; // Speed of erasing in ms per character
+    const delayBetweenTexts = 1000; // Delay between different texts in ms
 
+    let currentTextIndex = 0;
+    let charIndex = 0;
+    const typedTextElement = document.getElementById("typed-text");
+
+    function type() {
+      if (charIndex < texts[currentTextIndex].length) {
+        typedTextElement.textContent += texts[currentTextIndex].charAt(charIndex);
+        typedTextElement.style.animation = `type ${typingSpeed * texts[currentTextIndex].length}ms steps(${texts[currentTextIndex].length})`;
+        charIndex++;
+        setTimeout(type, typingSpeed);
+      } else {
+        setTimeout(erase, delayBetweenTexts);
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typedTextElement.textContent = texts[currentTextIndex].substring(0, charIndex - 1);
+        typedTextElement.style.animation = `erase ${erasingSpeed * texts[currentTextIndex].length}ms steps(${texts[currentTextIndex].length})`;
+        charIndex--;
+        setTimeout(erase, erasingSpeed);
+      } else {
+        currentTextIndex = (currentTextIndex + 1) % texts.length;
+        setTimeout(type, delayBetweenTexts);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(type, delayBetweenTexts);
+    });
+  </script>
 </html>
 <style>
     :root{

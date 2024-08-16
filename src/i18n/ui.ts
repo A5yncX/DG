@@ -15,7 +15,7 @@ export const ui = {
     "header.rss": "RSS",
     //home
     "home.title": "AsyncX的博客",
-    "home.description.l1": "你好, 我是AsyncX.",
+    "home.description.l1": "- ",
     "home.description.l2": "欢迎来到我的博客.",
     "home.bbly": "坂本龙一",
     "home.description.detail": "待编辑",
@@ -51,7 +51,7 @@ export const ui = {
     "header.rss": "RSS",
     //home
     "home.title": "AsyncX's Blog",
-    "home.description.l1": "Hello, I'm AsyncX.",
+    "home.description.l1": "- ",
     "home.description.l2": "Welcome to my Blog.",
     "home.bbly": "Ryuichi Sakamoto",
     "home.description.detail": "TODO",
