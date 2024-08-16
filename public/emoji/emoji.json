@@ -1,47 +1,209 @@
 {
-    "neko": {
-        "type": "image",
-        "container": [
-            { "name": "001", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/001.png" },
-            { "name": "002", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/002.png" },
-            { "name": "003", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/003.png" },
-            { "name": "004", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/004.png" },
-            { "name": "005", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/005.png" },
-            { "name": "006", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/006.png" },
-            { "name": "007", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/007.png" },
-            { "name": "008", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/008.png" },
-            { "name": "009", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/009.png" },
-            { "name": "010", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/010.png" },
-            { "name": "011", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/011.png" },
-            { "name": "012", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/012.png" },
-            { "name": "013", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/013.png" },
-            { "name": "014", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/014.png" },
-            { "name": "015", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/015.png" },
-            { "name": "016", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/016.png" },
-            { "name": "017", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/017.png" },
-            { "name": "018", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/018.png" },
-            { "name": "019", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/019.png" },
-            { "name": "020", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/020.png" },
-            { "name": "021", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/021.png" },
-            { "name": "022", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/022.png" },
-            { "name": "023", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/023.png" },
-            { "name": "024", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/024.png" },
-            { "name": "025", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/025.png" },
-            { "name": "026", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/026.png" },
-            { "name": "027", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/027.png" },
-            { "name": "028", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/028.png" },
-            { "name": "029", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/029.png" },
-            { "name": "030", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/030.png" },
-            { "name": "031", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/031.png" },
-            { "name": "032", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/032.png" },
-            { "name": "033", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/033.png" },
-            { "name": "034", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/034.png" },
-            { "name": "035", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/035.png" },
-            { "name": "036", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/036.png" },
-            { "name": "037", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/037.png" },
-            { "name": "038", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/038.png" },
-            { "name": "039", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/039.png" },
-            { "name": "040", "url": "https://emotion.acs.pw/emotion/Yurui-Neko/040.png" }
-        ]
+    "Yurui-Neko":{
+      "type":"image",
+      "container":[
+        {
+          "text":"Yurui-Neko-1",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/001.png'>"
+        },
+        {
+          "text":"Yurui-Neko-2",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/002.png'>"
+        },
+        {
+          "text":"Yurui-Neko-3",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/003.png'>"
+        },
+        {
+          "text":"Yurui-Neko-4",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/004.png'>"
+        },
+        {
+          "text":"Yurui-Neko-5",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/005.png'>"
+        },
+        {
+          "text":"Yurui-Neko-6",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/006.png'>"
+        },
+        {
+          "text":"Yurui-Neko-7",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/007.png'>"
+        },
+        {
+          "text":"Yurui-Neko-8",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/008.png'>"
+        },
+        {
+          "text":"Yurui-Neko-9",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/009.png'>"
+        },
+        {
+          "text":"Yurui-Neko-10",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/010.png'>"
+        },
+        {
+          "text":"Yurui-Neko-11",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/011.png'>"
+        },
+        {
+          "text":"Yurui-Neko-12",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/012.png'>"
+        },
+        {
+          "text":"Yurui-Neko-13",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/013.png'>"
+        },
+        {
+          "text":"Yurui-Neko-14",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/014.png'>"
+        },
+        {
+          "text":"Yurui-Neko-15",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/015.png'>"
+        },
+        {
+          "text":"Yurui-Neko-16",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/016.png'>"
+        },
+        {
+          "text":"Yurui-Neko-17",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/017.png'>"
+        },
+        {
+          "text":"Yurui-Neko-18",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/018.png'>"
+        },
+        {
+          "text":"Yurui-Neko-19",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/019.png'>"
+        },
+        {
+          "text":"Yurui-Neko-20",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/020.png'>"
+        },
+        {
+          "text":"Yurui-Neko-21",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/021.png'>"
+        },
+        {
+          "text":"Yurui-Neko-22",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/022.png'>"
+        },
+        {
+          "text":"Yurui-Neko-23",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/023.png'>"
+        },
+        {
+          "text":"Yurui-Neko-24",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/024.png'>"
+        },
+        {
+          "text":"Yurui-Neko-25",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/025.png'>"
+        },
+        {
+          "text":"Yurui-Neko-26",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/026.png'>"
+        },
+        {
+          "text":"Yurui-Neko-27",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/027.png'>"
+        },
+        {
+          "text":"Yurui-Neko-28",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/028.png'>"
+        },
+        {
+          "text":"Yurui-Neko-29",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/029.png'>"
+        },
+        {
+          "text":"Yurui-Neko-30",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/030.png'>"
+        },
+        {
+          "text":"Yurui-Neko-31",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/031.png'>"
+        },
+        {
+          "text":"Yurui-Neko-32",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/032.png'>"
+        },
+        {
+          "text":"Yurui-Neko-33",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/033.png'>"
+        },
+        {
+          "text":"Yurui-Neko-34",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/034.png'>"
+        },
+        {
+          "text":"Yurui-Neko-35",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/035.png'>"
+        },
+        {
+          "text":"Yurui-Neko-36",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/036.png'>"
+        },
+        {
+          "text":"Yurui-Neko-37",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/037.png'>"
+        },
+        {
+          "text":"Yurui-Neko-38",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/038.png'>"
+        },
+        {
+          "text":"Yurui-Neko-39",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/039.png'>"
+        },
+        {
+          "text":"Yurui-Neko-40",
+          "icon":"<img src='https://cdn.jsdelivr.net/gh/2x-ercha/twikoo-magic@master/image/Yurui-Neko/040.png'>"
+        }
+      ]
+    },
+    "Emoji": {
+      "type": "emoji",
+      "container": [
+        { "icon": "😂", "text": "" },
+        { "icon": "😀", "text": "" },
+        { "icon": "😅", "text": "" },
+        { "icon": "😊", "text": "" },
+        { "icon": "🙂", "text": "" },
+        { "icon": "🙃", "text": "" },
+        { "icon": "😌", "text": "" },
+        { "icon": "😍", "text": "" },
+        { "icon": "😘 ", "text": "" },
+        { "icon": "😜", "text": "" },
+        { "icon": "😝", "text": "" },
+        { "icon": "😏", "text": "" },
+        { "icon": "😒", "text": "" },
+        { "icon": "🙄", "text": "" },
+        { "icon": "😳 ", "text": "" },
+        { "icon": "😡", "text": "" },
+        { "icon": "😔", "text": "" },
+        { "icon": "😫", "text": "" },
+        { "icon": "😱", "text": "" },
+        { "icon": "😭", "text": "" },
+        { "icon": "💩", "text": "" },
+        { "icon": "👻", "text": "" },
+        { "icon": "🙌", "text": "" },
+        { "icon": "🖕", "text": "" },
+        { "icon": "👍", "text": "" },
+        { "icon": "👫", "text": "" },
+        { "icon": "👬", "text": "" },
+        { "icon": "👭", "text": "" },
+        { "icon": "🌚", "text": "" },
+        { "icon": "🌝", "text": "" },
+        { "icon": "🙈", "text": "" },
+        { "icon": "💊", "text": "" },
+        { "icon": "😶", "text": "" },
+        { "icon": "🙏", "text": "" },
+        { "icon": "🍦", "text": "" },
+        { "icon": "🍉", "text": "" },
+        { "icon": "😣", "text": "" }
+      ]
     }
-}
+  }
