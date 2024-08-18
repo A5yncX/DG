@@ -1,13 +1,12 @@
 ---
-import Mouse from "../components/utils/BG/Mouse.astro";
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import MobileHeader from "../components/MobileHeader.astro"; //移动端header
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Top from '../components/utils/Backtotop.astro';
 import { useTranslations, type UiType } from "../i18n/utils";
 type Props = CollectionEntry<"blog">["data"];
-
 const { title, description, lang } =
   Astro.props;
 
@@ -19,14 +18,15 @@ const t = useTranslations(lang as UiType);
   <head>
     <BaseHead lang={lang} title={title} description={description} />
     <script id="MathJax-script" async src="https://img.asyncx.top/hexo/js/mathjax.js"></script>
+    <script is:inline src="/js/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <!-- <Mouse /> -->
     <Header title={t("site.title")} lang={lang} />
     <MobileHeader title={t("site.title")} lang={lang} />
     <main transition:animate="fade">
     <slot />
 	</main>
+    <Top />
     <Footer />
   </body>
 </html>

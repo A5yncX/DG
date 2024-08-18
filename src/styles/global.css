@@ -214,6 +214,7 @@ pre {
 	transition: .5s all;
 	border-radius: 10px;
 	box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303);
+	font-size: 0.8rem;
 }
 .expressive-code:hover {
 	border: var(--accent) solid 1px;
@@ -375,3 +376,4 @@ hr {
 	background-color: var(--bgc)!important;
 	color: var(--hc)!important;
 }
+
