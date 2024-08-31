@@ -3,7 +3,7 @@ import { getBlogPosts } from "../../../content/config";
 import BlogPost from "../../../layouts/BlogPost.astro";
 import TableOfContents from '../../../components/utils/TableOfContents.astro';
 import { ViewTransitions } from 'astro:transitions';
-
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 export async function getStaticPaths() {
 	const pages = await getBlogPosts();
 
@@ -18,14 +18,22 @@ export async function getStaticPaths() {
 }
 
 const { lang, slug } = Astro.params;
+const t = useTranslations(lang);
 const page = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await page.render();
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+
+const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
+  .utc()
+  .format("YYYY.MM.DD");
 ---
 
 <BlogPost {...page.data} lang={lang}>
 	<ViewTransitions />
 	<TableOfContents headings={headings} />
-	<!-- <p>{remarkPluginFrontmatter.minutesRead}</p> -->
+	<blockquote><p>{t("date.last")}: {lastModified}</p></blockquote>
 	<Content />
 </BlogPost>

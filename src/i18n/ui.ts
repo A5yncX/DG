@@ -34,6 +34,8 @@ export const ui = {
     "tags.back": "返回标签页",
     //categories
     "categories.back": "返回类别页",
+    //date
+    "date.last": "本文最后更新于",
   },
   en: {
     //utils
@@ -70,5 +72,7 @@ export const ui = {
     "tags.back": "Back to Tags",
     //categories
     "categories.back": "Back to Categories",
+    //date
+    "date.last": "Last updated on",
   },
 } as const;

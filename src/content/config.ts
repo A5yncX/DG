@@ -1,7 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { getCollection } from "astro:content";
 
-// import { docsSchema } from '@astrojs/starlight/schema';
 
 function removeDuplicates(array: string[]) {
 	if (!array.length) return array;

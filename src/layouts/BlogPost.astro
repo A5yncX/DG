@@ -7,9 +7,7 @@ import Comments from"../components/Comments.astro"
 import Random from "../components/utils/Randomblogs.astro"
 
 type Props = CollectionEntry<"blog">["data"];
-
-const { title, description, pubDate, updatedDate, heroImage, lang, tags, categories, comments, random } =
-  Astro.props;  
+const { title, description, pubDate, updatedDate, heroImage, lang, tags, categories, comments, random} = Astro.props; 
 ---
 
 <Layout

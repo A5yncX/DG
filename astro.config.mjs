@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
+
 import remarkFigureCaption from '@microflash/remark-figure-caption';
 import remarkDirective from 'remark-directive';
 import remarkCalloutDirectives from "./src/components/mdrenders/remark-callout-directives-customized.mjs"
 import { remarkReadingTime } from './src/components/mdrenders/remark-reading-time.mjs';
+import { remarkModifiedTime } from './src/components/mdrenders/remark-modified-time.mjs';
 import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
 import sitemap from '@astrojs/sitemap';
 
@@ -33,6 +35,6 @@ export default defineConfig({
     })
   ],
   markdown: {
-    remarkPlugins: [remarkFigureCaption, remarkDirective, remarkCalloutDirectives, remarkReadingTime],
+    remarkPlugins: [remarkFigureCaption, remarkDirective, remarkCalloutDirectives, remarkReadingTime, remarkModifiedTime],
   }
 });
