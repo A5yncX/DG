@@ -34,6 +34,6 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 <BlogPost {...page.data} lang={lang}>
 	<ViewTransitions />
 	<TableOfContents headings={headings} />
-	<blockquote><p>{t("date.last")}: {lastModified}</p></blockquote>
+	<!-- <blockquote><p>{t("date.last")}: {lastModified}</p></blockquote> -->
 	<Content />
 </BlogPost>
