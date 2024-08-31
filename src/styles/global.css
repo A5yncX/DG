@@ -356,6 +356,8 @@ hr {
     outline: none;
   }
   figure {
+	margin-inline-start: 0px;
+    margin-inline-end: 0px;
 	text-align: center;
   }
   figcaption {
