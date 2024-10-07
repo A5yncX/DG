@@ -397,30 +397,39 @@ table {
 
 /* db-card -------- start */
 .db-card {
-    margin: 2.5rem 3rem;
     background: var(--card-background);
     border-radius: 7px;
-    box-shadow: 0 6px 10px 0 #00000053;
-    transition: transform 0.2s; /* Add a transition for hover effect */
+	border: var(--hc) solid 1px;
+	box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303);
+	margin-top: 30px;
+	transition: .5s all;
+}
+.db-card a{
+	all: initial;
+	overflow: hidden;
+	font-display:initial!important;
+	font-family: var(--font-family-mono);
+	padding: 12px;
+	cursor: pointer;
+	max-height: 150px;
 }
 
 .db-card:hover {
-    transform: scale(1.02); /* Slightly scale up on hover */
-}
-
-.dark .db-card {
-    background: var(--card-background);
+	transition: .5s all;
+	border: var(--accent) solid 1px;
+	box-shadow: 0px 0px 100px 1px rgba(255, 172, 7, 0.2);
 }
 
 .db-card-subject {
+	overflow: auto;
     display: flex;
     align-items: flex-start;
     line-height: 1.6;
-    padding: 12px;
     position: relative;
 }
 
 .db-card-content {
+	z-index: -1;
     flex: 1 1 auto;
 }
 
@@ -434,7 +443,7 @@ table {
 .db-card-title {
     margin-bottom: 3px;
     font-size: 14px;
-    color: var(--card-text-color-main);
+    color: var(--hc);
 }
 
 .db-card-title a {
@@ -446,8 +455,8 @@ table {
 .db-card-comment {
     font-size: 13px;
     overflow: auto;
-    max-height: 10rem;
-    color: var(--card-text-color-main);
+    /* max-height: 10rem; */
+    color: var(--gray);
 }
 
 .db-card-cate {
@@ -470,6 +479,7 @@ table {
 }
 
 .rating {
+	color: var(--hc);
     margin: 0 0 5px;
     font-size: 13px;
     line-height: 1;
@@ -496,14 +506,3 @@ table {
     background-size: auto 100%;
     background-repeat: repeat;
 }
-
-@media (max-width: 550px) {
-    .db-card {
-        margin: 0.8rem 1rem;
-    }
-
-    .db-card-comment {
-        display: none;
-    }
-}
-/* db-card -------- end */
