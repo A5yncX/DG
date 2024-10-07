@@ -17,6 +17,9 @@ tags:
 如果你喜欢这个主题, 不妨点一个[⭐️Star](https://github.com/A5yncX/DG)
 
 ## 内容
+
+[[movie/2U8yMOgmiYTtZdxyvrCmBU]]
+
 正如Page description说的
 
 > AsyncX的博客-i18n/Content Aggregation/Programming/Philosophy/Hobbies/i18n多语言/内容聚合/编程/哲学/爱好
