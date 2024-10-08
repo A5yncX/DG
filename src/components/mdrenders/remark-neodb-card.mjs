@@ -23,7 +23,7 @@ export default function fetchAndInjectContent() {
     const promises = [];
 
     visit(tree, 'text', (node) => {
-      const match = node.value.match(/\[\[(.*?)\/(.*?)\]\]/);
+      const match = node.value.match(/\+\+(.*?)\/(.*?)\+\+/);
       if (match) {
         const resourceType = match[1];
         const resourceId = match[2];
@@ -31,7 +31,7 @@ export default function fetchAndInjectContent() {
         // Fetch resource data from the API and inject into markdown
         const promise = fetchResource(resourceType, resourceId).then((data) => {
           if (data) {
-            const briefText = data.brief.length > 200 ? data.brief.slice(0, 400) + '...' : data.brief;
+            const briefText = data.brief.length > 200 ? data.brief.slice(0, 500) + '...' : data.brief;
             // Create a HAST element for raw HTML
             const cardElement = h('div.db-card', [
               h('a.db-card-subject', { // Wrap the subject in an anchor tag
