@@ -195,10 +195,12 @@ img {
 	border-radius: 10px;
   }
 code  {
-	/* background-color: #00000030; */
+	background-color: #00000050;
+	padding: 1px 3px 1px 3px;
 	margin-right: 3px;
+	margin-left: 3px;
 	font-family: var(--font-family-mono);
-	color: var(--accent);
+	color: var(--fontc);
 }
 pre {
 	padding: 1.5em;
