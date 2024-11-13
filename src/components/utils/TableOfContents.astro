@@ -26,7 +26,7 @@ const hasHeadings = grouppedHeadings.length > 0;
 
 {hasHeadings && (
   <nav id="table-of-contents" aria-label="Table Of Contents" class="toc">
-    <details>
+    <details open>
       <summary>{t("toc.title")}</summary>
       <ul>
         {   
@@ -61,6 +61,7 @@ const hasHeadings = grouppedHeadings.length > 0;
         border-radius: 10px;
         transition: .5s all;
         border: #00000030 solid 1px;
+        margin-bottom: 1rem;
     }
     details:hover {
       border: var(--hc) solid 1px;
