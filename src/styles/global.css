@@ -131,7 +131,8 @@ h5 {
 }
 strong,
 b {
-	font-weight: 700;
+	font-weight: 900;
+	color: var(--accent);
 }
 
 p img {
