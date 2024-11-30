@@ -72,6 +72,12 @@ const friendLinksZh = [
     link: 'https://wcowin.work/',
     description: '循此苦旅，以达星辰',
   },
+  {
+    avatar: 'https://ja-307020.great-site.net/wp-content/uploads/2023/11/mordecai.jpg',
+    name: 'ENCOM一号机',
+    link: 'https://ja-307020.great-site.net/',
+    description: '1,000 lonely stars | Hiding in the cold',
+  },
 ];
 
 const friendLinksEn = [
