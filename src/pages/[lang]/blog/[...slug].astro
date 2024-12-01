@@ -41,7 +41,7 @@ const currentUrl = Astro.url.toString();
 	<Content />
 		<!-- Load the web component -->
 	<script src="https://unpkg.com/open-heart-element" type="module"></script>
-	<open-heart href={`https://likepost.asyncx.top/?id=${encodeURIComponent(currentUrl)}`} emoji="❤️">❤️</open-heart>
+	<!-- <open-heart href={`https://likepost.asyncx.top/?id=${encodeURIComponent(currentUrl)}`} emoji="❤️">❤️</open-heart> -->
 	<!-- Fetch and update counts when the web component is loaded or clicked -->
 	<script>
 		window.customElements.whenDefined('open-heart').then(() => {
