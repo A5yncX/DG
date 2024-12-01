@@ -39,25 +39,18 @@ const currentUrl = Astro.url.toString();
 	<TableOfContents headings={headings} />
 	<!-- <blockquote><p>{t("date.last")}: {lastModified}</p></blockquote> -->
 	<Content />
-	<open-heart href={`https://likepost.asyncx.top/?id=${encodeURIComponent(currentUrl)}`} emoji="❤️">❤️</open-heart>
-	<!-- Load the web component -->
+		<!-- Load the web component -->
 	<script src="https://unpkg.com/open-heart-element" type="module"></script>
+	<open-heart href={`https://likepost.asyncx.top/?id=${encodeURIComponent(currentUrl)}`} emoji="❤️">❤️</open-heart>
 	<!-- Fetch and update counts when the web component is loaded or clicked -->
 	<script>
-	  // Wait until the 'open-heart' web component is defined
-	  window.customElements.whenDefined('open-heart').then(() => {
-		// Update the count for each 'open-heart' element on the page
-		document.querySelectorAll('open-heart').forEach(oh => oh.handleGET());
-	  });
-	
-	  // Listen for click events on 'open-heart' elements to refresh counts
-	  window.addEventListener('open-heart', event => {
-		const target = event?.target;
-		if (target?.handleGET) {
-		  target.handleGET();
-		}
-	  });
-	</script>
+		window.customElements.whenDefined('open-heart').then(() => {
+		  for (const oh of document.querySelectorAll('open-heart')) {
+			oh.getCount()
+		  }
+		})
+		</script>
+	  
 <style>
 	open-heart {
   border: 1px solid #aaa;
