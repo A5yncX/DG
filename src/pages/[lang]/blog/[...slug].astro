@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 	const paths = pages.map((page) => {
 		return {
-			params: { lang: page?.data.lang || "zh", slug: page.fileName },//pagelink
+			params: { lang: page?.data.lang || "zh", slug: page.fileName },
 			props: page,
 		};
 	});
@@ -29,6 +29,9 @@ dayjs.extend(utc);
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
   .utc()
   .format("YYYY.MM.DD");
+
+// Get current URL dynamically
+const currentUrl = Astro.url.toString();
 ---
 
 <BlogPost {...page.data} lang={lang}>
@@ -36,7 +39,41 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
 	<TableOfContents headings={headings} />
 	<!-- <blockquote><p>{t("date.last")}: {lastModified}</p></blockquote> -->
 	<Content />
-	<form action="https://likepost.asyncx.top" method="POST" enctype="text/plain">
-		<button name="♥️">♥️</button>
-	  </form>
+	<open-heart href={`https://likepost.asyncx.top/?id=${encodeURIComponent(currentUrl)}`} emoji="❤️">❤️</open-heart>
+	<!-- Load the web component -->
+	<script src="https://unpkg.com/open-heart-element" type="module"></script>
+	<!-- Fetch and update counts when the web component is loaded or clicked -->
+	<script>
+	  // Wait until the 'open-heart' web component is defined
+	  window.customElements.whenDefined('open-heart').then(() => {
+		// Update the count for each 'open-heart' element on the page
+		document.querySelectorAll('open-heart').forEach(oh => oh.handleGET());
+	  });
+	
+	  // Listen for click events on 'open-heart' elements to refresh counts
+	  window.addEventListener('open-heart', event => {
+		const target = event?.target;
+		if (target?.handleGET) {
+		  target.handleGET();
+		}
+	  });
+	</script>
+<style>
+	open-heart {
+  border: 1px solid #aaa;
+  border-radius: .4em;
+  padding: .4em;
+}
+open-heart:not([disabled]):hover,
+open-heart:not([disabled]):focus {
+  border-color: #fff;
+  cursor: pointer;
+}
+open-heart[disabled] {
+  cursor: not-allowed;
+}
+open-heart[count]:not([count="0"])::after {
+  content: attr(count);
+}
+</style>
 </BlogPost>
