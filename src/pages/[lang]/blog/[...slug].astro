@@ -29,9 +29,6 @@ dayjs.extend(utc);
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
   .utc()
   .format("YYYY.MM.DD");
-
-// Get current URL dynamically
-const currentUrl = Astro.url.toString();
 ---
 
 <BlogPost {...page.data} lang={lang}>
@@ -39,34 +36,4 @@ const currentUrl = Astro.url.toString();
 	<TableOfContents headings={headings} />
 	<!-- <blockquote><p>{t("date.last")}: {lastModified}</p></blockquote> -->
 	<Content />
-		<!-- Load the web component -->
-	<script src="https://unpkg.com/open-heart-element" type="module"></script>
-	<!-- <open-heart href={`https://likepost.asyncx.top/?id=${encodeURIComponent(currentUrl)}`} emoji="❤️">❤️</open-heart> -->
-	<!-- Fetch and update counts when the web component is loaded or clicked -->
-	<script>
-		window.customElements.whenDefined('open-heart').then(() => {
-		  for (const oh of document.querySelectorAll('open-heart')) {
-			oh.getCount()
-		  }
-		})
-		</script>
-	  
-<style>
-	open-heart {
-  border: 1px solid #aaa;
-  border-radius: .4em;
-  padding: .4em;
-}
-open-heart:not([disabled]):hover,
-open-heart:not([disabled]):focus {
-  border-color: #fff;
-  cursor: pointer;
-}
-open-heart[disabled] {
-  cursor: not-allowed;
-}
-open-heart[count]:not([count="0"])::after {
-  content: attr(count);
-}
-</style>
 </BlogPost>

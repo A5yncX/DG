@@ -526,3 +526,34 @@ table {
     background-size: auto 100%;
     background-repeat: repeat;
 }
+
+.like {
+	margin: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+open-heart {
+	margin-right: .5rem;
+	border: 1px solid #8585a5;
+	border-radius: .4em;
+	padding: .4em;
+	transition: .5s all;
+  }
+  open-heart:not([disabled]):hover,
+  open-heart:not([disabled]):focus {
+	border-color: #9bdbee;
+	box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303);
+	transition: .5s all;
+	cursor: pointer;
+  }
+  open-heart[disabled] {
+	transition: .5s all;
+	cursor: not-allowed;
+	border-color: #9bdbee;
+	box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303);
+  }
+  open-heart[count]:not([count="0"])::after {
+	content: attr(count);
+	font-family: var(--font-family-mono);
+  }
