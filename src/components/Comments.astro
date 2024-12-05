@@ -3,6 +3,7 @@
 const currentUrl = Astro.url.toString();
 ---
 <div class="post-comments">
+  <div style="color: var(--gray);">↓Leave something behind?↓</div>
     <div class="tabs">
       <input type="radio" class="hidden-radio" name="comment-provider" id="by-twikoo" autocomplete="off" data-umami-event="Comment-Twikoo">
       <label class="tab" for="by-twikoo">Twikoo</label>
@@ -42,7 +43,6 @@ const currentUrl = Astro.url.toString();
         ></script>
       </div>
     </div>
-    <div style="color: var(--gray);">⬆︎Say something to me.⬆︎</div>
   </div>
   <script>
     const group = document.querySelectorAll('input[name="comment-provider"]');
