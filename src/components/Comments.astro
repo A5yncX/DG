@@ -1,6 +1,6 @@
 ---
 // Get current URL dynamically
-const currentUrl = Astro.url.toString();
+const currentUrl = encodeURIComponent(Astro.url.toString());
 ---
 <div class="post-comments">
   <div style="color: var(--gray);">↓Leave something behind?↓</div>
@@ -11,8 +11,7 @@ const currentUrl = Astro.url.toString();
       <label class="tab" for="by-giscus">Giscus</label>
     </div>
     <div class="like">
-      <open-heart href={`https://corazon.sploot.com?id=${encodeURIComponent(currentUrl)}`} data-umami-event="Like" emoji="❤️">❤️</open-heart>
-      <open-heart href={`https://corazon.sploot.com?id=${encodeURIComponent(currentUrl)}`} data-umami-event="Like" emoji="👍">👍</open-heart>
+      <open-heart href={`https://likepost.asyncx0806.workers.dev/${currentUrl}/like`} data-umami-event="Like" emoji="❤️">❤️</open-heart>
     </div>
     <div class="post-comments-content twikoo" id="comment" hidden>
       <div id="twikoo-comments"></div>

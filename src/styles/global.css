@@ -557,3 +557,13 @@ open-heart {
 	content: attr(count);
 	font-family: var(--font-family-mono);
   }
+
+  div.date {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+  }
+  #like-count {
+	margin-left: .5rem;
+	font-family: var(--font-family-mono);
+  }

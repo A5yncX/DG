@@ -49,6 +49,40 @@ const currentUrl = Astro.url.toString();
           </div>
           
         )}
+                <div id="like-count"> </div>
+                <script>
+                  // 获取当前网页的 URL 并编码
+                  const currentUrl = encodeURIComponent(window.location.href);
+                
+                  // 定义点赞数量显示的 DOM 元素
+                  const likeCountElement = document.getElementById('like-count');
+                
+                  // 后端接口地址
+                  const apiUrl = `https://likepost.asyncx0806.workers.dev/${currentUrl}/like`;
+                
+                  // 获取点赞数量并更新 DOM
+                  async function fetchLikeCount() {
+                    try {
+                      // 从后端获取点赞数据
+                      const response = await fetch(apiUrl, { headers: { Accept: 'application/json' } });
+                      if (!response.ok) {
+                        throw new Error(`Failed to fetch likes: ${response.statusText}`);
+                      }
+                
+                      const data = await response.json(); // 假设后端返回的数据结构类似于：{ "❤️": 10, "👍": 5 }
+                      const totalLikes = Object.values(data).reduce((sum, count) => sum + count, 0); // 计算总点赞数量
+                
+                      // 更新页面显示
+                      likeCountElement.textContent = `♥${totalLikes}`;
+                    } catch (error) {
+                      console.error('Error fetching like count', error);
+                      likeCountElement.textContent = 'Failed to load likes.';
+                    }
+                  }
+                
+                  // 在页面加载时调用 fetchLikeCount
+                  window.addEventListener('DOMContentLoaded', fetchLikeCount);
+                </script>
         <style>
           a.taglink {
             cursor: pointer!important;
