@@ -16,7 +16,7 @@ const posts = defineCollection({
     title: z.string(),
     description: z.string().default(" "),
     pubDate: z.coerce.date(),
-    image: z.string().default("/static/blog-placeholder.png"),
+    image: z.string().default("/static/ogimage.png"),
     tags: z.array(z.string()).default([]).transform(removeDuplicates),
   }),
 });
