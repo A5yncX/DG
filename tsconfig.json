@@ -1,6 +1,7 @@
 {
-  "extends": "astro/tsconfigs/base",
-  "compilerOptions": {
-    "strictNullChecks": true
+  "extends": "astro/tsconfigs/strict",
+ "compilerOptions": {
+    "skipLibCheck": true,                  // 跳过类型库检查
+    "noImplicitAny": false                 // 忽略隐式 any 错误
   }
 }

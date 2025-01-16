@@ -1,0 +1,68 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+import Comments from"../../components/Comments.astro";
+import Toc from "../../components/Toc.astro";
+import Random from "../../components/Random.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"posts">;
+
+const post = Astro.props;
+const { Content, headings } = await post.render();
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.image}
+  className="max-w-2xl"
+>
+  <main>
+    <div class="flex items-center justify-between mb-5">
+      <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
+        {post.data.title}
+      </h1>
+      <p class="ml-4 text-sm font-medium text-zinc-500">
+        {formatDate(post.data.pubDate)}
+      </p>
+    </div>
+    
+
+    <!-- 显示文章标签 -->
+    {post.data.tags.length > 0 && (
+      <div class="mb-5">
+        <ul class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <li>
+              <a
+                href={`/tags/${tag}/`}
+                class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+              >
+                #{tag}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    
+
+        <!-- TOC -->
+        <aside class="">
+          <Toc headings={headings} />
+        </aside>
+    <article>
+      <Content />
+    </article>
+  </main>
+  <Random />
+  <Comments />
+</Layout>

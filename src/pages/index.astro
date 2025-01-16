@@ -1,38 +1,20 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-const {
-  lang = "zh",
-	title,
-	description,
-	image = "/ogimage.png",
-} = Astro.props;
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Layout from "../layouts/Layout.astro";
 ---
-<script
-	async
-	defer
-	src="https://umami.asyncx.top/umami"
-	data-website-id="63c580ae-6084-4ea5-b219-c7d267237c09"
-	data-domains="blog.asyncx.top"
-></script>
-<script>
-  // 获取浏览器的语言设置
-  const userLang = navigator.language || navigator.userLanguage;
-  
-  // 将语言设置转换为小写
-  const lang = userLang.toLowerCase();
-  
-  // 根据浏览器语言进行重定向 //lang
-  if (lang.startsWith('zh')) {
-    window.location.href = '/zh';
-  } else {
-    window.location.href = '/en';
-  }
-</script>
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content="👋🏻Hi, I'm AX | i18n/Programming/Philosophy/Hobbies" />
-<meta property="og:image" content={new URL(image, Astro.url)} />
 
-<body>
-  </body>
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  className="flex h-svh max-w-3xl flex-col justify-center"
+>
+  <main class="space-y-4">
+    <img src="/logo.svg" class="mx-auto mb-4 w-1/2" />
+    <p>
+    </p>
+    <p>
+    </p>
+    <p>
+    </p>
+  </main>
+</Layout>

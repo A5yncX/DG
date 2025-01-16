@@ -1,0 +1,65 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+import Comments from "../../components/Comments.astro";
+import friendLinks from "./friendlinks.mjs";
+
+const posts = await getCollection("pages");
+
+const recentPost = posts.find((post) => post.id.replace(".md", "") === "recent");
+
+if (!recentPost) {
+  throw new Error("The file 'recent.md' was not found in the 'posts' collection.");
+}
+
+const { Content } = await recentPost.render();
+---
+
+<Layout
+  title={recentPost.data.title}
+  description={recentPost.data.description}
+  image={recentPost.data.image}
+  className="max-w-2xl"
+>
+  <main>
+    <div class="flex items-center justify-between mb-5">
+      <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
+        {recentPost.data.title}
+      </h1>
+      <p class="ml-4 text-sm font-medium text-zinc-500">
+        {formatDate(recentPost.data.pubDate)}
+      </p>
+    </div>
+
+    <article>
+      <Content />
+    </article>
+
+    <!-- Friend Links Section -->
+    <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100 mt-16">
+      Friend Links
+    </h1>
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 mt-8">
+      {friendLinks.map((friend) => (
+        <a
+          href={friend.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block p-2 hover:text-blue-500 transition-colors"
+        >
+          <span class="font-semibold text-black dark:text-white block mb-1">『{friend.name}』</span>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">{friend.description}</p>
+        </a>
+      ))}
+    </section>
+
+    <pre><code>
+      Icon: https://blog.asyncx.top/favicon.svg
+      Name: AsyncX
+      Link: https://blog.asyncx.top/
+      Description: 🌌 Per Aspera Ad Astra 
+    </code></pre>
+  </main>
+  <Comments />
+</Layout>

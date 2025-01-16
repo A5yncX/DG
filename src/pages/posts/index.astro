@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+
+// 获取内容集合并按日期降序排列
+const collection = await getCollection("posts");
+const posts: CollectionEntry<"posts">[] = collection.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// 将文章按年份分组
+const postsByYear: Record<number, CollectionEntry<"posts">[]> = posts.reduce(
+  (acc, post) => {
+    const year = new Date(post.data.pubDate).getFullYear(); // 获取年份
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  },
+  {} as Record<number, CollectionEntry<"posts">[]>
+);
+
+// 按年份降序排列
+const sortedYears = Object.entries(postsByYear)
+  .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA));
+---
+
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main>
+    <ul class="flex flex-col gap-6">
+      {sortedYears.map(([year, posts]) => (
+        <li>
+          {/* 显示年份标题 */}
+          <h2 class="text-2xl font-bold mb-4">{year}</h2>
+          <ul class="flex flex-col gap-1.5">
+            {posts.map((post) => (
+              <li>
+                <a
+                  href={`/posts/${post.slug}`}
+                  class="group flex justify-between gap-3"
+                >
+                  <span class="group-hover:underline">{post.data.title}</span>
+                  <span class="text-nowrap text-zinc-500 font-mono">
+                    {formatDate(post.data.pubDate)}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>

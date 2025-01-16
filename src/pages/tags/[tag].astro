@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+
+  // 提取所有标签，并去重
+  const allTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  // 为每个标签生成路径
+  return allTags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }));
+}
+
+// 获取当前标签的数据
+const { tag, posts } = Astro.props;
+---
+
+<Layout title={`Tag: ${tag}`} description={`Posts tagged with ${tag}`}>
+  <h1 >#{tag}</h1><br>
+<ul class="flex flex-col gap-1.5">
+    {
+      posts.map((post) => (
+        <li>
+          <a
+            href={`/posts/${post.slug}`}
+            class="group flex justify-between gap-3"
+          >
+            <span class="group-hover:underline">{post.data.title}</span>
+            <span class="text-nowrap text-zinc-500">
+              {formatDate(post.data.pubDate)}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

@@ -1,0 +1,92 @@
+---
+import type { MarkdownHeading } from "astro";
+
+// 定义类型
+type Props = {
+  headings: MarkdownHeading[];
+};
+
+type HeadingWithSubheadings = MarkdownHeading & {
+  subheadings: MarkdownHeading[];
+};
+
+const { headings }: Props = Astro.props;
+
+// 分组逻辑：按 `h2` 和 `h3` 分组
+const grouppedHeadings = headings.reduce((array, heading) => {
+  if (heading.depth === 2) {
+    array.push({ ...heading, subheadings: [] });
+  } else if (heading.depth === 3) {
+    array.at(-1)?.subheadings.push(heading);
+  }
+  return array;
+}, [] as HeadingWithSubheadings[]);
+
+// 检查是否存在标题
+const hasHeadings = grouppedHeadings.length > 0;
+---
+
+{hasHeadings && (
+  <nav id="table-of-contents" aria-label="Table Of Contents" class="toc">
+    <details open>
+      <summary class="text-sm font-semibold mb-2">Table of Contents</summary>
+      <ul class="space-y-1">
+        {grouppedHeadings.map((h) => (
+          <li class="text-sm leading-tight">
+            <a
+              href={`#${h.slug}`}
+              class="hover:underline"
+            >
+              # {h.text}
+            </a>
+            {h.subheadings.length > 0 && (
+              <ul class="pl-4 space-y-1">
+                {h.subheadings.map((sub) => (
+                  <li class="text-sm leading-tight">
+                    <a
+                      href={`#${sub.slug}`}
+                      class="text-gray-500 hover:underline"
+                    >
+                      - {sub.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </details>
+  </nav>
+)}
+
+
+<style>
+  details {
+    /* background-color: #00000030; */
+    padding: 1rem;
+    border-radius: 10px;
+    transition: 0.5s all;
+    border: #83838330 solid 1px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  details:hover {
+    transition: 0.5s all;
+  }
+
+  ul li {
+    list-style-type: none;
+  }
+
+  ul li a:hover {
+    all: unset;
+    text-decoration: none;
+    transition: 0.1s ease-in-out;
+  }
+
+  ul ul {
+    padding-left: 1rem;
+  }
+</style>

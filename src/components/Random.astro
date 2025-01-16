@@ -1,0 +1,39 @@
+---
+import { getBlogPosts } from "../content/config";
+import { formatDate } from "../lib/utils";
+
+// 随机获取博客文章
+export async function getRandomPosts(count) {
+  // 洗牌算法
+  function shuffleArray(array) {
+    return array.sort(() => 0.5 - Math.random());
+  }
+  const posts = await getBlogPosts();
+  const shuffledPosts = shuffleArray(posts);
+  return shuffledPosts.slice(0, count); // 获取指定数量的随机文章
+}
+
+// 获取随机文章
+const randomPosts = await getRandomPosts(3); // 随机获取 3 篇文章
+---
+
+<div class="random">
+    <h2 class="text-xl font-bold mb-4 mt-4">Random Read</h2>
+    <ul class="flex flex-col gap-1.5">
+      {randomPosts.map((post) => (
+        <li>
+          <a
+            href={`${post.fileName}`}
+            class="group flex justify-between gap-3 text-sm"
+            data-umami-event="Random-article"
+          >
+            <span class="group-hover:underline">{post.data.title}</span>
+            <span class="text-nowrap text-zinc-500 font-mono">
+              {formatDate(post.data.pubDate)}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  

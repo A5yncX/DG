@@ -1,5 +1,5 @@
 {
-  "name": "ax",
+  "name": "marius",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -11,29 +11,47 @@
     "postbuild": "pagefind --site dist"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.1.1",
-    "@astrojs/rss": "^4.0.5",
-    "@astrojs/sitemap": "^3.0.5",
-    "@expressive-code/plugin-collapsible-sections": "^0.33.5",
-    "@microflash/remark-callout-directives": "^4.1.0",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.2",
+    "@astrojs/rss": "^4.0.9",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
     "@microflash/remark-figure-caption": "^2.0.2",
-    "astro": "^4.14.5",
-    "astro-expressive-code": "^0.33.5",
-    "dayjs": "^1.11.13",
-    "hastscript": "^9.0.0",
-    "markdown-it": "^14.0.0",
-    "mdast-util-from-markdown": "^2.0.0",
-    "mdast-util-to-string": "^4.0.0",
-    "reading-time": "^1.5.0",
-    "remark": "^15.0.1",
+    "astro": "^5.1.0",
+    "astro-expressive-code": "^0.40.0",
+    "astro-pagefind": "^1.7.0",
+    "markdown-it": "^14.1.0",
+    "pagefind": "^1.3.0",
     "remark-directive": "^3.0.0",
-    "remark-html": "^16.0.1",
-    "sanitize-html": "^2.12.1",
-    "tiny-invariant": "^1.3.3",
-    "unist-util-visit": "^5.0.0",
-    "xmlbuilder2": "^3.1.1"
+    "remark-figure-caption": "^1.0.6",
+    "sanitize-html": "^2.14.0",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "pagefind": "^1.0.4"
-  }
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro-organize-imports": "^0.4.11",
+    "prettier-plugin-tailwindcss": "^0.6.8"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-astro",
+      "prettier-plugin-tailwindcss",
+      "prettier-plugin-astro-organize-imports"
+    ],
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ]
+  },
+  "description": "**Miniblog** is an opinionated and extremely minimal blogging template built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/), whose design is heavily inspired by [jrmyphlmn.com](https://jrmyphlmn.com/). Incredibly easy to use and customize, you can use **Miniblog** as is, or add as much as you want to it.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

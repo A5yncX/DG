@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+const posts = await getCollection("posts");
+
+// 提取所有文章的 tags，并去重
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<Layout title="All tags" description="All tags">
+  <ul class="grid grid-cols-3 gap-4">
+    {allTags.map((tag) => (
+      <li>
+        <a
+          href={`/tags/${tag}/`}
+          class="group flex justify-between gap-3"
+        >
+          <span class="group-hover:underline">{tag}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  
+</Layout>
