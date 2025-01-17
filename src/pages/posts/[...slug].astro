@@ -38,7 +38,7 @@ const { Content, headings } = await post.render();
 
     <!-- 显示文章标签 -->
     {post.data.tags.length > 0 && (
-      <div class="mb-5">
+      <div class="mb-5" data-pagefind-ignore="all">
         <ul class="flex flex-wrap gap-2">
           {post.data.tags.map((tag) => (
             <li>
@@ -59,7 +59,7 @@ const { Content, headings } = await post.render();
         <aside class="">
           <Toc headings={headings} />
         </aside>
-    <article>
+    <article data-pagefind-body>
       <Content />
     </article>
   </main>
