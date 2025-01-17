@@ -12,7 +12,7 @@ export async function GET(context) {
 
   return rss({
     title: 'AsyncX | 嘿!我是AX!',
-    description: 'AsyncX的博客-i18n多语言/内容聚合/编程/哲学/爱好',
+    description: 'AsyncX的博客',
     site: context.site,
     items: sortedPosts.map((post) => ({
         title: post.data.title,
