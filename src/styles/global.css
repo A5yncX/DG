@@ -53,7 +53,7 @@
       @apply my-4 rounded-lg border dark:border-zinc-700;
     }
     blockquote {
-      @apply my-4 border-l-2 pl-4;
+      @apply my-4 border-l-2 pl-4 border-bgdefault dark:border-fontdefault;
     }
     a {
       @apply text-blue-500 underline;
