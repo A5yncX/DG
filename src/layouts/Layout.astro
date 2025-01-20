@@ -3,6 +3,7 @@ import { ViewTransitions } from "astro:transitions";
 import Header from "../components/Header.astro";
 import { cn } from "../lib/utils";
 import "../styles/global.css";
+import "../styles/remark-callout-directives.css";
 
 interface Props {
   title: string;
@@ -80,7 +81,7 @@ const {
   <body
     class="font-sans text-zinc-900 bg-fontdefault antialiased transition-colors dark:bg-bgdefault dark:text-fontdefault"
   >
-    <div class={cn("max-w-xl mx-auto p-4", className)}>
+    <div class={cn("max-w-xl mx-auto p-4 pb-16", className)}>
       <Header />
       <slot />
     </div>
