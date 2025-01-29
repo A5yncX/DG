@@ -6,33 +6,13 @@ import Comments from "../../components/Comments.astro";
 import friendLinks from "./friendlinks.mjs";
 
 const posts = await getCollection("pages");
-
-const recentPost = posts.find((post) => post.id.replace(".md", "") === "recent");
-
-if (!recentPost) {
-  throw new Error("The file 'recent.md' was not found in the 'posts' collection.");
-}
-
-const { Content } = await recentPost.render();
 ---
 
 <Layout
-  title={recentPost.data.title}
-  description={recentPost.data.description}
-  image={recentPost.data.image}
+  title={"Friend"}
+  description={"Friend link page"}
   className="max-w-2xl"
 >
-  <main>
-    <div class="flex items-center justify-between mb-5">
-      <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
-        {recentPost.data.title}
-      </h1>
-    </div>
-
-    <article>
-      <Content />
-    </article>
-
     <!-- Friend Links Section -->
     <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100 mt-16">
       Friend Links

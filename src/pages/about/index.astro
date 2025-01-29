@@ -1,0 +1,34 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../lib/utils";
+import Comments from "../../components/Comments.astro";
+
+const posts = await getCollection("pages");
+
+const aboutPost = posts.find((post) => post.id.replace(".md", "") === "about");
+
+if (!aboutPost) {
+  throw new Error("The file 'about.md' was not found in the 'posts' collection.");
+}
+
+const { Content } = await aboutPost.render();
+---
+
+<Layout
+  title={aboutPost.data.title}
+  description={"aboutme"}
+  image={aboutPost.data.image}
+  className="max-w-2xl"
+>
+  <main>
+    <div class="flex items-center justify-between mb-5">
+      <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
+        {aboutPost.data.title}
+      </h1>
+    </div>
+
+    <article>
+      <Content />
+    </article>
+</Layout>

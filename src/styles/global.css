@@ -1,6 +1,25 @@
+@import "https://unpkg.com/open-props/easings.min.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@property --＠color-1 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: hsl(98 100% 62%);
+}
+
+@property --＠color-2 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: hsl(204 100% 59%);
+}
+@keyframes gradient-change {
+  to {
+    --＠color-1: hsl(210 100% 59%);
+    --＠color-2: hsl(310 100% 59%);
+  }
+}
 
 @layer base {
   @font-face {
@@ -182,3 +201,39 @@ figcaption {
   overflow-y: auto!important;
   max-height: 500px!important;
 }
+
+h1 {
+  /* apply variable changes over time */
+  animation: gradient-change 2s linear infinite alternate;
+  
+  background: linear-gradient(
+    /* 
+      in oklch produces more vibrant gradient results 
+      learn more https://developer.chrome.com/docs/css-ui/access-colors-spaces#color_interpolation
+    */
+    to right in oklch, 
+    /* use the variables in a gradient (or wherever!) */
+    var(--＠color-1), 
+    var(--＠color-2)
+  );
+  
+  /* old browser support */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* modern browser version */
+  background-clip: text;
+  color: transparent;
+}
+
+
+/* 
+  creates focus not by highlighting or promoting 
+  but by demoting what isn't being shown interest
+*/
+/* ul li {
+      transition: opacity .2s var(--ease-3);
+    }
+ul li :hover > li:not(:hover) {
+      opacity: .25;
+    } */
