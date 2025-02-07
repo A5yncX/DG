@@ -1,12 +1,10 @@
 ---
-title: About me
+title: About
 pubDate: 2024-03-06 14:25
 description: "                                                  "
 ---
 
-> 本博客所有文章均遵循[CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en).
->
-> 由此跳转到:[最近在干什么?](/about/recent)/[友链](/friends)
+
 
 ## 关于博客
 
@@ -27,3 +25,5 @@ AsyncX - 这个名字来自一张专辑: Async - Ryuichi Sakamoto 和一首歌: 
 ## 联系我
 
 > You can find me on [**Email**](mailto:contact@asyncx.top)/[Github](https://github.com/A5yncX).
+
+本博客所有文章均遵循[CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en).

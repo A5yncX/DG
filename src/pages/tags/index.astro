@@ -8,6 +8,31 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 ---
 
 <Layout title="All tags" description="All tags">
+  <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100 mb-4">置顶TAG</h1>
+  <ul class="grid grid-cols-3 gap-4">
+    <li>
+      <a
+        href={`/tags/实用工具`}
+        class="group flex justify-between gap-3">
+        <span class="group-hover:underline">实用工具</span>
+      </a>
+    </li>
+      <li>
+        <a
+          href={`/tags/月度小结`}
+          class="group flex justify-between gap-3">
+          <span class="group-hover:underline">月度小结</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href={`/tags/留学相关`}
+          class="group flex justify-between gap-3">
+          <span class="group-hover:underline">留学相关</span>
+        </a>
+      </li>
+  </ul>
+  <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100 mt-4 mb-4">TAGS</h1>
   <ul class="grid grid-cols-3 gap-4">
     {allTags.map((tag) => (
       <li>

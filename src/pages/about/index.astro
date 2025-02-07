@@ -22,7 +22,25 @@ const { Content } = await aboutPost.render();
   className="max-w-2xl"
 >
   <main>
-    <div class="flex items-center justify-between mb-5">
+    <ul class="flex flex-wrap gap-2"><li>
+      <a
+      href={`about/recent`}
+      class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+    >
+      "🤔我最近在做什么?"
+    </a>
+  </li>
+  <li>
+    <a
+    href={`/friends`}
+    class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+  >
+    "🏠赛博友邻们"
+  </a>
+</li>
+    </ul>
+
+    <div class="flex items-center justify-between mb-5 mt-4">
       <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
         {aboutPost.data.title}
       </h1>
