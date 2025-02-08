@@ -2,13 +2,16 @@
 declare const Astro: any; // 忽略 Astro 的类型报错
 // Get current URL dynamically
 const currentUrl = encodeURIComponent(Astro.url.toString());
+//get file name without .md
+const fileName = Astro.url.pathname.split('/').pop().split('.').shift();
+
 ---
 
 <div class="post-comments">
   <!-- <div style="color: var(--gray);">↓Leave something behind?↓</div> -->
   <div class="like">
     <script src="https://unpkg.com/open-heart-element" type="module"></script>
-    <open-heart href={`https://likepost.asyncx0806.workers.dev/${currentUrl}/like`} data-umami-event="Like" emoji="♥">♥</open-heart>
+    <open-heart href={`https://likepost.asyncx0806.workers.dev/${currentUrl}/like`} data-umami-event=`${fileName}-Like` emoji="♥">♥</open-heart>
     <script>
       window.customElements.whenDefined('open-heart').then(() => {
         for (const oh of document.querySelectorAll('open-heart')) {
