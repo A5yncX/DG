@@ -226,14 +226,7 @@ h1 {
   color: transparent;
 }
 
-
-/* 
-  creates focus not by highlighting or promoting 
-  but by demoting what isn't being shown interest
-*/
-/* ul li {
-      transition: opacity .2s var(--ease-3);
-    }
-ul li :hover > li:not(:hover) {
-      opacity: .25;
-    } */
+.tk-owo-emotion {
+  display: inline;
+  vertical-align: baseline; /* 或者使用 baseline，根据你想要的效果 */
+}
