@@ -6,30 +6,31 @@ import Comments from "../../components/Comments.astro";
 
 const posts = await getCollection("pages");
 
-const recentPost = posts.find((post) => post.id.replace(".md", "") === "recent");
+const versionPost = posts.find((post) => post.id.replace(".md", "") === "version");
 
-if (!recentPost) {
-  throw new Error("The file 'about.md' was not found in the 'posts' collection.");
+if (!versionPost) {
+  throw new Error("The file 'version.md' was not found in the 'posts' collection.");
 }
 
-const { Content } = await recentPost.render();
+const { Content } = await versionPost.render();
 ---
 
 <Layout
-  title={recentPost.data.title}
+  title={versionPost.data.title}
   description={"aboutme"}
-  image={recentPost.data.image}
+  image={versionPost.data.image}
   className="max-w-2xl"
 >
   <main>
-    <div class="flex items-center justify-between mb-5">
+    <div class="flex items-center justify-between mb-5 mt-4">
       <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
-        {recentPost.data.title}
+        {versionPost.data.title}
       </h1>
     </div>
-
     <article>
       <Content />
     </article>
   </main>
+
+    
 </Layout>

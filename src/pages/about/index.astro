@@ -38,6 +38,14 @@ const { Content } = await aboutPost.render();
     "🏠赛博友邻们"
   </a>
 </li>
+<li>
+  <a
+  href={`/about/version`}
+  class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+>
+  "🛠博客装修日志"
+</a>
+</li>
     </ul>
 
     <div class="flex items-center justify-between mb-5 mt-4">
@@ -49,4 +57,32 @@ const { Content } = await aboutPost.render();
     <article>
       <Content />
     </article>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8">
+        联系方式
+      </h1>
+      <main>
+        <ul class="flex flex-wrap gap-2 mt-8"><li>
+          <a
+          href={`mailto:contact@asyncx.top`}
+          class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+        >
+          📮contact@asyncx.top
+        </a>
+      </li>
+      <li>
+        <a
+        href={`https://t.me/asyncx`}
+        class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+      >
+      ✈️@A5yncX
+      </a>
+    </li>
+        </ul>
+    <p class="text-sm text-gray-500 text-center mt-32">
+      本博客所有文章均遵循
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">
+        CC-BY-NC-SA 4.0
+      </a>.
+    </p>
+  </main>
 </Layout>
