@@ -61,7 +61,7 @@
       @apply my-4 font-medium dark:text-white;
     }
     :not(pre) > code {
-      @apply whitespace-nowrap rounded border bg-zinc-200/50 px-1 py-0.5 font-mono text-sm font-medium text-black dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white;
+      @apply whitespace-nowrap rounded border bg-gray-500/10 px-1 py-0.5 font-mono text-sm font-medium text-black dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-white;
     }
     pre:has(code) {
       @apply my-4 max-h-[600px] overflow-auto rounded-lg border p-4 font-mono text-sm font-medium dark:border-zinc-700;
@@ -76,7 +76,7 @@
       @apply my-4 border-l-2 pl-4 border-bgdefault dark:border-fontdefault;
     }
     a {
-      @apply text-blue-500 underline;
+      @apply dark:text-blue-200 text-orange-600 hover:outline-dotted;
     }
     table {
       @apply my-4 w-full table-auto border-collapse text-sm;
