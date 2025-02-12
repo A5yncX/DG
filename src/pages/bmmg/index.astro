@@ -1,0 +1,113 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// 定义各分类对应的 JSON 文件地址
+const jsonUrls = {
+  movie: "https://neodb.asyncx.top/data/neodb/movie.json",
+  tv: "https://neodb.asyncx.top/data/neodb/tv.json",
+  game: "https://neodb.asyncx.top/data/neodb/game.json",
+  book: "https://neodb.asyncx.top/data/neodb/book.json"
+};
+
+// 定义分类中文显示名称
+const categoryMap = {
+  movie: "影",
+  tv: "剧",
+  game: "游",
+  book: "书"
+};
+
+// 用于存储各分类的所有数据（不做时间过滤，取最新20条）
+const grouped = {};
+
+// 用于存储合并后的数据（仅包含过去3个月内的记录）
+let mergedRecentItems = [];
+
+// 计算当前日期3个月前的日期
+const now = new Date();
+const threeMonthsAgo = new Date();
+threeMonthsAgo.setMonth(now.getMonth() - 3);
+
+// 动态读取各 JSON 文件
+await Promise.all(
+  Object.entries(jsonUrls).map(async ([cat, url]) => {
+    const res = await fetch(url);
+    const jsonData = await res.json();
+    // 对该分类所有数据按创建时间降序排序（不做时间过滤）
+    const sortedAll = jsonData.data.sort(
+      (a, b) => new Date(b.created_time) - new Date(a.created_time)
+    );
+    // 分类展示：取前20条
+    grouped[cat] = sortedAll.slice(0, 20);
+
+    // 合并展示：过滤出过去3个月内的记录，并加入到 mergedRecentItems 数组
+    const filteredRecent = jsonData.data.filter(
+      (item) => new Date(item.created_time) >= threeMonthsAgo
+    );
+    mergedRecentItems = mergedRecentItems.concat(filteredRecent);
+  })
+);
+
+// 对合并后的所有数据按创建时间降序排序，并取前20条
+mergedRecentItems.sort((a, b) => new Date(b.created_time) - new Date(a.created_time));
+mergedRecentItems = mergedRecentItems.slice(0, 20);
+---
+<Layout title="NeoDB" description="NeoDB">
+  <div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6"></h1>
+    
+    <!-- 全部展示部分：仅展示过去3个月内的记录 -->
+    <section class="mb-8">
+      <h1 class="text-2xl font-semibold mb-4">最近3月看/玩了什么</h1>
+      {mergedRecentItems && mergedRecentItems.length > 0 ? (
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          {mergedRecentItems.map((entry) => (
+            <a href={entry.item.url} class="block">
+              <div class="border rounded overflow-hidden shadow hover:shadow-lg transition-shadow">
+                <img
+                  src={entry.item.cover_image_url}
+                  alt={entry.item.title}
+                  loading="lazy"
+                  class="w-full h-48 object-cover"
+                />
+              </div>
+              <p class="mt-2 text-sm font-bold text-center truncate">
+                {entry.item.title}
+              </p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-500">暂无数据</p>
+      )}
+    </section>
+    <hr class="my-8" />
+    <!-- 分类展示部分：各分类显示最新20条数据，不限制时间 -->
+    {Object.keys(jsonUrls).map((cat) => (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">{categoryMap[cat]}</h2>
+        {grouped[cat] && grouped[cat].length > 0 ? (
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {grouped[cat].map((entry) => (
+              <a href={entry.item.url} class="block">
+                <div class="border rounded overflow-hidden shadow hover:shadow-lg transition-shadow">
+                  <img
+                    src={entry.item.cover_image_url}
+                    alt={entry.item.title}
+                    loading="lazy"
+                    class="w-full h-48 object-cover"
+                  />
+                </div>
+                <p class="mt-2 text-sm font-bold text-center truncate">
+                  {entry.item.title}
+                </p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="text-gray-500">暂无数据</p>
+        )}
+      </section>
+    ))}
+  </div>
+</Layout>

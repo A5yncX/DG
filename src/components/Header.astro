@@ -1,7 +1,7 @@
 ---
 import { EMAIL } from "../consts";
 import ThemeToggle from "./ThemeToggle.astro";
-import Pagefind from "./Pagefind.astro";
+// import Pagefind from "./Pagefind.astro";
 ---
 
 <header class="mb-6 flex items-center justify-between">
@@ -9,10 +9,9 @@ import Pagefind from "./Pagefind.astro";
     <a href="/"> Home </a>
     <a href="/posts"> Posts </a>
     <a href="/tags"> Tag </a>
-    <!-- <a href="/search"> Search </a> -->
-    <!-- <a href="/zh.xml"> Rss </a> -->
+        <a href="/bmmg">Media</a>
     <a href="/about"> README.md </a>
-    <!-- <a href={`mailto:${EMAIL}`}>email</a> -->
+
   </nav>
   <!-- <Pagefind /> -->
   <ThemeToggle />
