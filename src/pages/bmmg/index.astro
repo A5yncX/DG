@@ -28,7 +28,7 @@ const now = new Date();
 const threeMonthsAgo = new Date();
 threeMonthsAgo.setMonth(now.getMonth() - 3);
 
-// 动态读取各 JSON 文件
+// 读取各 JSON 文件(目前随博客更新而更新)
 await Promise.all(
   Object.entries(jsonUrls).map(async ([cat, url]) => {
     const res = await fetch(url);
