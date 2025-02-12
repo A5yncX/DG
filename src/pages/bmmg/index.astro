@@ -39,7 +39,7 @@ await Promise.all(
     );
     // 分类展示：取前20条，并附加所属分类信息
     grouped[cat] = sortedAll.slice(0, 20).map(item => ({ ...item, category: cat }));
-    // 合并展示：过滤出过去三个月内的记录，并附加所属分类信息
+    // 合并展示：过滤出过去3个月内的记录，并附加所属分类信息
     const filteredRecent = jsonData.data.filter(
       (item) => new Date(item.created_time) >= threeMonthsAgo
     ).map(item => ({ ...item, category: cat }));
@@ -64,18 +64,15 @@ const getLink = (entry) => {
 ---
 <Layout title="NeoDB" description="NeoDB">
   <div class="container mx-auto py-8">
-    <h1 class="text-3xl font-bold mb-6">最近看/玩了什么</h1>
-    <!-- <p class="text-gray-500 mb-6">
-      上半部分展示过去3个月内的全部记录，下半部分按分类展示各自最新的20条数据。
-    </p> -->
+    <!-- <h1 class="text-3xl font-bold mb-6">最近看/玩了什么</h1> -->
     <!-- 全部展示部分：仅展示过去3个月内的记录 -->
     <section class="mb-8">
-      <!-- <h2 class="text-2xl font-semibold mb-4">全部</h2> -->
+      <h2 class="text-2xl font-semibold mb-4">最近3个月看/玩了什么</h2>
       {mergedRecentItems && mergedRecentItems.length > 0 ? (
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
           {mergedRecentItems.map((entry) => (
             <a href={getLink(entry)} class="block">
-              <div class="border rounded overflow-hidden shadow hover:shadow-lg transition-shadow">
+              <div class="rounded overflow-hidden">
                 <img
                   src={entry.item.cover_image_url}
                   alt={entry.item.title}
@@ -83,7 +80,7 @@ const getLink = (entry) => {
                   class="w-full h-48 object-cover"
                 />
               </div>
-              <p class="mt-2 text-sm font-bold text-center truncate">
+              <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
                 {entry.item.title}
               </p>
             </a>
@@ -93,16 +90,16 @@ const getLink = (entry) => {
         <p class="text-gray-500">暂无数据</p>
       )}
     </section>
-    <hr class="my-8" />
+    <hr class="my-8 border-t border-black dark:border-white" />
     <!-- 分类展示部分：各分类显示最新20条数据，不限制时间 -->
     {Object.keys(jsonUrls).map((cat) => (
       <section class="mb-12">
-        <h1 class="text-2xl font-semibold mb-4">{categoryMap[cat]}</h1>
+        <h2 class="text-2xl font-semibold mb-4">{categoryMap[cat]}</h2>
         {grouped[cat] && grouped[cat].length > 0 ? (
           <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
             {grouped[cat].map((entry) => (
               <a href={getLink(entry)} class="block">
-                <div class="border rounded overflow-hidden shadow hover:shadow-lg transition-shadow">
+                <div class="rounded overflow-hidden">
                   <img
                     src={entry.item.cover_image_url}
                     alt={entry.item.title}
@@ -110,7 +107,7 @@ const getLink = (entry) => {
                     class="w-full h-48 object-cover"
                   />
                 </div>
-                <p class="mt-2 text-sm font-bold text-center truncate">
+                <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
                   {entry.item.title}
                 </p>
               </a>
