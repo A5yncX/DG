@@ -23,7 +23,7 @@ const grouped = {};
 // 用于存储合并后的数据（仅包含过去3个月内的记录）
 let mergedRecentItems = [];
 
-// 计算当前日期3个月前的日期
+// 计算当前日期三个月前的日期
 const now = new Date();
 const threeMonthsAgo = new Date();
 threeMonthsAgo.setMonth(now.getMonth() - 3);
@@ -37,13 +37,12 @@ await Promise.all(
     const sortedAll = jsonData.data.sort(
       (a, b) => new Date(b.created_time) - new Date(a.created_time)
     );
-    // 分类展示：取前20条
-    grouped[cat] = sortedAll.slice(0, 20);
-
-    // 合并展示：过滤出过去3个月内的记录，并加入到 mergedRecentItems 数组
+    // 分类展示：取前20条，并附加所属分类信息
+    grouped[cat] = sortedAll.slice(0, 20).map(item => ({ ...item, category: cat }));
+    // 合并展示：过滤出过去三个月内的记录，并附加所属分类信息
     const filteredRecent = jsonData.data.filter(
       (item) => new Date(item.created_time) >= threeMonthsAgo
-    );
+    ).map(item => ({ ...item, category: cat }));
     mergedRecentItems = mergedRecentItems.concat(filteredRecent);
   })
 );
@@ -51,18 +50,31 @@ await Promise.all(
 // 对合并后的所有数据按创建时间降序排序，并取前20条
 mergedRecentItems.sort((a, b) => new Date(b.created_time) - new Date(a.created_time));
 mergedRecentItems = mergedRecentItems.slice(0, 20);
+
+// 定义生成跳转链接的函数
+const getLink = (entry) => {
+  if (entry.category === "movie") {
+    // 对于电影，点击跳转到固定的电影 JSON 文件地址
+    return jsonUrls.movie;
+  } else {
+    // 对于其它分类，构造链接为：https://neodb.social/{分类}/{uuid}
+    return `https://neodb.social/${entry.category}/${entry.item.uuid}`;
+  }
+};
 ---
 <Layout title="NeoDB" description="NeoDB">
   <div class="container mx-auto py-8">
-    <h1 class="text-3xl font-bold mb-6"></h1>
-    
+    <h1 class="text-3xl font-bold mb-6">最近看/玩了什么</h1>
+    <!-- <p class="text-gray-500 mb-6">
+      上半部分展示过去3个月内的全部记录，下半部分按分类展示各自最新的20条数据。
+    </p> -->
     <!-- 全部展示部分：仅展示过去3个月内的记录 -->
     <section class="mb-8">
-      <h1 class="text-2xl font-semibold mb-4">最近3月看/玩了什么</h1>
+      <!-- <h2 class="text-2xl font-semibold mb-4">全部</h2> -->
       {mergedRecentItems && mergedRecentItems.length > 0 ? (
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
           {mergedRecentItems.map((entry) => (
-            <a href={entry.item.url} class="block">
+            <a href={getLink(entry)} class="block">
               <div class="border rounded overflow-hidden shadow hover:shadow-lg transition-shadow">
                 <img
                   src={entry.item.cover_image_url}
@@ -85,11 +97,11 @@ mergedRecentItems = mergedRecentItems.slice(0, 20);
     <!-- 分类展示部分：各分类显示最新20条数据，不限制时间 -->
     {Object.keys(jsonUrls).map((cat) => (
       <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4">{categoryMap[cat]}</h2>
+        <h1 class="text-2xl font-semibold mb-4">{categoryMap[cat]}</h1>
         {grouped[cat] && grouped[cat].length > 0 ? (
           <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
             {grouped[cat].map((entry) => (
-              <a href={entry.item.url} class="block">
+              <a href={getLink(entry)} class="block">
                 <div class="border rounded overflow-hidden shadow hover:shadow-lg transition-shadow">
                   <img
                     src={entry.item.cover_image_url}
