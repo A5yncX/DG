@@ -65,4 +65,108 @@ const { Content, headings } = await post.render();
   </main>
   <Random />
   <Comments />
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("img").forEach(img => {
+        const originalParent = img.parentElement;
+        const originalNextSibling = img.nextSibling;
+        let dialog = null;
+        
+        function closeLightbox() {
+          if (dialog) {
+            dialog.removeEventListener("click", onDialogClick);
+            dialog.removeEventListener("cancel", onDialogCancel);
+            if (typeof dialog.close === "function") {
+              dialog.close();
+            } else {
+              dialog.removeAttribute("open");
+            }
+            // Move the image back to its original position.
+            if (originalNextSibling) {
+              originalParent.insertBefore(img, originalNextSibling);
+            } else {
+              originalParent.appendChild(img);
+            }
+            // Restore the image's original inline style.
+            const orig = img.getAttribute("data-original-style");
+            if (orig !== null) {
+              img.setAttribute("style", orig);
+              img.removeAttribute("data-original-style");
+            }
+            dialog.remove();
+            dialog = null;
+          }
+        }
+        
+        function onDialogClick(e) {
+          // Clicking anywhere in the dialog (even on the image) closes the lightbox.
+          closeLightbox();
+        }
+        
+        function onDialogCancel(e) {
+          e.preventDefault();
+          closeLightbox();
+        }
+        
+        function openLightbox() {
+          dialog = document.createElement("dialog");
+          dialog.style.padding = "0";
+          dialog.style.border = "none";
+          dialog.style.background = "transparent";
+          // Center the image.
+          dialog.style.display = "flex";
+          dialog.style.alignItems = "center";
+          dialog.style.justifyContent = "center";
+          
+          dialog.addEventListener("click", onDialogClick);
+          dialog.addEventListener("cancel", onDialogCancel);
+          
+          function moveImage(fn) {
+            if (!document.startViewTransition) {
+              fn();
+            } else {
+              img.style.viewTransitionName = "active-lightbox-image";
+              const transition = document.startViewTransition(() => fn());
+              transition.finished.finally(() => {
+                img.style.removeProperty("view-transition-name");
+              });
+            }
+          }
+          
+          moveImage(() => {
+            // Save the current inline style so it can be restored later.
+            const originalStyle = img.getAttribute("style") || "";
+            img.setAttribute("data-original-style", originalStyle);
+            // Limit the size of the enlarged image.
+            img.style.maxWidth = "90vw";
+            img.style.maxHeight = "90vh";
+            img.style.width = "auto";
+            img.style.height = "auto";
+            
+            dialog.appendChild(img);
+            document.body.appendChild(dialog);
+            if (typeof dialog.showModal === "function") {
+              dialog.showModal();
+            } else {
+              dialog.setAttribute("open", "true");
+            }
+          });
+        }
+        
+        img.addEventListener("click", (e) => {
+          // If the image is already inside a dialog, close it.
+          if (img.closest("dialog")) {
+            e.stopPropagation();
+            closeLightbox();
+          } else {
+            openLightbox();
+          }
+        });
+      });
+    });
+    </script>
+    
+    
+    
+    
 </Layout>
