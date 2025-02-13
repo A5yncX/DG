@@ -4,6 +4,7 @@ pubDate: 2024-03-06 14:25
 description: "                                                  "
 ---
 ```bash
+2025.02.12 -- 调用NeoDB API实现书影音游页
 2025.02.11 -- 群岛化(Astro特性)部分组件
 2025.02.08 -- 修复twikoo的自定义表情/添加其行内样式/重构文章内链接
 2025.02.07 -- 移动原博文category到tags, 改为置顶tag
@@ -24,6 +25,6 @@ Marius是一个基于[nicholasdly/miniblog](https://github.com/nicholasdly/minib
 - 随机文章
 - RSS订阅
 - 双评论系统
-- (TODO?)书影音游
+- 书影音游
 
 ![](https://r2.asyncx.top/2025/02/11/202502111001787.webp)
