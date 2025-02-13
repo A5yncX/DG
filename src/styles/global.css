@@ -67,7 +67,7 @@
       @apply my-4 max-h-[600px] overflow-auto rounded-lg border p-4 font-mono text-sm font-medium dark:border-zinc-700;
     }
     img {
-      @apply my-4 rounded-lg border dark:border-zinc-700;
+      @apply my-4 rounded-lg border dark:border-zinc-700 max-h-96 mx-auto;
     }
     video {
       @apply my-4 rounded-lg border dark:border-zinc-700;
