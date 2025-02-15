@@ -61,12 +61,18 @@
     </svg>
   </button>
 </div>
-
 <script>
   const setListener = () => {
     const button = document.getElementById("theme-toggle");
     button?.addEventListener("click", () => {
+      // 添加临时过渡类，实现模糊和颜色渐变
+      document.documentElement.classList.add("theme-transition");
+      // 切换 dark 类，完成主题切换
       document.documentElement.classList.toggle("dark");
+      // 1秒后移除临时过渡类
+      setTimeout(() => {
+        document.documentElement.classList.remove("theme-transition");
+      }, 300);
     });
   };
 

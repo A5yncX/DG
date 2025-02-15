@@ -14,11 +14,19 @@
   inherits: false;
   initial-value: hsl(204 100% 59%);
 }
+
 @keyframes gradient-change {
   to {
     --＠color-1: hsl(210 100% 59%);
     --＠color-2: hsl(310 100% 59%);
   }
+}
+
+/* 新增：主题切换时临时应用的过渡效果 */
+.theme-transition {
+  /* 在1s内，应用 4px 的模糊效果，再恢复正常 */
+  filter: blur(2px);
+  transition: filter .2s ease-in-out;
 }
 
 @layer base {
@@ -40,7 +48,6 @@
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
-  
 }
 
 @layer components {
@@ -106,10 +113,11 @@ figcaption {
   color: var(--color-gray-500);
   text-align: center;
 }
+
 /* Card Container */
 .db-card {
   all: initial;
-	overflow: hidden;
+  overflow: hidden;
   display: flex;
   border: 3px solid var(--border-color); /* 边框颜色 */
   border-radius: 8px;
@@ -121,7 +129,6 @@ figcaption {
   /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
   max-height: 200px;
 }
-
 
 /* Left Image Section */
 .db-card-post img {
@@ -186,9 +193,10 @@ figcaption {
   --highlight-color: #ff9800; /* 高亮颜色 */
   --text-color-secondary: #555555; /* 次级文本颜色 */
   --border-color: #d0d0d0; /* 边框与背景色接近 */
+  --background-color: #e6e1dc;
 }
-
 :root.dark {
+  --background-color: #1d1e24;
   --card-bg: #1d1e24; /* 深色背景 */
   --text-color: #eeeeee; /* 浅色文本 */
   --link-color: #82b1ff; /* 浅蓝色链接 */
