@@ -48,12 +48,14 @@ const { Content } = await aboutPost.render();
 </li>
     </ul>
 
-    <div class="flex items-center justify-between mb-5 mt-4">
+    <div class="flex items-center justify-start gap-4 mb-5 mt-4">
       <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
         {aboutPost.data.title}
       </h1>
+      <a href="https://r2.asyncx.top/2025/02/14/202502142352689.webp" target="_blank" rel="noopener noreferrer">
+        <img src="/logo_nobg.gif" alt="asyncx" class="fixed bottom-4 right-4 w-8 h-8 rounded-full pixelated" />
+      </a>      
     </div>
-
     <article>
       <Content />
     </article>
