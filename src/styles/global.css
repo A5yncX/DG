@@ -22,12 +22,17 @@
   }
 }
 
-/* 新增：主题切换时临时应用的过渡效果 */
-.theme-transition {
-  /* 在1s内，应用 4px 的模糊效果，再恢复正常 */
-  filter: blur(2px);
-  transition: filter .2s ease-in-out;
+/* 默认状态 */
+html {
+  filter: blur(0);
+  transition: filter .3s cubic-bezier(0, 0, 0.8, 1);
 }
+
+/* 主题切换临时过渡类 */
+.theme-transition {
+  filter: blur(20px);
+}
+
 
 @layer base {
   @font-face {

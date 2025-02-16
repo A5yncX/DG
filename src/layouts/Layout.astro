@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 ---
 
-<html lang="zh">
+<html lang="zh" class="relative bg-fontdefault dark:bg-bgdefault">
   <head>
     <!-- Global Metadata -->
     <meta charset="utf-8" />
@@ -81,6 +81,8 @@ const {
   <body
     class="font-sans text-zinc-900 bg-fontdefault antialiased transition-colors dark:bg-bgdefault dark:text-fontdefault"
   >
+  <!-- <div style="position: fixed; top: -40px; left: -40px; right: -40px; bottom: -40px; background: #000; z-index: -1;"></div> -->
+
     <div class={cn("max-w-2xl mx-auto p-4 pb-16", className)}>
       <Header />
       <slot />

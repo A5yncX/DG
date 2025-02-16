@@ -65,17 +65,18 @@
   const setListener = () => {
     const button = document.getElementById("theme-toggle");
     button?.addEventListener("click", () => {
-      // 添加临时过渡类，实现模糊和颜色渐变
+      // 添加临时过渡类，实现模糊效果
       document.documentElement.classList.add("theme-transition");
-      // 切换 dark 类，完成主题切换
+      // 切换 dark 类，实现主题切换
       document.documentElement.classList.toggle("dark");
-      // 1秒后移除临时过渡类
+      // 1秒后移除临时过渡类，触发滤镜由 10px 缓慢还原到 0 的动画效果
       setTimeout(() => {
         document.documentElement.classList.remove("theme-transition");
-      }, 300);
+      }, 1000);
     });
   };
 
   setListener();
   document.addEventListener("astro:after-swap", setListener);
 </script>
+
