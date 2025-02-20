@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     params: { tag },
     props: {
       tag,
-      // 按日期降序排序
+      // 按日期降序排序 
       posts: posts
         .filter((post) => post.data.tags.includes(tag))
         .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)),
