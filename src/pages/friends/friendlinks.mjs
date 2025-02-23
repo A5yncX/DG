@@ -78,6 +78,12 @@ const friendLinks = [
       link: 'https://ja-307020.great-site.net/',
       description: '1,000 lonely stars | Hiding in the cold',
     },
+    {
+      avatar: 'https://i.postimg.cc/qRbZZbp7/myfavicon.png',
+      name: 'Flyan Lu',
+      link: 'https://fanlumaster.github.io',
+      description: '以横扫一切的偏见斩草除根',
+    },
   ];
 
 export default friendLinks;
