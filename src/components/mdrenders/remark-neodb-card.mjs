@@ -59,11 +59,11 @@ export default function fetchAndInjectContent() {
                     // 标题部分
                     h('div.db-card-title', data.title),
                     // 在标题后插入 cate 元素，正常文档流排列
-                    h(
-                      'div.db-card-cate',
-                      { style: 'font-size: 0.875rem; margin-top: 0.25rem;' },
-                      `[${data.category}]`
-                    ),
+                    // h(
+                    //   'div.db-card-cate',
+                    //   { style: 'font-size: 0.875rem; margin-top: 0.25rem;' },
+                    //   `[${data.category}]`
+                    // ),
                     h('div.rating', [
                       h('span', ` rate: ${data.rating} / 10`),
                     ]),
