@@ -34,37 +34,50 @@ export default function fetchAndInjectContent() {
             const briefText = data.brief.length > 200 ? data.brief.slice(0, 500) + '...' : data.brief;
             // Create a HAST element for raw HTML
             const cardElement = h('div.db-card', [
-              h('a.db-card-subject', { // Wrap the subject in an anchor tag
-                href: `https://neodb.social/${resourceType}/${resourceId}`,
-                target: '_blank',
-                rel: 'noreferrer',
-                style: 'text-decoration: none; display: flex; align-items: flex-start;', // Flex styles for layout
-              }, [
-                h('div.db-card-post', [
-                  h('img', {
-                    loading: 'lazy',
-                    decoding: 'async',
-                    referrerPolicy: 'no-referrer',
-                    src: data.cover_image_url,
-                  }),
-                ]),
-                h('div.db-card-content', [
-                  h('div.db-card-title', data.title), // Title without anchor
-                  h('div.rating', [
-                    // h('span.rating_nums', data.rating),
-                    h('span', ` rate: ${data.rating} / 10`), // 显示满分为10的评分信息
+              h(
+                'a.db-card-subject',
+                {
+                  href: `https://neodb.social/${resourceType}/${resourceId}`,
+                  target: '_blank',
+                  rel: 'noreferrer',
+                  style: 'text-decoration: none; display: flex; align-items: flex-start;',
+                },
+                [
+                  h(
+                    'div.db-card-post',
+                    {},
+                    [
+                      h('img', {
+                        loading: 'lazy',
+                        decoding: 'async',
+                        referrerPolicy: 'no-referrer',
+                        src: data.cover_image_url,
+                      }),
+                    ]
+                  ),
+                  h('div.db-card-content', [
+                    // 标题部分
+                    h('div.db-card-title', data.title),
+                    // 在标题后插入 cate 元素，正常文档流排列
+                    h(
+                      'div.db-card-cate',
+                      { style: 'font-size: 0.875rem; margin-top: 0.25rem;' },
+                      `[${data.category}]`
+                    ),
+                    h('div.rating', [
+                      h('span', ` rate: ${data.rating} / 10`),
+                    ]),
+                    h('div.db-card-abstract', briefText),
                   ]),
-                  h('div.db-card-abstract', briefText), // 使用修改后的 briefText
-                ]),
-                h('div.db-card-cate', data.category),
-              ]),
+                ]
+              ),
             ]);
-
-            // Set the node's value to the generated HAST element
-            node.type = 'html'; // Change the node type to html
-            node.value = toHtml(cardElement); // Convert HAST to HTML
+            
+            // 将 node 转换为 HTML 类型，并插入生成的 card 元素
+            node.type = 'html';
+            node.value = toHtml(cardElement);
           } else {
-            // Fallback message in case of failure
+            // 请求失败时的降级显示
             node.type = 'html';
             node.value = '<p style="text-align: center;"><small>Failed to fetch resource data.</small></p>';
           }
@@ -74,7 +87,7 @@ export default function fetchAndInjectContent() {
       }
     });
 
-    // Wait for all API requests to finish
+    // 等待所有 API 请求完成
     await Promise.all(promises);
   };
 }

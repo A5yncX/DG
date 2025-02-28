@@ -137,6 +137,12 @@ figcaption {
   background-color: #24262d; /* 背景色 */
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1); /* 阴影 */
 }
+a.db-card-subject:hover {
+  outline-style: none;
+}
+.db-card-post {
+  display: inline-block; /* 或 block，根据需要 */
+}
 /* Left Image Section */
 .db-card-post img {
   width: 120px;
@@ -160,7 +166,7 @@ figcaption {
 /* Title */
 .db-card-title {
   font-family: "Geist Mono";
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
   color: var(--link-color);
@@ -172,11 +178,16 @@ figcaption {
 
 /* Category */
 .db-card-cate {
-  font-size: 0.875rem;
-  color: var(--subtext-color);
-  margin-top: 0.5rem;
-  padding-right: 0.5rem;
+  position: absolute;
+  /* background: rgba(0, 0, 0, 0.226); */
+  border-radius: 7px;
+  color: #fff;
+  padding: 4px;
+  font-size: 0px;
+  z-index: 1;
   font-family: "Geist Mono";
+  min-width: 3rem;
+  text-align: center;
 }
 
 /* Rating */
@@ -189,13 +200,14 @@ figcaption {
 
 /* Abstract */
 .db-card-abstract {
+  min-width: 27rem; 
   line-height: 1.5;
   color: var(--text-color-secondary);
   font-size: 13px;
-    overflow: auto;
-    max-height: 6rem;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  overflow: auto;
+  max-height: 6rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* CSS Variables for Light and Dark Mode */
