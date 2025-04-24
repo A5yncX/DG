@@ -67,7 +67,11 @@ export default function fetchAndInjectContent() {
                             h('span', ` rate: ${ratingText} / 10`),
                           ]),
                         ]
-                      : []),
+                      : [
+                        h('div.rating', [
+                          h('span', `  `),
+                        ]),
+                      ]),
                     h('div.db-card-abstract', briefText),
                   ]),
                 ]
