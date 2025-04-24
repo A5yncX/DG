@@ -26,12 +26,24 @@
 html {
   filter: blur(0);
   transition: filter .3s cubic-bezier(0, 0, 0.8, 1);
+  background-color: #1d1e23;            /* 根背景设为黑 */
 }
-
-/* 主题切换临时过渡类 */
+/* 用 ::before 画一个比视窗高得多的黑色层 */
+html::before {
+  content: '';
+  position: fixed;
+  top: -100vh;                       /* 往上多拉出一屏 */
+  bottom: -100vh;                    /* 往下多拉出一屏 */
+  left: 0;
+  right: 0;
+  background-color: #1d1e23;
+  z-index: -1;                       /* 一定要在最底层 */
+  pointer-events: none;              /* 不拦截任何事件 */
+}
+/* 主题切换临时过渡类
 .theme-transition {
   filter: blur(20px);
-}
+} */
 
 
 @layer base {
