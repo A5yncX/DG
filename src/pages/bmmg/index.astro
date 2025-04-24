@@ -53,13 +53,8 @@ mergedRecentItems = mergedRecentItems.slice(0, 20);
 
 // 定义生成跳转链接的函数
 const getLink = (entry) => {
-  if (entry.category === "movie") {
-    // 对于电影，点击跳转到固定的电影 JSON 文件地址
-    return jsonUrls.movie;
-  } else {
-    // 对于其它分类，构造链接为：https://neodb.social/{分类}/{uuid}
+    // 对于卡片，构造链接为：https://neodb.social/{分类}/{uuid}
     return `https://neodb.social/${entry.category}/${entry.item.uuid}`;
-  }
 };
 ---
 <Layout title="NeoDB" description="NeoDB">
@@ -68,6 +63,9 @@ const getLink = (entry) => {
     <!-- 全部展示部分：仅展示过去3个月内的记录 -->
     <section class="mb-8">
       <h2 class="text-2xl font-semibold mb-4">最近3个月看/玩了什么</h2>
+
+      
+      </p>
       {mergedRecentItems && mergedRecentItems.length > 0 ? (
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
           {mergedRecentItems.map((entry) => (
