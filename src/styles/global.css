@@ -73,7 +73,7 @@ html::before {
       @apply my-4 leading-loose tracking-normal;
     }
     h1 {
-      @apply my-4 text-xl font-medium dark:text-white;
+      @apply my-2 text-xl font-medium dark:text-white;
     }
     h2 {
       @apply my-4 text-lg font-medium dark:text-white;
@@ -250,28 +250,57 @@ a.db-card-subject:hover {
 }
 
 h1 {
-  /* apply variable changes over time */
-  animation: gradient-change 2s linear infinite alternate;
-  
-  background: linear-gradient(
-    /* 
-      in oklch produces more vibrant gradient results 
-      learn more https://developer.chrome.com/docs/css-ui/access-colors-spaces#color_interpolation
-    */
-    to right in oklch, 
-    /* use the variables in a gradient (or wherever!) */
-    var(--＠color-1), 
-    var(--＠color-2)
-  );
-  
-  /* old browser support */
+  display: inline-block; 
+  position: relative;
+  font-size: 56px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  filter: brightness(1.1);
+  z-index: 1;
+  margin: 0;
+}
+
+h1::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #00cfff, #a600ff, #ff006e, #ff8800);
+  filter: blur(20px) brightness(1.0);
+  opacity: 0.7;
+  border-radius: 100px;
+  z-index: -1;
+  pointer-events: none;
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease-in-out infinite;
+}
+
+h1::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  background: linear-gradient(90deg, #00cfff, #a600ff, #ff006e, #ff8800);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
-  /* modern browser version */
-  background-clip: text;
-  color: transparent;
+  mix-blend-mode: color-burn;
+  filter: blur(20px) brightness(1.3);
+  z-index: 0;
+  pointer-events: none;
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease-in-out infinite;
 }
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 .tk-owo-emotion {
   display: inline;

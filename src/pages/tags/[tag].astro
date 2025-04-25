@@ -27,7 +27,8 @@ const { tag, posts } = Astro.props;
 ---
 
 <Layout title={`Tag: ${tag}`} description={`Posts tagged with ${tag}`}>
-  <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">#{tag}</h1><br>
+  <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
+    #{tag}</h1><br>
   <ul class="flex flex-col gap-1.5" data-pagefind-ignore="all">
     {
       posts.map((post) => (
