@@ -73,9 +73,9 @@ const friendLinks = [
       description: '循此苦旅，以达星辰',
     },
     {
-      avatar: 'https://ja-307020.great-site.net/wp-content/uploads/2023/11/mordecai.jpg',
+      avatar: 'https://media.alanone.top/avatar.jpg',
       name: 'ENCOM一号机',
-      link: 'https://ja-307020.great-site.net/',
+      link: 'https://alanone.top/',
       description: '1,000 lonely stars | Hiding in the cold',
     },
     {
