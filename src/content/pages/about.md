@@ -1,10 +1,19 @@
 ---
-title: About
+title: 关于我, AsyncX
 pubDate: 2024-03-06 14:25
 description: "                                                  "
 ---
 
-AsyncX - 名字来自一张专辑: Async - Ryuichi Sakamoto 和一首歌: Axion - Sakuzyo. 可读作Ax/A叉/Async.
+Master of Computer Science / INTP / 半吊子程序员 / 半吊子摄影爱好者 / 间歇性哲学爱好者 / 间歇性游戏爱好者 / 现实生活比较充实的死宅
 
 
 本博客一般会用于记录一些设备/软件的设置, 一些工具的使用工作流, 一些鸡毛蒜皮的小事和无足轻重的思维垃圾发散.
+
+---
+
+> 名字来自一张专辑: Async - Ryuichi Sakamoto 和一首歌: Axion - Sakuzyo. 可读作Ax/A叉/Async.
+
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2OKN3NwlITzfVpDJecA4Z3?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/25bAHNEr9LFOms6qOzjFsV?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
