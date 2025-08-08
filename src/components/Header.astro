@@ -1,21 +1,55 @@
 ---
-import { EMAIL } from "../consts";
 import ThemeToggle from "./ThemeToggle.astro";
-// import Pagefind from "./Pagefind.astro";
 ---
 
-<header class="mb-6 flex items-center justify-between">
-  <nav class="flex items-center gap-4">
-    <a href="/"> Home </a>
-    <a href="/posts"> Posts </a>
-    <a href="/tags"> Tag </a>
+<header class="mx-auto w-full max-w-screen-md px-4 mb-6 flex items-center justify-between">
+  {/* 桌面导航 */}
+  <nav class="hidden md:flex items-center gap-4">
+    <a href="/">Home</a>
+    <a href="/posts">Posts</a>
+    <a href="/tags">Tag</a>
     <a href="/bmmg">Media</a>
-    <a href="https://exercise.asyncx.top" target="_blank">Steps</a>
+    <a href="https://exercise.asyncx.top" target="_blank" rel="noopener noreferrer">Steps</a>
     <a href="/about">README.md</a>
-
   </nav>
-  <!-- <Pagefind /> -->
-  <ThemeToggle />
+
+  {/* 桌面主题切换 */}
+  <div class="hidden md:block">
+    <ThemeToggle />
+  </div>
+
+  {/* 移动端：汉堡 + 主题切换 */}
+  <div class="md:hidden flex items-center gap-2">
+    <details class="relative">
+      <summary
+        class="list-none cursor-pointer p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 dark:focus-visible:ring-zinc-600"
+        aria-label="Open menu"
+      >
+        <!-- 汉堡图标 -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </summary>
+
+      <!-- 下拉菜单（不挤占布局，绝对定位） -->
+      <nav class="absolute top-0 left-[calc(100%+0.5rem)] z-50
+                w-56 max-w-[80vw]
+                rounded-lg border border-zinc-200 dark:border-zinc-800
+                bg-white dark:bg-zinc-900 shadow-lg">
+        <ul class="py-1">
+          <li><a class="block px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="/">Home</a></li>
+          <li><a class="block px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="/posts">Posts</a></li>
+          <li><a class="block px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="/tags">Tag</a></li>
+          <li><a class="block px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="/bmmg">Media</a></li>
+          <li><a class="block px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="https://exercise.asyncx.top" target="_blank" rel="noopener noreferrer">Steps</a></li>
+          <li><a class="block px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800" href="/about">README.md</a></li>
+        </ul>
+      </nav>
+    </details>
+
+    <ThemeToggle />
+  </div>
 </header>
 
 <style>
