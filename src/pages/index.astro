@@ -9,13 +9,34 @@ import Layout from "../layouts/Layout.astro";
   className="flex h-svh max-w-2xl flex-col justify-center"
 >
   <main class="space-y-4">
-    <img src="/logo.svg" class="mx-auto mb-4 w-3/4" />
-    <p>
-    </p>
-    <p>
-    </p>
-    <p>
-    </p>
+    <img src="/logo.svg" class="mx-auto w-3/4" />
+        <div
+      id="statuscafe"
+      class="ml-auto w-fit rounded-md
+    border-bgdefault dark:border-fontdefault
+      p-3 transition-colors duration-300"
+    >
+      <div class="text-center">
+          <div id="statuscafe-content" class="inline text-sm font-mono leading-relaxed text-zinc-900 dark:text-zinc-100">Loading...</div>
+          <span class="mx-1 text-xs text-zinc-500 dark:text-zinc-500">(</span>
+          <div id="statuscafe-username" class="inline text-xs font-mono tracking-wide text-zinc-500 dark:text-zinc-500">Loading...</div>
+          <span class="mx-1 text-xs text-zinc-500 dark:text-zinc-500">)</span>
+      </div>
+    </div>
+    <!-- <script src="https://status.cafe/current-status.js?name=asyncx" defer></script> -->
+    <script>
+document.writeln('<div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div>');
+fetch("https://status.cafe/users/asyncx/status.json")
+  .then( r => r.json() )
+  .then( r => {
+    if (!r.content.length) {
+      document.getElementById("statuscafe-content").innerHTML = "No status yet."
+      return
+    }
+    document.getElementById("statuscafe-username").innerHTML = r.timeAgo
+    document.getElementById("statuscafe-content").innerHTML = r.content
+  })
+    </script>
   </main>
 
 </Layout>
