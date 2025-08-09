@@ -2,7 +2,7 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/utils";
-import Comments from"../../components/Comments.astro";
+import Comments from "../../components/Comments.astro";
 import Toc from "../../components/Toc.astro";
 import Random from "../../components/Random.astro";
 
@@ -26,7 +26,7 @@ const { Content, headings } = await post.render();
   className="max-w-2xl"
 >
   <main>
-    <div class="flex items-center justify-between mb-5">
+    <div class="mb-5 flex items-center justify-between">
       <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
         {post.data.title}
       </h1>
@@ -35,7 +35,7 @@ const { Content, headings } = await post.render();
       </p>
     </div>
 
-    {/* 显示文章标签 */}
+    {/* 标签 */}
     {post.data.tags.length > 0 && (
       <div class="mb-5" data-pagefind-ignore="all">
         <ul class="flex flex-wrap gap-2">
@@ -43,7 +43,7 @@ const { Content, headings } = await post.render();
             <li>
               <a
                 href={`/tags/${tag}/`}
-                class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+                class="group flex justify-between gap-3 rounded px-2 py-1 text-sm bg-bgdefault text-fontdefault dark:bg-fontdefault dark:text-bgdefault"
               >
                 #{tag}
               </a>
@@ -53,10 +53,8 @@ const { Content, headings } = await post.render();
       </div>
     )}
 
-    {/* TOC */}
-    <aside class="">
-      <Toc headings={headings} />
-    </aside>
+    {/* TOC（组件内处理移动端/桌面、显隐与高亮） */}
+    <Toc headings={headings} />
 
     <article data-pagefind-body>
       <Content />
@@ -66,35 +64,25 @@ const { Content, headings } = await post.render();
   <Random />
   <Comments />
 
-  <!-- 全局单实例 Lightbox：缩放动画 + 兼容 ClientRouter；修复“重复安装导致两张图” -->
+  <!-- Lightbox（原样保留） -->
   <script is:inline data-astro-rerun>
     (() => {
-      // 防止在 astro:page-load 反复执行时重复安装监听器
       if (window.__lightboxInstalled) return;
       window.__lightboxInstalled = true;
 
       const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-      const D = prefersReduced ? 0 : 180; // 动画时长
-      const state = { overlay: null };    // 跨多次导航保持单例
+      const D = prefersReduced ? 0 : 180;
+      const state = { overlay: null };
 
       const close = () => {
         const overlay = state.overlay;
         if (!overlay) return;
         const img = overlay.querySelector(".lightbox-img");
 
-        const fade = overlay.animate(
-          [{ opacity: 1 }, { opacity: 0 }],
-          { duration: D, easing: "ease-in", fill: "forwards" }
-        );
-        const shrink = img?.animate(
-          [{ transform: "scale(1)" }, { transform: "scale(0.96)" }],
-          { duration: D, easing: "ease-in", fill: "forwards" }
-        );
+        const fade = overlay.animate([{ opacity: 1 }, { opacity: 0 }], { duration: D, easing: "ease-in", fill: "forwards" });
+        const shrink = img?.animate([{ transform: "scale(1)" }, { transform: "scale(0.96)" }], { duration: D, easing: "ease-in", fill: "forwards" });
 
-        Promise.allSettled([
-          fade?.finished ?? Promise.resolve(),
-          shrink?.finished ?? Promise.resolve()
-        ]).finally(() => {
+        Promise.allSettled([fade?.finished ?? Promise.resolve(), shrink?.finished ?? Promise.resolve()]).finally(() => {
           overlay.remove();
           state.overlay = null;
           document.body.style.overflow = "";
@@ -110,7 +98,7 @@ const { Content, headings } = await post.render();
 
         const overlay = document.createElement("div");
         overlay.className = "lightbox-overlay";
-        overlay.dataset.armed = "0"; // 防止首次点击立刻关闭
+        overlay.dataset.armed = "0";
         setTimeout(() => { if (overlay.isConnected) overlay.dataset.armed = "1"; }, D || 120);
 
         const big = thumb.cloneNode(true);
@@ -125,40 +113,24 @@ const { Content, headings } = await post.render();
         document.body.appendChild(overlay);
         state.overlay = overlay;
 
-        // 阻止背景滚动（处理滚动条占位）
         const pad = window.innerWidth - document.documentElement.clientWidth;
         if (pad > 0) document.body.style.paddingRight = pad + "px";
         document.body.style.overflow = "hidden";
 
-        // 入场动画（fill:'forwards'）
-        overlay.animate(
-          [{ opacity: 0 }, { opacity: 1 }],
-          { duration: D, easing: "ease-out", fill: "forwards" }
-        );
-        big.animate(
-          [{ transform: "scale(0.96)" }, { transform: "scale(1)" }],
-          { duration: D, easing: "ease-out", fill: "forwards" }
-        );
+        overlay.animate([{ opacity: 0 }, { opacity: 1 }], { duration: D, easing: "ease-out", fill: "forwards" });
+        big.animate([{ transform: "scale(0.96)" }, { transform: "scale(1)" }], { duration: D, easing: "ease-out", fill: "forwards" });
 
-        // 交互：点击遮罩 / ESC 关闭
-        overlay.addEventListener("click", () => {
-          if (overlay?.dataset.armed === "1") close();
-        });
+        overlay.addEventListener("click", () => { if (overlay?.dataset.armed === "1") close(); });
         document.addEventListener("keydown", onKeydown);
       };
 
-      // 文档级事件委托：仅在 article 内的 img 生效（避免重复监听）
       const onDocClick = (e) => {
         const target = e.target;
         if (!(target instanceof Element)) return;
-
-        // 只处理文章里的图片
         const article = target.closest("article[data-pagefind-body]");
         if (!article) return;
         const img = target.closest("img");
         if (!img) return;
-
-        // 尊重“新开标签页”等修饰键
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
         e.preventDefault();
@@ -167,48 +139,66 @@ const { Content, headings } = await post.render();
       };
 
       document.addEventListener("click", onDocClick, { passive: false });
-
-      // 页面切换前若有打开的 Lightbox，先关闭，防止残留
       document.addEventListener("astro:before-swap", close);
     })();
   </script>
 
-<style is:global>
-  /* 让文章内的图片显示可点击的鼠标样式 */
-  article[data-pagefind-body] img {
-    cursor: pointer; /* 如果更喜欢小手形状，用 cursor: pointer; */
-  }
+  <style is:global>
+    /* 文章内图片可点击（配合 Lightbox） */
+    article[data-pagefind-body] img { cursor: pointer; }
 
-  .lightbox-overlay {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.6);
-    cursor: zoom-out; /* 保持关闭时是“缩小/退出”的指针样式 */
-    z-index: 1000;
-    opacity: 0;
-    touch-action: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .dark .lightbox-overlay { background: rgba(0, 0, 0, 0.7); }
-
-  .lightbox-img {
-    max-width: 92vw;
-    max-height: 92vh;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    will-change: transform;
-  }
-  .dark .lightbox-img { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .lightbox-overlay, .lightbox-img {
-      animation: none !important;
-      transition: none !important;
+    /* ====== 新增：悬停微缩放 ====== */
+    article[data-pagefind-body] img {
+      transition: transform 180ms ease, filter 180ms ease;
+      transform-origin: center center;
+      will-change: transform;
+      backface-visibility: hidden; /* 提升渲染质量，避免锯齿 */
     }
-  }
-</style>
+    article[data-pagefind-body] img:hover {
+      transform: scale(1.03); /* 轻微放大 */
+    }
+    /* Lightbox 中的大图不需要 hover 放大，避免叠加 */
+    .lightbox-img:hover { transform: none !important; }
 
+    /* 视动偏好：减少动画 */
+    @media (prefers-reduced-motion: reduce) {
+      article[data-pagefind-body] img {
+        transition: none;
+      }
+    }
+
+    .lightbox-overlay {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      cursor: zoom-out; z-index: 1000; opacity: 0;
+      touch-action: none; -webkit-tap-highlight-color: transparent;
+    }
+    .dark .lightbox-overlay { background: rgba(0, 0, 0, 0.7); }
+
+    .lightbox-img {
+      max-width: 92vw; max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.4);
+      will-change: transform;
+    }
+    .dark .lightbox-img { box-shadow: 0 10px 40px rgba(0,0,0,.7); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lightbox-overlay, .lightbox-img { animation: none !重要; transition: none !重要; }
+    }
+
+
+    .expressive-code .frame {
+    all: unset;
+    position: relative;
+    display: block;
+    --header-border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd));
+    --tab-border-radius: calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd));
+    --button-spacing: 0.4rem;
+    --code-background: var(--ec-frm-edBg);
+    border-radius: var(--header-border-radius);
+    box-shadow: 0 0 0 var(--ec-brdWd) var(--ec-frm-edBrdClr)!important;
+}
+  </style>
 </Layout>

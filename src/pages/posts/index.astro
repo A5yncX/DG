@@ -14,7 +14,7 @@ const posts: CollectionEntry<"posts">[] = collection.sort(
 // 将文章按年份分组
 const postsByYear: Record<number, CollectionEntry<"posts">[]> = posts.reduce(
   (acc, post) => {
-    const year = new Date(post.data.pubDate).getFullYear(); // 获取年份
+    const year = new Date(post.data.pubDate).getFullYear();
     if (!acc[year]) acc[year] = [];
     acc[year].push(post);
     return acc;
@@ -32,17 +32,33 @@ const sortedYears = Object.entries(postsByYear)
     <ul class="flex flex-col gap-6">
       {sortedYears.map(([year, posts]) => (
         <li>
-          {/* 显示年份标题 */}
-          <h1 class="text-2xl font-bold mb-4">{year}</h1>
+          {/* 年份标题 */}
+          <h1 class="mb-4 text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">{year}</h1>
+
           <ul class="flex flex-col gap-1.5">
             {posts.map((post) => (
               <li>
                 <a
                   href={`/posts/${post.slug}`}
-                  class="group flex justify-between gap-3"
+                  class="group flex items-baseline justify-between gap-3
+                         opacity-90 hover:opacity-100
+                         transition-opacity duration-200 ease-out
+                         motion-reduce:transition-none"
                 >
-                  <span class="group-hover:text-orange-700 dark:group-hover:text-blue-300">{post.data.title}</span>
-                  <span class="text-nowrap text-zinc-500 font-mono group-hover:text-orange-700 dark:group-hover:text-blue-300">
+                  <span
+                    class="transition-colors duration-200 ease-out
+                           group-hover:text-orange-700 dark:group-hover:text-blue-300
+                           motion-reduce:transition-none"
+                  >
+                    {post.data.title}
+                  </span>
+
+                  <span
+                    class="text-nowrap font-mono text-zinc-500
+                           transition-colors duration-200 ease-out
+                           group-hover:text-orange-700 dark:group-hover:text-blue-300
+                           motion-reduce:transition-none"
+                  >
                     {formatDate(post.data.pubDate)}
                   </span>
                 </a>

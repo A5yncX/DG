@@ -1,92 +1,242 @@
 ---
 import type { MarkdownHeading } from "astro";
 
-// 定义类型
-type Props = {
-  headings: MarkdownHeading[];
-};
-
-type HeadingWithSubheadings = MarkdownHeading & {
-  subheadings: MarkdownHeading[];
-};
+type Props = { headings: MarkdownHeading[] };
+type HeadingWithSubheadings = MarkdownHeading & { subheadings: MarkdownHeading[] };
 
 const { headings }: Props = Astro.props;
 
-// 分组逻辑：按 `h2` 和 `h3` 分组
-const grouppedHeadings = headings.reduce((array, heading) => {
-  if (heading.depth === 2) {
-    array.push({ ...heading, subheadings: [] });
-  } else if (heading.depth === 3) {
-    array.at(-1)?.subheadings.push(heading);
-  }
-  return array;
-}, [] as HeadingWithSubheadings[]);
+/** 按 h2 / h3 分组 */
+const grouped: HeadingWithSubheadings[] = headings.reduce((arr, h) => {
+  if (h.depth === 2) arr.push({ ...h, subheadings: [] });
+  else if (h.depth === 3) arr.at(-1)?.subheadings.push(h);
+  return arr;
+}, []);
 
-// 检查是否存在标题
-const hasHeadings = grouppedHeadings.length > 0;
+const has = grouped.length > 0;
 ---
 
-{hasHeadings && (
-  <nav id="table-of-contents" aria-label="Table Of Contents" class="toc">
-    <details open>
-      <summary class="text-sm font-semibold">Table of Contents</summary>
-      <ul class="space-y-1">
-        {grouppedHeadings.map((h) => (
-          <li class="text-sm leading-tight">
-            <a
-              href={`#${h.slug}`}
-              class="hover:underline"
-            >
-              # {h.text}
-            </a>
-            {h.subheadings.length > 0 && (
-              <ul class="pl-4 space-y-1">
-                {h.subheadings.map((sub) => (
-                  <li class="text-sm leading-tight">
-                    <a
-                      href={`#${sub.slug}`}
-                      class="text-gray-500 hover:underline"
-                    >
-                      - {sub.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
-    </details>
-  </nav>
+{has && (
+  <div class="toc-root">
+    {/* 移动端：内嵌（<1200 显示） */}
+    <nav class="toc toc-inline" aria-label="Table Of Contents">
+      <details open>
+        <summary class="text-sm font-semibold">Table of Contents</summary>
+        <ul class="space-y-1">
+          {grouped.map((h) => (
+            <li class="text-sm leading-tight">
+              <a href={`#${h.slug}`} class="toc-link toc-h2">{h.text}</a>
+              {h.subheadings.length > 0 && (
+                <ul class="space-y-1 pl-4">
+                  {h.subheadings.map((s) => (
+                    <li class="text-sm leading-tight">
+                      <a href={`#${s.slug}`} class="toc-link toc-h3">{s.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </details>
+    </nav>
+
+    {/* 桌面端：右侧浮动（≥1200 显示） */}
+    <aside class="toc-float">
+      <nav class="toc" aria-label="Table Of Contents">
+        <details open>
+          <summary class="text-sm font-semibold">Table of Contents</summary>
+          <ul class="space-y-1">
+            {grouped.map((h) => (
+              <li class="text-sm leading-tight">
+                <a href={`#${h.slug}`} class="toc-link toc-h2">{h.text}</a>
+                {h.subheadings.length > 0 && (
+                  <ul class="space-y-1 pl-4">
+                    {h.subheadings.map((s) => (
+                      <li class="text-sm leading-tight">
+                        <a href={`#${s.slug}`} class="toc-link toc-h3">{s.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
+      </nav>
+    </aside>
+  </div>
 )}
 
+<script is:inline data-astro-rerun>
+(() => {
+  const ready = (fn) => {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn, { once: true });
+    else fn();
+  };
+
+  function boot() {
+    const root = document.querySelector(".toc-root");
+    if (!root) return;
+
+    // 右侧浮动 TOC：顶端淡出 / 下滚淡入
+    const float = root.querySelector(".toc-float");
+    const atTop = () => window.scrollY <= 2;
+    const onScroll = () => { float?.classList.toggle("at-top", atTop()); };
+    onScroll();
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // 自动高亮（两份 TOC 同步）
+    const article = document.querySelector("article[data-pagefind-body]");
+    if (!article) return;
+
+    const heads = [...article.querySelectorAll("h2[id], h3[id]")];
+    if (!heads.length) return;
+
+    const allLinks = [...root.querySelectorAll(".toc a.toc-link")];
+
+    // 映射：id -> 对应的所有链接
+    const map = new Map();
+    for (const a of allLinks) {
+      const href = a.getAttribute("href") || "";
+      if (!href.startsWith("#")) continue;
+      const id = href.slice(1);
+      if (!map.has(id)) map.set(id, []);
+      map.get(id).push(a);
+    }
+
+    let activeId = null;
+    const setActive = (id) => {
+      if (activeId === id) return;
+      if (activeId && map.has(activeId)) map.get(activeId).forEach((el) => el.classList.remove("is-active"));
+      activeId = id;
+      if (activeId && map.has(activeId)) map.get(activeId).forEach((el) => el.classList.add("is-active"));
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) {
+        setActive(visible[0].target.id);
+      } else {
+        const nearest = heads
+          .map(h => ({ id: h.id, top: Math.abs(h.getBoundingClientRect().top) }))
+          .sort((a,b) => a.top - b.top)[0];
+        if (nearest) setActive(nearest.id);
+      }
+    }, { root: null, threshold: [0, 1], rootMargin: "-96px 0px -60% 0px" });
+
+    heads.forEach(h => io.observe(h));
+
+    // 平滑滚动
+    const onClick = (e) => {
+      const a = e.target.closest(".toc a.toc-link");
+      if (!a) return;
+      const href = a.getAttribute("href") || "";
+      if (!href.startsWith("#")) return;
+      const id = href.slice(1);
+      const el = document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    root.addEventListener("click", onClick);
+
+    // 清理
+    const cleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      io.disconnect();
+      root.removeEventListener("click", onClick);
+    };
+    document.addEventListener("astro:before-swap", cleanup, { once: true });
+  }
+
+  ready(boot);
+  document.addEventListener("astro:page-load", boot);
+})();
+</script>
+
+<!-- 全局：避免锚点被粘性头部挡住 -->
+<style is:global>
+  article[data-pagefind-body] :is(h2[id], h3[id]) { scroll-margin-top: 96px; }
+</style>
 
 <style>
-  details {
-    /* background-color: #00000030; */
+  /* ===== 显示规则：<1200 只显示内嵌；≥1200 显示浮动 ===== */
+  .toc-root .toc-inline { display: block; }
+  .toc-root .toc-float { display: none; }
+  @media (min-width: 1200px) {
+    .toc-root .toc-inline { display: none; }
+    .toc-root .toc-float { display: block; }
+  }
+
+  /* ===== 基础结构 ===== */
+  .toc-root .toc details {
     padding: 1rem;
     border-radius: 10px;
-    transition: 0.5s all;
-    border: #83838330 solid 1px;
+    border: 1px solid #83838330;
     margin-bottom: 1rem;
-    cursor: pointer;
+    transition: box-shadow .2s ease, border-color .2s ease;
+  }
+  .toc-root .toc summary { cursor: pointer; }
+  .toc-root .toc ul li { list-style: none; }
+
+  .toc-root .toc-float {
+    position: fixed;
+    top: 84px; /* 预留 header */
+    right: max(12px, env(safe-area-inset-right));
+    width: 260px;
+    max-height: 78vh;
+    overflow: auto;
+    background: transparent;
+    z-index: 40;
+
+    opacity: 1; pointer-events: auto; transform: none;
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .toc-root .toc-float.at-top {
+    opacity: 0; pointer-events: none; transform: translateY(-4px);
   }
 
-  details:hover {
-    transition: 0.5s all;
-  }
-
-  ul li {
-    list-style-type: none;
-  }
-
-  ul li a:hover {
-    all: unset;
+  /* ===== 颜色规范（纯 CSS） ===== */
+  /* 非激活：灰色 */
+  .toc-root .toc a.toc-link {
+    position: relative;
+    display: block;
+    padding: .125rem 0;
+    color: #6b7280;               /* zinc-500 */
     text-decoration: none;
-    transition: 0.1s ease-in-out;
+    transition: color .15s ease;
   }
+  .dark .toc-root .toc a.toc-link { color: #a1a1aa; /* zinc-400 */ }
+  .toc-root .toc a.toc-link:hover { color: #3f3f46; }          /* zinc-700 */
+  .dark .toc-root .toc a.toc-link:hover { color: #e4e4e7; }    /* zinc-200 */
+  .toc-root .toc a.toc-h3 { opacity: .9; }
 
-  ul ul {
-    padding-left: 1rem;
+ 
+
+  /* 高亮指示点 */
+  .toc-root .toc a.toc-link.is-active::before {
+    color: #a1a1aa;
+    content: "";
+    position: absolute;
+    left: -10px; top: .6em;
+    width: 6px; height: 6px; border-radius: 9999px;
+    background: currentColor;
+  }
+  .toc-root .toc a.toc-h3.is-active::before { width: 4px; height: 4px; top: .55em; }
+
+  /* 浮动卡片浅底与边框（可按需调整/移除） */
+  .toc-root .toc-float .toc details {
+    padding: .75rem;
+    border-radius: .5rem;
+    border: 1px solid rgba(0,0,0,.08);
+    background-color: rgba(0,0,0,0.03);
+  }
+  .dark .toc-root .toc-float .toc details {
+    border-color: rgba(255,255,255,.08);
+    background-color: rgba(255,255,255,0.04);
   }
 </style>
