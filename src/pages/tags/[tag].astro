@@ -38,7 +38,7 @@ const { tag, posts } = Astro.props;
             class="group flex justify-between gap-3"
           >
             <span class="group-hover:underline">{post.data.title}</span>
-            <span class="text-nowrap text-zinc-500">
+            <span class="text-nowrap text-zinc-500 font-mono">
               {formatDate(post.data.pubDate)}
             </span>
           </a>
