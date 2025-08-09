@@ -77,6 +77,13 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     <ClientRouter />
+    <!-- ✅ 全局样式：不再依赖运行时注入 -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.css"
+  crossorigin="anonymous"
+/>
+
   </head>
   <body
     class="font-sans min-h-svh text-zinc-900 bg-fontdefault antialiased transition-colors dark:bg-bgdefault dark:text-fontdefault"
