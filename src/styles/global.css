@@ -250,7 +250,7 @@ a.db-card-subject:hover {
 }
 
 h1 {
-  display: inline-block; 
+  display: inline-block;
   position: relative;
   font-size: 56px;
   font-weight: 500;
@@ -264,11 +264,15 @@ h1 {
 h1::before {
   content: attr(data-text);
   position: absolute;
-  inset: 0;
+  /* 让光晕区域更小：原来 inset: 0; */
+  inset: 4px;
   background: linear-gradient(90deg, #00cfff, #a600ff, #ff006e, #ff8800);
-  filter: blur(20px) brightness(1.0);
-  opacity: 0.7;
-  border-radius: 100px;
+  /* 降低模糊与亮度，减小外扩 */
+  filter: blur(10px) brightness(1.0);
+  /* 降低透明度，光晕更克制 */
+  opacity: 0.5;
+  /* 圆角更小，形体更贴合文字块 */
+  border-radius: 28px;
   z-index: -1;
   pointer-events: none;
   background-size: 300% 300%;
@@ -288,7 +292,8 @@ h1::after {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   mix-blend-mode: color-burn;
-  filter: blur(20px) brightness(1.3);
+  /* 把文字内的发光也收敛一些 */
+  filter: blur(6px) brightness(1.2);
   z-index: 0;
   pointer-events: none;
   background-size: 300% 300%;
@@ -300,6 +305,7 @@ h1::after {
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
 
 
 .tk-owo-emotion {
