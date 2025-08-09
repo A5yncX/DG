@@ -173,39 +173,42 @@ const { Content, headings } = await post.render();
     })();
   </script>
 
-  <!-- 覆盖层样式 -->
-  <style is:global>
-    .lightbox-overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.6);
-      cursor: zoom-out;
-      z-index: 1000;
-      opacity: 0; /* 初始为 0，入场动画会填充到 1 */
-      touch-action: none;
-      -webkit-tap-highlight-color: transparent;
+<style is:global>
+  /* 让文章内的图片显示可点击的鼠标样式 */
+  article[data-pagefind-body] img {
+    cursor: pointer; /* 如果更喜欢小手形状，用 cursor: pointer; */
+  }
+
+  .lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    cursor: zoom-out; /* 保持关闭时是“缩小/退出”的指针样式 */
+    z-index: 1000;
+    opacity: 0;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .dark .lightbox-overlay { background: rgba(0, 0, 0, 0.7); }
+
+  .lightbox-img {
+    max-width: 92vw;
+    max-height: 92vh;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    will-change: transform;
+  }
+  .dark .lightbox-img { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox-overlay, .lightbox-img {
+      animation: none !important;
+      transition: none !important;
     }
-    .dark .lightbox-overlay {
-      background: rgba(0, 0, 0, 0.7);
-    }
-    .lightbox-img {
-      max-width: 92vw;
-      max-height: 92vh;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-      will-change: transform;
-    }
-    .dark .lightbox-img {
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .lightbox-overlay, .lightbox-img {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
+  }
+</style>
+
 </Layout>

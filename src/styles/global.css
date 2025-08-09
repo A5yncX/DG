@@ -313,3 +313,11 @@ h1::after {
   image-rendering: -o-crisp-edges;   /* Opera */
   image-rendering: crisp-edges;
 }
+
+/* 亮色模式 */
+::selection { background: #fde68a; color: #111827; border-radius: 5px;}   /* Amber-300 + Zinc-900 */
+::-moz-selection { background: #fde68a; color: #111827; border-radius: 5px;}
+
+/* 暗色模式（根节点有 .dark 时生效） */
+.dark ::selection { background: #a1e7fa; color: #0b1220; border-radius: 5px;}  /* Sky-400 + 深蓝灰文本 */
+.dark ::-moz-selection { background: #a1e7fa; color: #0b1220; border-radius: 5px;}
