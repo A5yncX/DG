@@ -34,9 +34,8 @@ const { Content, headings } = await post.render();
         {formatDate(post.data.pubDate)}
       </p>
     </div>
-    
 
-    <!-- 显示文章标签 -->
+    {/* 显示文章标签 */}
     {post.data.tags.length > 0 && (
       <div class="mb-5" data-pagefind-ignore="all">
         <ul class="flex flex-wrap gap-2">
@@ -53,120 +52,160 @@ const { Content, headings } = await post.render();
         </ul>
       </div>
     )}
-    
 
-        <!-- TOC -->
-        <aside class="">
-          <Toc headings={headings} />
-        </aside>
+    {/* TOC */}
+    <aside class="">
+      <Toc headings={headings} />
+    </aside>
+
     <article data-pagefind-body>
       <Content />
     </article>
   </main>
+
   <Random />
   <Comments />
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll("img").forEach(img => {
-        const originalParent = img.parentElement;
-        const originalNextSibling = img.nextSibling;
-        let dialog = null;
-        
-        function closeLightbox() {
-          if (dialog) {
-            dialog.removeEventListener("click", onDialogClick);
-            dialog.removeEventListener("cancel", onDialogCancel);
-            if (typeof dialog.close === "function") {
-              dialog.close();
-            } else {
-              dialog.removeAttribute("open");
-            }
-            // Move the image back to its original position.
-            if (originalNextSibling) {
-              originalParent.insertBefore(img, originalNextSibling);
-            } else {
-              originalParent.appendChild(img);
-            }
-            // Restore the image's original inline style.
-            const orig = img.getAttribute("data-original-style");
-            if (orig !== null) {
-              img.setAttribute("style", orig);
-              img.removeAttribute("data-original-style");
-            }
-            dialog.remove();
-            dialog = null;
-          }
-        }
-        
-        function onDialogClick(e) {
-          // Clicking anywhere in the dialog (even on the image) closes the lightbox.
-          closeLightbox();
-        }
-        
-        function onDialogCancel(e) {
-          e.preventDefault();
-          closeLightbox();
-        }
-        
-        function openLightbox() {
-          dialog = document.createElement("dialog");
-          dialog.style.padding = "0";
-          dialog.style.border = "none";
-          dialog.style.background = "transparent";
-          // Center the image.
-          dialog.style.display = "flex";
-          dialog.style.alignItems = "center";
-          dialog.style.justifyContent = "center";
-          
-          dialog.addEventListener("click", onDialogClick);
-          dialog.addEventListener("cancel", onDialogCancel);
-          
-          function moveImage(fn) {
-            if (!document.startViewTransition) {
-              fn();
-            } else {
-              img.style.viewTransitionName = "active-lightbox-image";
-              const transition = document.startViewTransition(() => fn());
-              transition.finished.finally(() => {
-                img.style.removeProperty("view-transition-name");
-              });
-            }
-          }
-          
-          moveImage(() => {
-            // Save the current inline style so it can be restored later.
-            const originalStyle = img.getAttribute("style") || "";
-            img.setAttribute("data-original-style", originalStyle);
-            // Limit the size of the enlarged image.
-            img.style.maxWidth = "90vw";
-            img.style.maxHeight = "90vh";
-            img.style.width = "auto";
-            img.style.height = "auto";
-            
-            dialog.appendChild(img);
-            document.body.appendChild(dialog);
-            if (typeof dialog.showModal === "function") {
-              dialog.showModal();
-            } else {
-              dialog.setAttribute("open", "true");
-            }
-          });
-        }
-        
-        img.addEventListener("click", (e) => {
-          // If the image is already inside a dialog, close it.
-          if (img.closest("dialog")) {
-            e.stopPropagation();
-            closeLightbox();
-          } else {
-            openLightbox();
-          }
+
+  <!-- 全局单实例 Lightbox：缩放动画 + 兼容 ClientRouter；修复“重复安装导致两张图” -->
+  <script is:inline data-astro-rerun>
+    (() => {
+      // 防止在 astro:page-load 反复执行时重复安装监听器
+      if (window.__lightboxInstalled) return;
+      window.__lightboxInstalled = true;
+
+      const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      const D = prefersReduced ? 0 : 180; // 动画时长
+      const state = { overlay: null };    // 跨多次导航保持单例
+
+      const close = () => {
+        const overlay = state.overlay;
+        if (!overlay) return;
+        const img = overlay.querySelector(".lightbox-img");
+
+        const fade = overlay.animate(
+          [{ opacity: 1 }, { opacity: 0 }],
+          { duration: D, easing: "ease-in", fill: "forwards" }
+        );
+        const shrink = img?.animate(
+          [{ transform: "scale(1)" }, { transform: "scale(0.96)" }],
+          { duration: D, easing: "ease-in", fill: "forwards" }
+        );
+
+        Promise.allSettled([
+          fade?.finished ?? Promise.resolve(),
+          shrink?.finished ?? Promise.resolve()
+        ]).finally(() => {
+          overlay.remove();
+          state.overlay = null;
+          document.body.style.overflow = "";
+          document.body.style.paddingRight = "";
+          document.removeEventListener("keydown", onKeydown);
         });
-      });
-    });
-    </script>
-    
-    
-    
-    
+      };
+
+      const onKeydown = (e) => { if (e.key === "Escape") close(); };
+
+      const openFrom = (thumb) => {
+        if (state.overlay) return;
+
+        const overlay = document.createElement("div");
+        overlay.className = "lightbox-overlay";
+        overlay.dataset.armed = "0"; // 防止首次点击立刻关闭
+        setTimeout(() => { if (overlay.isConnected) overlay.dataset.armed = "1"; }, D || 120);
+
+        const big = thumb.cloneNode(true);
+        big.classList.add("lightbox-img");
+        big.removeAttribute("width");
+        big.removeAttribute("height");
+        big.style.maxWidth = "";
+        big.style.maxHeight = "";
+        big.draggable = false;
+
+        overlay.appendChild(big);
+        document.body.appendChild(overlay);
+        state.overlay = overlay;
+
+        // 阻止背景滚动（处理滚动条占位）
+        const pad = window.innerWidth - document.documentElement.clientWidth;
+        if (pad > 0) document.body.style.paddingRight = pad + "px";
+        document.body.style.overflow = "hidden";
+
+        // 入场动画（fill:'forwards'）
+        overlay.animate(
+          [{ opacity: 0 }, { opacity: 1 }],
+          { duration: D, easing: "ease-out", fill: "forwards" }
+        );
+        big.animate(
+          [{ transform: "scale(0.96)" }, { transform: "scale(1)" }],
+          { duration: D, easing: "ease-out", fill: "forwards" }
+        );
+
+        // 交互：点击遮罩 / ESC 关闭
+        overlay.addEventListener("click", () => {
+          if (overlay?.dataset.armed === "1") close();
+        });
+        document.addEventListener("keydown", onKeydown);
+      };
+
+      // 文档级事件委托：仅在 article 内的 img 生效（避免重复监听）
+      const onDocClick = (e) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+
+        // 只处理文章里的图片
+        const article = target.closest("article[data-pagefind-body]");
+        if (!article) return;
+        const img = target.closest("img");
+        if (!img) return;
+
+        // 尊重“新开标签页”等修饰键
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        openFrom(img);
+      };
+
+      document.addEventListener("click", onDocClick, { passive: false });
+
+      // 页面切换前若有打开的 Lightbox，先关闭，防止残留
+      document.addEventListener("astro:before-swap", close);
+    })();
+  </script>
+
+  <!-- 覆盖层样式 -->
+  <style is:global>
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      cursor: zoom-out;
+      z-index: 1000;
+      opacity: 0; /* 初始为 0，入场动画会填充到 1 */
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dark .lightbox-overlay {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      will-change: transform;
+    }
+    .dark .lightbox-img {
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lightbox-overlay, .lightbox-img {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </Layout>
