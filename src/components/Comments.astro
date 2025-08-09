@@ -1,157 +1,262 @@
 ---
 declare const Astro: any; // 忽略 Astro 的类型报错
-// Get current URL dynamically
+// 当前页 URL（用于 like 计数）
 const currentUrl = encodeURIComponent(Astro.url.toString());
-//get file name without .md
+// 文件名（用于埋点）
 const fileName = Astro.url.pathname.split('/').pop().split('.').shift();
-
 ---
 
 <div class="post-comments">
-  <!-- <div style="color: var(--gray);">↓Leave something behind?↓</div> -->
+  <!-- Like -->
   <div class="like">
     <script src="https://unpkg.com/open-heart-element" type="module"></script>
     <open-heart href={`https://likepost.asyncx0806.workers.dev/${currentUrl}/like`} data-umami-event=`${fileName}-Like` emoji="♥">♥</open-heart>
-    <script>
-      window.customElements.whenDefined('open-heart').then(() => {
-        for (const oh of document.querySelectorAll('open-heart')) {
-        oh.getCount()
-        }
-      })
-      // refresh component after click
-      window.addEventListener('open-heart', e => {
-        e && e.target && e.target.getCount && e.target.getCount()
-      })
-      </script>
   </div>
-    <div class="tabs">
-      <input type="radio" class="hidden-radio" name="comment-provider" id="by-twikoo" autocomplete="off" data-umami-event="Comment-Twikoo">
-      <label class="tab" for="by-twikoo">Twikoo</label>
-      <input type="radio" class="hidden-radio" name="comment-provider" id="by-giscus" autocomplete="off" data-umami-event="Comment-Giscus">
-      <label class="tab" for="by-giscus">Giscus</label>
-    </div>
-    <div class="post-comments-content twikoo" id="comment" hidden>
-      <div id="twikoo-comments"></div>
-      <script src="//cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js" is:inline></script>
-      <script>
-        twikoo.init({
-          envId: 'https://twikoo.asyncx.top/',
-          el: '#twikoo-comments',
-        })
-      </script>
-    </div>
-    <div class="post-comments-content giscus" hidden>
-      <div id="giscus">
-        <script src="https://giscus.app/client.js"
-          data-repo="A5yncX/DG"
-          data-repo-id="R_kgDOLPfagg"
-          data-category="General"
-          data-category-id="DIC_kwDOLPfags4CdlA4"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="top"
-          data-theme="dark_tritanopia"
-          data-lang="zh-CN"
-          crossorigin="anonymous"
-          async
-        ></script>
-      </div>
-    </div>
+
+  <!-- Tabs（初始不选中，点击才显示内容） -->
+  <div class="tabs">
+    <input type="radio" class="hidden-radio" name="comment-provider" id="by-twikoo" autocomplete="off" data-umami-event="Comment-Twikoo">
+    <label class="tab" for="by-twikoo">Twikoo</label>
+
+    <input type="radio" class="hidden-radio" name="comment-provider" id="by-giscus" autocomplete="off" data-umami-event="Comment-Giscus">
+    <label class="tab" for="by-giscus">Giscus</label>
   </div>
-  <script>
-    const group = document.querySelectorAll('input[name="comment-provider"]');
-    const contents = document.querySelectorAll('.post-comments-content');
-    const handleChange = () => {
-      let commentProvider = document.querySelector('input[name="comment-provider"]:checked+.tab');
-      if (commentProvider) {
-        commentProvider = commentProvider.textContent.toLowerCase();
-        contents.forEach(content => {
-          if (content.classList.contains(commentProvider)) {
-            content.style.display = 'block';
-          } else {
-            content.style.display = 'none';
-          }
-        })
+
+  <!-- 内容区：初始全部隐藏；点击对应 Tab 后才显示 & 初始化 -->
+  <div class="post-comments-content twikoo" id="twikoo-box" hidden>
+    <div id="twikoo-comments"></div>
+  </div>
+
+  <div class="post-comments-content giscus" id="giscus-box" hidden>
+    <div id="giscus"></div>
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+(() => {
+  const ready = (fn) => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn, { once: true });
+    } else fn();
+  };
+
+  /* ---------------- Twikoo（保持你现有逻辑） ---------------- */
+
+  function hasTwikooStyle() {
+    return [...document.head.querySelectorAll('style')]
+      .some(s => /twikoo|tk-/i.test(s.textContent || ''));
+  }
+
+  function loadTwikooFresh() {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js?v=' + Date.now();
+      s.async = true;
+      s.onload = () => resolve(window.twikoo);
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  async function ensureTwikooFreshAndInit() {
+    const el = document.getElementById('twikoo-comments');
+    if (el) el.innerHTML = '';
+    if (!hasTwikooStyle() || !window.twikoo) {
+      await loadTwikooFresh();
+    }
+    window.twikoo?.init?.({
+      envId: 'https://twikoo.asyncx.top/',
+      el: '#twikoo-comments',
+    });
+  }
+
+  /* ---------------- Giscus（关键改动：每次都重新渲染） ---------------- */
+
+  const GISCUS_CFG = {
+    repo: 'A5yncX/DG',
+    repoId: 'R_kgDOLPfagg',
+    category: 'General',
+    categoryId: 'DIC_kwDOLPfags4CdlA4',
+    mapping: 'pathname',
+    strict: '0',
+    reactions: '1',
+    emitMetadata: '0',
+    inputPosition: 'top',
+    lang: 'zh-CN',
+    crossOrigin: 'anonymous',
+  };
+
+  function currentGiscusTheme() {
+    return document.documentElement.classList.contains('dark')
+      ? 'dark_tritanopia'
+      : 'light_tritanopia';
+  }
+
+  /** 每次调用都清空容器并重新注入 <script data-*>，确保映射到当前 pathname */
+  function renderGiscus() {
+    const container = document.getElementById('giscus');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+
+    s.setAttribute('data-repo', GISCUS_CFG.repo);
+    s.setAttribute('data-repo-id', GISCUS_CFG.repoId);
+    s.setAttribute('data-category', GISCUS_CFG.category);
+    s.setAttribute('data-category-id', GISCUS_CFG.categoryId);
+    s.setAttribute('data-mapping', GISCUS_CFG.mapping);
+    s.setAttribute('data-strict', GISCUS_CFG.strict);
+    s.setAttribute('data-reactions-enabled', GISCUS_CFG.reactions);
+    s.setAttribute('data-emit-metadata', GISCUS_CFG.emitMetadata);
+    s.setAttribute('data-input-position', GISCUS_CFG.inputPosition);
+    s.setAttribute('data-theme', currentGiscusTheme());
+    s.setAttribute('data-lang', GISCUS_CFG.lang);
+    s.setAttribute('crossorigin', GISCUS_CFG.crossOrigin);
+
+    container.appendChild(s);
+  }
+
+  /** 主题切换联动 Giscus（不重建，直接 postMessage 切主题） */
+  function updateGiscusTheme() {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme: currentGiscusTheme() } } },
+      'https://giscus.app'
+    );
+  }
+
+  /* ---------------- 交互与生命周期 ---------------- */
+
+  function boot() {
+    // open-heart 计数
+    window.customElements?.whenDefined?.('open-heart')?.then(() => {
+      document.querySelectorAll('open-heart').forEach(oh => oh.getCount?.());
+    });
+    const recount = (e) => e?.target?.getCount?.();
+    window.removeEventListener('open-heart', recount);
+    window.addEventListener('open-heart', recount, { passive: true });
+
+    const radios = document.querySelectorAll('input[name="comment-provider"]');
+    const twikooBox = document.getElementById('twikoo-box');
+    const giscusBox = document.getElementById('giscus-box');
+
+    const show = (el) => el && el.removeAttribute('hidden');
+    const hide = (el) => el && el.setAttribute('hidden', '');
+
+    async function handleChange() {
+      const label = document.querySelector('input[name="comment-provider"]:checked + .tab');
+      const name = label?.textContent?.toLowerCase().trim();
+
+      if (name === 'twikoo') {
+        hide(giscusBox); show(twikooBox);
+        await ensureTwikooFreshAndInit();
+      } else if (name === 'giscus') {
+        hide(twikooBox); show(giscusBox);
+        renderGiscus(); // ⭐ 关键：每次点击都重建，映射到当前 pathname
+      } else {
+        hide(twikooBox); hide(giscusBox);
       }
     }
-    group.forEach(radio => radio.addEventListener('input', handleChange))
-  </script>
-  <style>
-    open-heart {
-	margin-right: .5rem;
-	border: 1px solid #8585a5;
-	border-radius: .4em;
-	padding: .4em;
-	transition: .5s all;
+
+    // 绑定/去重
+    radios.forEach(r => r.removeEventListener('change', handleChange));
+    radios.forEach(r => r.addEventListener('change', handleChange));
+
+    // 事件委托兜底某些浏览器对隐藏 radio 的行为
+    document.querySelector('.tabs')?.addEventListener('click', (e) => {
+      const lab = e.target.closest('.tab'); if (!lab) return;
+      const forId = lab.getAttribute('for');
+      if (forId) document.getElementById(forId).checked = true;
+      handleChange();
+    });
+
+    // 主题变化时，联动更新 Giscus theme
+    const themeObserver = new MutationObserver(() => updateGiscusTheme());
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    // 初始不显示
+    radios.forEach(r => { r.checked = false; });
+    hide(twikooBox); hide(giscusBox);
+  }
+
+  // 首次 & 每次客户端导航后都运行
+  ready(boot);
+  document.addEventListener('astro:page-load', boot);
+})();
+</script>
+
+<style>
+  open-heart {
+    margin-right: .5rem;
+    border: 1px solid #8585a5;
+    border-radius: .4em;
+    padding: .4em;
+    transition: .5s all;
   }
   open-heart:not([disabled]):hover,
   open-heart:not([disabled]):focus {
-	border-color: #00000030;
-	/* box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303); */
-	transition: .5s all;
-	cursor: pointer;
+    border-color: #00000030;
+    transition: .5s all;
+    cursor: pointer;
   }
   open-heart[disabled] {
-	transition: .5s all;
-	cursor: not-allowed;
-	border-color: #00000030;
-	/* box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303); */
+    cursor: not-allowed;
+    border-color: #00000030;
+    transition: .5s all;
   }
   open-heart[count]:not([count="0"])::after {
-	content: attr(count);
-	font-family: var(--font-family-mono);
+    content: attr(count);
+    font-family: var(--font-family-mono);
   }
+
   .post-comments {
-	display: flex;
-	align-items: center;
-  	flex: auto;
-  	flex-direction: column;
-  	gap: 0.5rem;
-  	margin: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    flex: auto;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 1rem;
   }
   .tabs {
-	max-width: 300px;
-	display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  width: 100%;
-  border-radius: 10px;
-  padding: 0.25rem;
-  /* background-color: #00000030; */
-  color: #a6adba;
-  transition: all .5s;
-  border: #00000030 solid 1px;
+    max-width: 300px;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0.25rem;
+    color: #a6adba;
+    transition: all .5s;
+    border: #00000030 solid 1px;
   }
   .tabs:hover{
-	border: ##e6e1dc solid 1px;
-	/* box-shadow: 0px 0px 30px 1px rgba(150, 222, 255, 0.303); */
+    border: #e6e1dc solid 1px;
   }
   .hidden-radio {
-	position: absolute;
-  clip: rect(0, 0, 0, 0);
-  pointer-events: none;
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
   }
-  .post-comments .hidden-radio:checked+.tab {
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #000;
+  .post-comments .hidden-radio:checked + .tab {
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #000;
   }
   .post-comments .tab {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 2rem;
-  font-size: .875rem;
-  cursor: pointer;
-  line-height: 2;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  flex: 1;
-  transition: all .2s cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    font-size: .875rem;
+    cursor: pointer;
+    line-height: 2;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex: 1;
+    transition: all .2s cubic-bezier(.4,0,.2,1);
   }
-  .like {
-    margin-bottom: 1rem;
-  }
-  </style>
+  .like { margin-bottom: 1rem; }
+</style>
