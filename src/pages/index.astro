@@ -34,7 +34,7 @@ fetch("https://status.cafe/users/asyncx/status.json")
       return
     }
     document.getElementById("statuscafe-username").innerHTML = r.timeAgo
-    document.getElementById("statuscafe-content").innerHTML = r.content
+    document.getElementById("statuscafe-content").innerHTML = r.face + " " + r.content
   })
     </script>
   </main>
