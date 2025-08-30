@@ -1,120 +1,277 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
-// 定义各分类对应的 JSON 文件地址
+// 远端 JSON
 const jsonUrls = {
   movie: "https://neodb.asyncx.top/data/neodb/movie.json",
-  tv: "https://neodb.asyncx.top/data/neodb/tv.json",
-  game: "https://neodb.asyncx.top/data/neodb/game.json",
-  book: "https://neodb.asyncx.top/data/neodb/book.json"
+  tv:    "https://neodb.asyncx.top/data/neodb/tv.json",
+  game:  "https://neodb.asyncx.top/data/neodb/game.json",
+  book:  "https://neodb.asyncx.top/data/neodb/book.json",
 };
 
-// 定义分类中文显示名称
-const categoryMap = {
-  movie: "影",
-  tv: "剧",
-  game: "游",
-  book: "书"
-};
+// 中文短名（用于标题/标签）
+const categoryMap = { movie: "影", tv: "剧", game: "游", book: "书" };
 
-// 用于存储各分类的所有数据（不做时间过滤，取最新20条）
-const grouped = {};
+// 归集
+const grouped: Record<string, any[]> = {};  // 各分类全部（已排序，不限数量）
+let mergedRecentItems: any[] = [];          // 近 1 个月
 
-// 用于存储合并后的数据（仅包含过去3个月内的记录）
-let mergedRecentItems = [];
-
-// 计算当前日期三个月前的日期
+// 时间窗口：近 1 个月
 const now = new Date();
-const threeMonthsAgo = new Date();
-threeMonthsAgo.setMonth(now.getMonth() - 3);
+const oneMonthAgo = new Date(now);
+oneMonthAgo.setMonth(now.getMonth() - 1);
 
-// 读取各 JSON 文件(目前随博客更新而更新)
+// —— 工具：把不同 JSON 结构“规范化”为统一字段 ——
+// 期望输出形态：{ _title, _cover, _uuid, _created, _item, category }
+function normalizeRows(cat: string, jsonData: any) {
+  const rows = Array.isArray(jsonData)
+    ? jsonData
+    : (jsonData?.data ?? jsonData?.items ?? jsonData?.results ?? []);
+
+  if (!Array.isArray(rows)) return [];
+
+  return rows.map((raw: any) => {
+    const item = raw?.item ?? raw;
+
+    // 时间字段兜底
+    const created =
+      raw?.created_time ?? raw?.created_at ?? item?.created_time ?? item?.created_at ??
+      raw?.time ?? raw?.date ?? raw?.updated_at ?? "";
+
+    // 标题兜底
+    const title =
+      item?.title ?? item?.name ?? item?.original_title ?? item?.subject ?? "";
+
+    // 封面兜底
+    const cover =
+      item?.cover_image_url ?? item?.cover ?? item?.image ?? item?.poster ??
+      item?.pic ?? item?.thumbnail ?? "";
+
+    // 唯一 ID 兜底（用于生成跳转链接）
+    const uuid = item?.uuid ?? item?.id ?? item?.slug ?? item?.sid ?? "";
+
+    return {
+      ...raw,
+      _item: item,
+      _created: created,
+      _title: title,
+      _cover: cover,
+      _uuid: uuid,
+      category: cat,
+    };
+  });
+}
+
+// 拉取 & 处理
 await Promise.all(
   Object.entries(jsonUrls).map(async ([cat, url]) => {
     const res = await fetch(url);
     const jsonData = await res.json();
-    // 对该分类所有数据按创建时间降序排序（不做时间过滤）
-    const sortedAll = jsonData.data.sort(
-      (a, b) => new Date(b.created_time) - new Date(a.created_time)
+
+    const normalized = normalizeRows(cat, jsonData);
+
+    // 分类页：全部，按时间降序
+    grouped[cat] = normalized
+      .slice()
+      .sort((a, b) => new Date(b._created) as any - (new Date(a._created) as any));
+
+    // 最近页：近 1 个月
+    const recent = normalized.filter(
+      (x) => x._created && new Date(x._created) >= oneMonthAgo
     );
-    // 分类展示：取前20条，并附加所属分类信息
-    grouped[cat] = sortedAll.slice(0, 20).map(item => ({ ...item, category: cat }));
-    // 合并展示：过滤出过去3个月内的记录，并附加所属分类信息
-    const filteredRecent = jsonData.data.filter(
-      (item) => new Date(item.created_time) >= threeMonthsAgo
-    ).map(item => ({ ...item, category: cat }));
-    mergedRecentItems = mergedRecentItems.concat(filteredRecent);
+    mergedRecentItems = mergedRecentItems.concat(recent);
   })
 );
 
-// 对合并后的所有数据按创建时间降序排序，并取前20条
-mergedRecentItems.sort((a, b) => new Date(b.created_time) - new Date(a.created_time));
-mergedRecentItems = mergedRecentItems.slice(0, 20);
+// 合并最近：统一按时间降序（不限制数量）
+mergedRecentItems.sort(
+  (a, b) => new Date(b._created) as any - (new Date(a._created) as any)
+);
 
-// 定义生成跳转链接的函数
-const getLink = (entry) => {
-    // 对于卡片，构造链接为：https://neodb.social/{分类}/{uuid}
-    return `https://neodb.social/${entry.category}/${entry.item.uuid}`;
-};
+// 跳转链接（按你的既有规则）
+const getLink = (entry: any) =>
+  `https://neodb.social/${entry.category}/${entry._uuid}`;
 ---
-<Layout title="NeoDB" description="NeoDB">
-  <div class="container mx-auto py-8">
-    <!-- <h1 class="text-3xl font-bold mb-6">最近看/玩了什么</h1> -->
-    <!-- 全部展示部分：仅展示过去3个月内的记录 -->
-    <section class="mb-8">
-      <h1 class="text-2xl font-semibold mb-4">最近3个月看/玩了什么</h2>
 
-      
-      </p>
-      {mergedRecentItems && mergedRecentItems.length > 0 ? (
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {mergedRecentItems.map((entry) => (
-            <a href={getLink(entry)} class="block">
-              <div class="rounded overflow-hidden">
-                <img
-                  src={entry.item.cover_image_url}
-                  alt={entry.item.title}
-                  loading="lazy"
-                  class="w-full h-48 object-cover"
-                />
-              </div>
-              <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
-                {entry.item.title}
-              </p>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <p class="text-gray-500">暂无数据</p>
-      )}
-    </section>
-    <hr class="my-8 border-t border-black dark:border-white" />
-    <!-- 分类展示部分：各分类显示最新20条数据，不限制时间 -->
-    {Object.keys(jsonUrls).map((cat) => (
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4">{categoryMap[cat]}</h2>
-        {grouped[cat] && grouped[cat].length > 0 ? (
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-            {grouped[cat].map((entry) => (
-              <a href={getLink(entry)} class="block">
-                <div class="rounded overflow-hidden">
-                  <img
-                    src={entry.item.cover_image_url}
-                    alt={entry.item.title}
-                    loading="lazy"
-                    class="w-full h-48 object-cover"
-                  />
-                </div>
-                <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
-                  {entry.item.title}
-                </p>
-              </a>
-            ))}
-          </div>
-        ) : (
-          <p class="text-gray-500">暂无数据</p>
-        )}
-      </section>
-    ))}
+<Layout title="NeoDB" description="NeoDB">
+  <div class="container mx-auto">
+
+    <!-- 把 radio 放在 panels 之前，保证 ~ 兄弟选择器可用 -->
+    <div class="tabset mb-6">
+      <input id="tab-recent" type="radio" name="neoTabs" class="tab-input" checked />
+      <input id="tab-movie"  type="radio" name="neoTabs" class="tab-input" />
+      <input id="tab-tv"     type="radio" name="neoTabs" class="tab-input" />
+      <input id="tab-book"   type="radio" name="neoTabs" class="tab-input" />
+      <input id="tab-game"   type="radio" name="neoTabs" class="tab-input" />
+
+      <div class="tabs flex flex-wrap gap-2 md:gap-3 border-b border-black/10 dark:border-white/10 pb-2">
+        <label for="tab-recent" class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault">Last Month</label>
+        <label for="tab-movie"  class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault">{categoryMap.movie}</label>
+        <label for="tab-tv"     class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault">{categoryMap.tv}</label>
+        <label for="tab-book"   class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault">{categoryMap.book}</label>
+        <label for="tab-game"   class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault">{categoryMap.game}</label>
+      </div>
+
+      <!-- 面板：默认 display:none，由 radio:checked ~ .panels #panel-xxx 控制显示 -->
+      <div class="panels mt-6">
+
+        <!-- 最近（近 1 个月） -->
+        <section id="panel-recent" class="tab-panel">
+          {mergedRecentItems?.length ? (
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {mergedRecentItems.map((entry) => (
+                <a href={getLink(entry)} class="block" rel="noopener noreferrer">
+                  <div class="rounded overflow-hidden">
+                    <img
+                      src={entry._cover}
+                      alt={entry._title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
+                    {entry._title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-gray-500">最近 1 个月暂无数据</p>
+          )}
+          <p class="mt-10 text-sm text-gray-400 text-center">⚠️偶尔会对之前看过的内容进行查漏补缺</p>
+        </section>
+
+        <!-- 影 -->
+        <section id="panel-movie" class="tab-panel">
+          <!-- <h2 class="text-2xl font-semibold mb-4">{categoryMap.movie}</h2> -->
+          {grouped.movie?.length ? (
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {grouped.movie.map((entry) => (
+                <a href={getLink(entry)} class="block" rel="noopener noreferrer">
+                  <div class="rounded overflow-hidden">
+                    <img
+                      src={entry._cover}
+                      alt={entry._title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
+                    {entry._title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-gray-500">暂无数据</p>
+          )}
+        </section>
+
+        <!-- 剧 -->
+        <section id="panel-tv" class="tab-panel">
+          <!-- <h2 class="text-2xl font-semibold mb-4">{categoryMap.tv}</h2> -->
+          {grouped.tv?.length ? (
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {grouped.tv.map((entry) => (
+                <a href={getLink(entry)} class="block" rel="noopener noreferrer">
+                  <div class="rounded overflow-hidden">
+                    <img
+                      src={entry._cover}
+                      alt={entry._title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
+                    {entry._title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-gray-500">暂无数据</p>
+          )}
+        </section>
+
+        <!-- 书 -->
+        <section id="panel-book" class="tab-panel">
+          <!-- <h2 class="text-2xl font-semibold mb-4">{categoryMap.book}</h2> -->
+          {grouped.book?.length ? (
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {grouped.book.map((entry) => (
+                <a href={getLink(entry)} class="block" rel="noopener noreferrer">
+                  <div class="rounded overflow-hidden">
+                    <img
+                      src={entry._cover}
+                      alt={entry._title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
+                    {entry._title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-gray-500">暂无数据</p>
+          )}
+        </section>
+
+        <!-- 游 -->
+        <section id="panel-game" class="tab-panel">
+          <!-- <h2 class="text-2xl font-semibold mb-4">{categoryMap.game}</h2> -->
+          {grouped.game?.length ? (
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {grouped.game.map((entry) => (
+                <a href={getLink(entry)} class="block" rel="noopener noreferrer">
+                  <div class="rounded overflow-hidden">
+                    <img
+                      src={entry._cover}
+                      alt={entry._title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <p class="mt-2 text-sm text-center text-gray-500 dark:text-gray-500">
+                    {entry._title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="text-gray-500">暂无数据</p>
+          )}
+        </section>
+      </div>
+    </div>
   </div>
+
+  <style>
+    /* 隐藏 radio */
+    .tab-input { position: absolute; opacity: 0; pointer-events: none; }
+
+    /* 面板显示/隐藏 */
+    .tab-panel { display: none; }
+    #tab-recent:checked ~ .panels #panel-recent { display: block; }
+    #tab-movie:checked  ~ .panels #panel-movie  { display: block; }
+    #tab-tv:checked     ~ .panels #panel-tv     { display: block; }
+    #tab-book:checked   ~ .panels #panel-book   { display: block; }
+    #tab-game:checked   ~ .panels #panel-game   { display: block; }
+
+    /* 选中态：给当前标签一个内描边，不改变你设定的背景/文字色
+    #tab-recent:checked ~ .tabs label[for="tab-recent"],
+    #tab-movie:checked  ~ .tabs label[for="tab-movie"],
+    #tab-tv:checked     ~ .tabs label[for="tab-tv"],
+    #tab-book:checked   ~ .tabs label[for="tab-book"],
+    #tab-game:checked   ~ .tabs label[for="tab-game"] {
+      box-shadow: inset 0 0 0 2px currentColor; */
+    /* } */
+  </style>
 </Layout>
