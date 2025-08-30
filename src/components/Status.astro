@@ -1,0 +1,189 @@
+---
+const {
+  username = 'asyncx',
+  title = '',
+  open = true,
+  limit = 20,
+} = Astro.props;
+
+if (!username) {
+  throw new Error('[Status.astro] `username` 是必需的');
+}
+
+const feedURL = `https://status.cafe/users/${encodeURIComponent(username)}.atom`;
+const readerId = `feed-reader-${String(username).replace(/[^a-z0-9_-]/gi, '')}`;
+
+// 简单 XML 解码（含 CDATA)
+function decodeXml(s = '') {
+  return s
+    .replace(/<!\[CDATA\[/g, '')
+    .replace(/\]\]>/g, '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'");
+}
+const get = (re, str) => (re.exec(str)?.[1] || '').trim();
+const emojiRe = /[\p{Extended_Pictographic}\p{Emoji_Presentation}]/gu;
+
+function extractEntries(xml) {
+  const out = [];
+  const entryRe = /<entry\b[^>]*>([\s\S]*?)<\/entry>/g;
+  let m;
+  while ((m = entryRe.exec(xml))) {
+    const blk = m[1];
+    const titleRaw = get(/<title[^>]*>([\s\S]*?)<\/title>/, blk);
+    const contentRaw = get(/<content[^>]*>([\s\S]*?)<\/content>/, blk);
+    const published = get(/<published[^>]*>([\s\S]*?)<\/published>/, blk) ||
+                      get(/<updated[^>]*>([\s\S]*?)<\/updated>/, blk);
+
+    const emojiMatch = titleRaw.match(emojiRe);
+    const emoji = emojiMatch ? emojiMatch.join('').replace(/[0-9]+$/, '') : '';
+
+    out.push({
+      title: decodeXml(titleRaw),
+      contentHtml: decodeXml(contentRaw),
+      published,
+      emoji,
+    });
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+function timeAgo(dateStr) {
+  const now = new Date();
+  const t = new Date(dateStr);
+  const diff = now - t;
+  if (!isFinite(diff)) return '';
+  const s = Math.floor(diff / 1000);
+  const m = Math.floor(s / 60);
+  const h = Math.floor(m / 60);
+  const d = Math.floor(h / 24);
+  if (d > 0) return `${d} day${d > 1 ? 's' : ''} ago`;
+  if (h > 0) return `${h} hour${h > 1 ? 's' : ''} ago`;
+  if (m > 0) return `${m} minute${m > 1 ? 's' : ''} ago`;
+  return `${s} second${s > 1 ? 's' : ''} ago`;
+}
+
+let items = [];
+try {
+  const res = await fetch(feedURL, {
+    headers: { accept: 'application/atom+xml, text/xml;q=0.9,*/*;q=0.8' },
+  });
+  const xml = await res.text();
+  items = extractEntries(xml);
+} catch (e) {
+  items = [];
+}
+---
+
+<div class="note__item">
+  <div class="note__day">{title}</div>
+
+  <div class="note__list" style="font-size: 80%;">
+    <!-- <details class="mumble" open={open}> -->
+      <!-- <summary>📖</summary> -->
+
+      <div id={readerId}>
+        {items.length === 0 ? (
+          <p class="statuscafe-empty">No recent updates.</p>
+        ) : (
+          items.map((it) => (
+            <div class="statuscafe-entry">
+                <span class="mumble-title">{it.emoji ? it.emoji + ' ' : ''}</span>
+              <p class="statuscafe-username">
+                <span class="status-meta">
+                  <span class="mumble-time">
+                    <time datetime={it.published}>{timeAgo(it.published)}</time>
+                  </span>
+                  
+                </span>
+              </p>
+              <div class="statuscafe-content" set:html={it.contentHtml}></div>
+            </div>
+          ))
+        )}
+      </div>
+
+      <!-- 仅用于每分钟更新一次“xx ago”，不再走前端 fetch -->
+      <script is:inline>
+        const ROOT_ID = {JSON.stringify(readerId)};
+        function rel(s) {
+          const now = new Date();
+          const t = new Date(s);
+          const diff = now - t;
+          const sec = Math.floor(diff / 1000);
+          const min = Math.floor(sec / 60);
+          const hr = Math.floor(min / 60);
+          const day = Math.floor(hr / 24);
+          if (day > 0) return `${day} day${day > 1 ? 's' : ''} ago`;
+          if (hr  > 0) return `${hr} hour${hr > 1 ? 's' : ''} ago`;
+          if (min > 0) return `${min} minute${min > 1 ? 's' : ''} ago`;
+          return `${sec} second${sec > 1 ? 's' : ''} ago`;
+        }
+        function tick() {
+          const root = document.getElementById(ROOT_ID);
+          if (!root) return;
+          root.querySelectorAll('time').forEach(el => {
+            const dt = el.getAttribute('datetime');
+            if (dt) el.textContent = rel(dt);
+          });
+        }
+        tick();
+        setInterval(tick, 60_000);
+      </script>
+    <!-- </details> -->
+  </div>
+</div>
+
+<style>
+.statuscafe-entry {
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--divider, rgba(125,125,125,.3));
+  /* 改为网格布局：左列是标题(emoji)，右列分两行：时间 + 正文 */
+  display: grid;
+  grid-template-columns: 2rem 1fr;           /* 左列给个固定宽度，按需可改为 auto */
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "title time"
+    "title content";
+  column-gap: .6rem;
+  row-gap: .25rem;
+  align-items: start;
+}
+
+.statuscafe-entry:last-child { border-bottom: none; }
+
+/* 把中间两层包裹“拍扁”，让 .mumble-title 和 .mumble-time 成为 grid item */
+.statuscafe-username,
+.status-meta {
+  display: contents;
+}
+
+/* 左侧：mumble-title（通常是 emoji） */
+.mumble-title {
+  grid-area: title;
+  line-height: 1;
+  font-size: 2.1rem;     /* 让 emoji 更显眼，按需调整 */
+  align-self: center;
+}
+
+/* 右上：时间 */
+.mumble-time {
+  grid-area: time;
+  font-size: .9em;
+  opacity: .75;
+}
+
+/* 右下：正文 */
+.statuscafe-content {
+  grid-area: content;
+}
+
+/* 其他保留/微调 */
+.statuscafe-content :where(p, ul, ol) { margin: 0.25rem 0; }
+.statuscafe-empty, .statuscafe-error { opacity: 0.7; }
+</style>

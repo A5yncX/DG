@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/utils";
 import Comments from "../../components/Comments.astro";
+import Status from "../../components/Status.astro";
 
 const posts = await getCollection("pages");
 
@@ -23,6 +24,14 @@ const { Content } = await aboutPost.render();
 >
   <main>
     <ul class="flex flex-wrap gap-2">
+    <li>
+    <a
+    href={`/about/recent`}
+    class="group flex justify-between gap-3 text-sm px-2 py-1 rounded bg-bgdefault dark:bg-fontdefault text-fontdefault dark:text-bgdefault"
+  >
+    "😊最近状态"
+  </a>
+</li>
   <li>
     <a
     href={`/friends`}
@@ -48,19 +57,6 @@ const { Content } = await aboutPost.render();
 </a>
 </li>
     </ul>
-    <!-- <div
-      id="statuscafe"
-      class="mt-10 mx-auto w-fit rounded-md border
-    border-bgdefault dark:border-fontdefault
-      p-3 transition-colors duration-300"
-    >
-      <div class="text-center">
-        <div id="statuscafe-username" class="inline text-sm font-mono tracking-wide text-zinc-900 dark:text-zinc-100"></div>
-          <span class="mx-1 text-zinc-400 dark:text-zinc-500">:</span>
-          <div id="statuscafe-content" class="inline text-sm font-mono leading-relaxed text-zinc-900 dark:text-zinc-100"></div>
-      </div>
-    </div>
-    <script src="https://status.cafe/current-status.js?name=asyncx" defer></script> -->
     <div class="flex items-center justify-start gap-4 mb-4 mt-8">
       <h1 class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100">
         {aboutPost.data.title}

@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { formatDate } from "../../lib/utils";
 import Comments from "../../components/Comments.astro";
+import Status from "../../components/Status.astro";
 
 const posts = await getCollection("pages");
 
@@ -27,10 +28,9 @@ const { Content } = await recentPost.render();
         {recentPost.data.title}
       </h1>
     </div>
-
-
     <article>
       <Content />
+      <Status />
     </article>
   </main>
 </Layout>
